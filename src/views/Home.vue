@@ -1,7 +1,5 @@
 <template>
-  <div class="home">
-    This the Home page. <br />
-
+  <div class="home container mx-auto">
     <TheHeader />
 
     <TheMain />

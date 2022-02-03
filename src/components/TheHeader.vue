@@ -1,13 +1,29 @@
 <template>
-  <header>
-    This is the TheHeader component. <br />
+  <header
+    class="
+      flex flex-col
+      justify-center
+      items-center
+      border-red-400 border-2
+      py-10
+    "
+  >
     <!-- Logo -->
+    <img
+      class="border-blue-500 border-2 w-60"
+      src="../assets/images/logo.png"
+      alt="logo"
+      srcset=""
+    />
 
-    <SearchBar />
+    <div class="w-5/6 mt-12">
+      <SearchBar />
 
-    <SortByRegion />
-
-    <SortByType />
+      <div class="flex flex-wrap gap-x-10 border-purple-600 border-2 mt-6">
+        <SortByRegion />
+        <SortByType />
+      </div>
+    </div>
   </header>
 </template>
 
