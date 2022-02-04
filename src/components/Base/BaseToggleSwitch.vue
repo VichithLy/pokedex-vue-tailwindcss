@@ -39,11 +39,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      toggleActive: false,
-    };
-  },
   props: {
     value: {
       type: String,
@@ -51,8 +46,12 @@ export default {
       default: "undefined",
     },
   },
+  data() {
+    return {
+      toggleActive: false,
+    };
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

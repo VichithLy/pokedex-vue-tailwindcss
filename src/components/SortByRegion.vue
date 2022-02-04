@@ -35,8 +35,8 @@
 <script>
 import BaseToggleSwitch from "./Base/BaseToggleSwitch.vue";
 export default {
-  components: { BaseToggleSwitch },
   name: "SortByRegion",
+  components: { BaseToggleSwitch },
   data() {
     return {
       regions: [],
