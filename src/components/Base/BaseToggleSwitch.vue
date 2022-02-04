@@ -1,55 +1,61 @@
 <template>
-  <div
-    class="flex justify-between items-center border-red-500 border-2"
-    @click="toggleActive = !toggleActive"
-  >
-    <h2>{{ region }}</h2>
-
-    <!-- Toggle Switch -->
-    <div
+  <label class="relative flex flex-wrap justify-between items-center"
+    ><span class="pr-2">{{ label }}</span>
+    <input
+      v-model="model"
+      type="checkbox"
+      class="absolute left-0 right-0 w-full h-full peer appearance-none"
+      :value="inputValue"
+    />
+    <span
       class="
-        w-16
-        h-10
-        flex
-        items-center
         bg-gray-300
+        w-11
+        h-7
         rounded-full
+        flex flex-shrink-0
+        items-center
+        after:bg-white after:h-5 after:w-5 after:rounded-full
         p-1
-        duration-300
+        peer-checked:bg-green-500 peer-checked:after:translate-x-4
         ease-in-out
+        duration-300
+        after:duration-300
       "
-      :class="{ 'bg-blue-500': toggleActive }"
-    >
-      <div
-        class="
-          bg-white
-          w-8
-          h-8
-          rounded-full
-          shadow-md
-          transform
-          duration-300
-          ease-in-out
-        "
-        :class="{ 'translate-x-6': toggleActive }"
-      ></div>
-    </div>
-  </div>
+    ></span>
+  </label>
 </template>
 
 <script>
 export default {
+  name: "BaseToggleSwitch",
   props: {
-    value: {
+    label: {
       type: String,
       required: true,
-      default: "undefined",
+      default: "",
+    },
+    inputValue: {
+      type: String,
+      required: true,
+      default: "",
+    },
+    modelValue: {
+      type: Array,
+      required: true,
+      default: () => [],
     },
   },
-  data() {
-    return {
-      toggleActive: false,
-    };
+  emits: ["update:modelValue"],
+  computed: {
+    model: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit("update:modelValue", value);
+      },
+    },
   },
 };
 </script>

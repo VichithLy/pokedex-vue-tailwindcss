@@ -1,5 +1,5 @@
 <template>
-  <div class="home container mx-auto">
+  <div>
     <TheHeader />
 
     <TheMain />

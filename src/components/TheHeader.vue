@@ -1,25 +1,15 @@
 <template>
   <header
-    class="
-      flex flex-col
-      justify-center
-      items-center
-      border-red-400 border-2
-      py-10
-    "
+    class="flex flex-col justify-center items-center border-red-400 border-2 py-10"
   >
     <!-- Logo -->
-    <img
-      class="border-blue-500 border-2 w-60"
-      src="../assets/images/logo.png"
-      alt="logo"
-      srcset=""
-    />
+    <!-- Put a link to Home page -->
+    <img class="w-60" src="../assets/images/logo.png" alt="logo" srcset="" />
 
     <div class="w-5/6 mt-12">
       <SearchBar />
 
-      <div class="flex flex-wrap gap-x-10 border-purple-600 border-2 mt-6">
+      <div class="flex flex-wrap justify-between gap-x-5 mt-6 box-border">
         <SortByRegion />
         <SortByType />
       </div>

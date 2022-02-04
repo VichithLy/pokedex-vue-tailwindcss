@@ -1,14 +1,5 @@
 <template>
-  <div
-    class="
-      flex
-      order-2
-      flex-auto
-      justify-center
-      items-center
-      border-red-800 border-2
-    "
-  >
+  <div class="flex flex-1 justify-center items-center border-red-800 border-2">
     This is the SortByType component.
   </div>
 </template>

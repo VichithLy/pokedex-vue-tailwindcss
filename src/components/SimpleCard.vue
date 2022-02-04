@@ -1,11 +1,10 @@
 <template>
   <!-- Card -->
-  <div class="rounded-2xl order-red-800 border-2 style_card">
-    <div
-      style="display: flex; flex-direction: row; justify-content: space-between"
-      name="card_header"
-    >
-      <div class="style_num">#{{ pokemonNum }}</div>
+  <div class="rounded-2xl order-red-800 style_card">
+    <div class="flex items-center flex-row justify-between" name="card_header">
+      <div class="style_num flex justify-center items-center text-4xl pl-4">
+        #{{ pokemonNum }}
+      </div>
       <div
         class="shadow-2xl"
         style="
@@ -25,6 +24,7 @@
           style="margin: auto; margin-top: 8px"
         />
       </div>
+
       <!-- <div
         class="shadow-2xl"
         style="
@@ -81,7 +81,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Teko:wght@500&display=swap");
 .style_card {
   height: 300px;
@@ -105,8 +105,8 @@ export default {
   font-size: 20px;
 }
 .style_num {
-  margin-left: 1vw;
-  font-size: 36px;
+  /* margin-left: 1vw; */
+  /* font-size: 36px; */
   font-family: "Teko", sans-serif;
 }
 </style>

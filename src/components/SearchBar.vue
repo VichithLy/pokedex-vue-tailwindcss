@@ -1,17 +1,6 @@
 <template>
   <div
-    class="
-      relative
-      flex
-      items-center
-      w-full
-      h-12
-      rounded-xl
-      focus-within:border-black
-      bg-white
-      border-2 border-gray-300
-      overflow-hidden
-    "
+    class="relative flex items-center w-full h-12 rounded-xl focus-within:border-black bg-white border-2 overflow-hidden"
   >
     <div class="grid place-items-center h-full w-12 text-gray-300">
       <svg

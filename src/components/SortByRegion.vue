@@ -1,33 +1,56 @@
 <template>
   <div
-    class="
-      flex flex-col
-      order-1
-      flex-auto
-      justify-center
-      items-center
-      border-green-400 border-4
-    "
+    class="flex flex-col flex-initial p-4 justify-center items-center border-2 rounded-xl"
   >
-    <h2 class="text-lg font-bold">Region</h2>
+    <h2 class="text-lg font-bold mb-4">Region</h2>
 
-    <div
-      class="
-        grid grid-cols-2
-        gap-x-8 gap-y-2
-        border-blue-500 border-2
-        mt-2
-        w-full
-      "
-    >
-      <BaseToggleSwitch region="Kanto" />
-      <BaseToggleSwitch />
-      <BaseToggleSwitch />
-      <BaseToggleSwitch />
-      <BaseToggleSwitch />
-      <BaseToggleSwitch />
-      <BaseToggleSwitch />
-      <BaseToggleSwitch />
+    <div class="grid grid-cols-2 gap-x-8 gap-y-2 mt-2 w-full">
+      <BaseToggleSwitch
+        v-model="selectedRegions"
+        input-value="kanto"
+        label="Kanto"
+      />
+
+      <BaseToggleSwitch
+        v-model="selectedRegions"
+        input-value="hoenn"
+        label="Hoenn"
+      />
+      <BaseToggleSwitch
+        v-model="selectedRegions"
+        input-value="unova"
+        label="Unova"
+      />
+
+      <BaseToggleSwitch
+        v-model="selectedRegions"
+        input-value="johto"
+        label="Johto"
+      />
+
+      <BaseToggleSwitch
+        v-model="selectedRegions"
+        input-value="sinnoh"
+        label="Sinnoh"
+      />
+
+      <BaseToggleSwitch
+        v-model="selectedRegions"
+        input-value="alola"
+        label="Alola"
+      />
+
+      <BaseToggleSwitch
+        v-model="selectedRegions"
+        input-value="kalos"
+        label="Kalos"
+      />
+
+      <BaseToggleSwitch
+        v-model="selectedRegions"
+        input-value="galar"
+        label="Galar"
+      />
     </div>
   </div>
 </template>
@@ -39,7 +62,7 @@ export default {
   components: { BaseToggleSwitch },
   data() {
     return {
-      regions: [],
+      selectedRegions: [],
     };
   },
 };

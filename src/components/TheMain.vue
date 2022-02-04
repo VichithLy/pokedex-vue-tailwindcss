@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="container mx-auto">
     This is the TheMain component. <br />
 
     <!-- Sort by name or ID -->
