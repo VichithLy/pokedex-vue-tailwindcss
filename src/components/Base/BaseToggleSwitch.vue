@@ -1,10 +1,19 @@
 <template>
-  <label class="relative flex flex-wrap justify-between items-center"
+  <label class="relative flex justify-between items-center text-sm md:text:base"
     ><span class="pr-2">{{ label }}</span>
     <input
       v-model="model"
       type="checkbox"
-      class="absolute left-0 right-0 w-full h-full peer appearance-none"
+      class="
+        absolute
+        left-0
+        right-0
+        w-full
+        h-full
+        peer
+        cursor-pointer
+        appearance-none
+      "
       :value="inputValue"
     />
     <span

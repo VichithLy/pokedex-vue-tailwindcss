@@ -1,8 +1,16 @@
 <template>
   <div
-    class="flex flex-col flex-initial p-4 justify-center items-center border-2 rounded-xl"
+    class="
+      flex flex-col flex-grow
+      p-4
+      items-center
+      rounded-xl
+      bg-green-200
+      md:bg-red-200 md:w-80 md:flex-initial
+      lg:bg-blue-200
+    "
   >
-    <h2 class="text-lg font-bold mb-4">Region</h2>
+    <h2 class="text-lg font-bold mb-2">Region</h2>
 
     <div class="grid grid-cols-2 gap-x-8 gap-y-2 mt-2 w-full">
       <BaseToggleSwitch

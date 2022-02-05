@@ -1,0 +1,146 @@
+[
+  {
+    "id": 0,
+    "name": "fire",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 1,
+    "name": "water",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 2,
+    "name": "grass",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 3,
+    "name": "electric",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 4,
+    "name": "psychic",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 5,
+    "name": "ice",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 6,
+    "name": "fighting",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 7,
+    "name": "flying",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 8,
+    "name": "poison",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 9,
+    "name": "ground",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 10,
+    "name": "rock",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 11,
+    "name": "bug",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 12,
+    "name": "dragon",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 13,
+    "name": "ghost",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 14,
+    "name": "dark",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 15,
+    "name": "steel",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 16,
+    "name": "fairy",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  },
+  {
+    "id": 17,
+    "name": "normal",
+    "image": "",
+    "color1": "",
+    "color2": "",
+    "color3": ""
+  }
+]

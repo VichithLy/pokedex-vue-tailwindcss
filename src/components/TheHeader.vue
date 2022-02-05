@@ -1,15 +1,23 @@
 <template>
   <header
-    class="flex flex-col justify-center items-center border-red-400 border-2 py-10"
+    class="
+      flex flex-col
+      justify-center
+      items-center
+      border-red-400 border-2
+      py-10
+    "
   >
     <!-- Logo -->
     <!-- Put a link to Home page -->
-    <img class="w-60" src="../assets/images/logo.png" alt="logo" srcset="" />
+    <router-link to="/">
+      <img class="w-60" src="../assets/images/logo.png" alt="logo" srcset="" />
+    </router-link>
 
     <div class="w-5/6 mt-12">
       <SearchBar />
 
-      <div class="flex flex-wrap justify-between gap-x-5 mt-6 box-border">
+      <div class="flex flex-wrap gap-y-5 gap-x-5 mt-6 items-start">
         <SortByRegion />
         <SortByType />
       </div>
