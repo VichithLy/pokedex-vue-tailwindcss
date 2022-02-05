@@ -10,28 +10,7 @@
 
     <label
       :for="'toggle-' + inputValue"
-      class="
-        flex
-        relative
-        rounded-full
-        border-2 border-red-400
-        text-red-400
-        font-bold
-        peer-checked:bg-red-400 peer-checked:text-white
-        cursor-pointer
-        z-10
-        ease-in-out
-        duration-300
-        hover:scale-105
-        select-none
-        capitalize
-        place-content-center
-        py-0.5
-        w-24
-        sm:w-26
-        md:w-36
-        lg:w-40
-      "
+      class="flex relative rounded-full border-2 border-red-400 text-red-400 font-bold peer-checked:bg-red-400 peer-checked:text-white cursor-pointer z-10 ease-in-out duration-300 hover:scale-105 select-none capitalize place-content-center py-0.5 w-24 sm:w-26 md:w-36 lg:w-40"
     >
       {{ inputValue }}
     </label>
@@ -66,5 +45,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

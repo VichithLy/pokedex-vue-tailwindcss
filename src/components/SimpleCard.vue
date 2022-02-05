@@ -1,59 +1,49 @@
 <template>
   <!-- Card -->
-  <div class="rounded-2xl order-red-800 style_card">
-    <div class="flex items-center flex-row justify-between" name="card_header">
-      <div class="style_num flex justify-center items-center text-4xl pl-4">
+
+  <div
+    class="rounded-2xl hover:scale-105 ease-in-out duration-300 bg-yellow-600 cursor-pointer relative h-64 w-40 mx-2 my-2 sm:mx-4 sm:my-4 sm:h-80 sm:w-60"
+  >
+    <!-- Number and Type container -->
+    <div
+      class="flex items-center flex-row justify-between py-2"
+      name="card-header"
+    >
+      <!-- Number -->
+      <div
+        class="flex items-center justify-items-center text-base font-extrabold style-num ml-1 my-2 mx-4 text-xl sm:ml-4 sm:my-1 sm:mx-4 sm:text-4xl"
+      >
         #{{ pokemonNum }}
       </div>
+
+      <!-- Type -->
       <div
-        class="shadow-2xl"
-        style="
-          width: 40px;
-          height: 40px;
-          border-radius: 20px;
-          background: #5fbd58;
-          margin-top: 10px;
-          margin-right: 10px;
-        "
+        class="shadow-2xl w-8 h-8 sm:w-10 sm:h-10 bg-green-400 rounded-full mr-4"
       >
         <img
-          class="style_type"
+          class="w-6 h-6 mt-1 sm:w-6 sm:h-6 m-auto sm:mt-2"
           :src="'https://images.gameinfo.io/pokemon-trimmed/60/p1.webp'"
           :alt="pokemonTypePict.alt"
           srcset=""
-          style="margin: auto; margin-top: 8px"
         />
       </div>
-
-      <!-- <div
-        class="shadow-2xl"
-        style="
-          width: 40px;
-          height: 40px;
-          border-radius: 20px;
-          background: #5fbd58;
-        "
-      >
-        <img
-          class="style_type"
-          src="../assets/images/electric.png"
-          alt="logo"
-          srcset=""
-          style="margin: auto; margin-top: 8px"
-        />
-      </div> -->
     </div>
-    <div name="card_image">
+    <!-- Pokémon Pic -->
+    <div name="card-image">
       <img
-        class="style_pokemon"
-        :src="'https://images.gameinfo.io/pokemon-trimmed/60/p1.webp'"
+        class="w-36 h-36 sm:w-48 sm:h-48 mx-auto"
+        :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/35.png'"
         :alt="pokemonPict.alt"
         srcset=""
-        style=""
       />
     </div>
-    <div name="card_title">
-      <div class="style_name">{{ pokemonName }}</div>
+    <!-- Name -->
+    <div name="card-title ">
+      <div
+        class="style-name text-center text-xl sm:text-2xl absolute bottom-0 left-1/2 -translate-x-1/2 mb-4"
+      >
+        {{ pokemonName }}
+      </div>
     </div>
   </div>
 </template>
@@ -82,31 +72,11 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Teko:wght@500&display=swap");
-.style_card {
-  height: 300px;
-  width: 235px;
-  background-color: orange;
-}
-.style_pokemon {
-  margin-left: auto;
-  margin-right: auto;
-  height: 173px;
-  width: 167px;
-  margin-bottom: 10px;
-}
-.style_type {
-  width: 24px;
-  height: 24px;
-}
-.style_name {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Teko:wght@400;700&family=Ubuntu:wght@500&display=swap");
+.style-name {
   font-family: "Press Start 2P", cursive;
-  font-size: 20px;
 }
-.style_num {
-  /* margin-left: 1vw; */
-  /* font-size: 36px; */
-  font-family: "Teko", sans-serif;
+.style-num {
+  font-family: "Ubuntu", sans-serif;
 }
 </style>

@@ -1,12 +1,6 @@
 <template>
   <header
-    class="
-      flex flex-col
-      justify-center
-      items-center
-      border-red-400 border-2
-      py-10
-    "
+    class="flex flex-col justify-center items-center border-red-400 border-2 py-10"
   >
     <!-- Logo -->
     <!-- Put a link to Home page -->

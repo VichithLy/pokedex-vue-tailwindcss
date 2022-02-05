@@ -1,14 +1,6 @@
 <template>
   <div
-    class="
-      flex flex-col flex-grow
-      p-4
-      items-center
-      rounded-xl
-      bg-green-200
-      md:bg-red-200 md:w-80 md:flex-initial
-      lg:bg-blue-200
-    "
+    class="flex flex-col flex-grow p-4 items-center rounded-xl bg-green-200 md:bg-red-200 md:w-80 md:flex-initial lg:bg-blue-200"
   >
     <h2 class="text-lg font-bold mb-2">Region</h2>
 
