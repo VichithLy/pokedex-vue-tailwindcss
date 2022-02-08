@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative w-full">
     <input
       :id="'toggle-' + inputValue"
       v-model="model"
@@ -8,9 +8,28 @@
       class="absolute peer w-full h-full left-0 right-0 appearance-none"
     />
 
+    <!-- The label looks like a button -->
     <label
       :for="'toggle-' + inputValue"
-      class="flex relative rounded-full border-2 border-red-400 text-red-400 font-bold peer-checked:bg-red-400 peer-checked:text-white cursor-pointer z-10 ease-in-out duration-300 hover:scale-105 select-none capitalize place-content-center py-0.5 w-24 sm:w-26 md:w-36 lg:w-40"
+      :class="[
+        'flex',
+        'relative',
+        'rounded-full',
+        'border-4',
+        ' cursor-pointer',
+        'z-10',
+        'ease-in-out',
+        'duration-100',
+        'hover:scale-105',
+        'select-none',
+        'capitalize',
+        'place-content-center',
+        'py-0.5',
+        ' items-start',
+        'font-medium',
+        'shadow-xl',
+        'btn-type-' + inputValue,
+      ]"
     >
       {{ inputValue }}
     </label>
@@ -31,6 +50,7 @@ export default {
       default: () => [],
     },
   },
+  // To update selectedTypes in the parent component
   emits: ["update:modelValue"],
   computed: {
     model: {
@@ -45,4 +65,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>

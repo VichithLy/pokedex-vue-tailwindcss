@@ -1,55 +1,25 @@
 <template>
   <div
-    class="flex flex-col flex-grow p-4 items-center rounded-xl bg-green-200 md:bg-red-200 md:w-80 md:flex-initial lg:bg-blue-200"
+    class="
+      flex flex-col flex-grow
+      md:flex-initial
+      p-4
+      items-center
+      rounded-xl
+      bg-gray-100
+      border-b-4 border-gray-400
+      drop-shadow-lg
+    "
   >
-    <h2 class="text-lg font-bold mb-2">Region</h2>
-
+    <h2 class="text-lg font-bold mb-2">Region(s)</h2>
+    <!-- Grid -->
     <div class="grid grid-cols-2 gap-x-8 gap-y-2 mt-2 w-full">
+      <!-- Switches -->
       <BaseToggleSwitch
+        v-for="region in regions"
+        :key="region.id"
         v-model="selectedRegions"
-        input-value="kanto"
-        label="Kanto"
-      />
-
-      <BaseToggleSwitch
-        v-model="selectedRegions"
-        input-value="hoenn"
-        label="Hoenn"
-      />
-      <BaseToggleSwitch
-        v-model="selectedRegions"
-        input-value="unova"
-        label="Unova"
-      />
-
-      <BaseToggleSwitch
-        v-model="selectedRegions"
-        input-value="johto"
-        label="Johto"
-      />
-
-      <BaseToggleSwitch
-        v-model="selectedRegions"
-        input-value="sinnoh"
-        label="Sinnoh"
-      />
-
-      <BaseToggleSwitch
-        v-model="selectedRegions"
-        input-value="alola"
-        label="Alola"
-      />
-
-      <BaseToggleSwitch
-        v-model="selectedRegions"
-        input-value="kalos"
-        label="Kalos"
-      />
-
-      <BaseToggleSwitch
-        v-model="selectedRegions"
-        input-value="galar"
-        label="Galar"
+        :input-value="region.name"
       />
     </div>
   </div>
@@ -57,12 +27,17 @@
 
 <script>
 import BaseToggleSwitch from "./Base/BaseToggleSwitch.vue";
+import regions from "../constants/pokemon_regions.json";
+
 export default {
   name: "SortByRegion",
   components: { BaseToggleSwitch },
   data() {
     return {
+      // Checked regions
       selectedRegions: [],
+      // All Pokémon regions
+      regions: regions,
     };
   },
 };

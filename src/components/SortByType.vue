@@ -1,13 +1,31 @@
 <template>
   <div
-    class="flex flex-grow flex-col p-4 items-center rounded-xl md:flex-1 bg-gray-200 sm:bg-green-200 md:bg-red-200 md:w-80 md:flex-initial lg:bg-blue-200"
+    class="
+      flex flex-grow flex-col
+      items-center
+      p-4
+      rounded-xl
+      md:flex-1
+      bg-gray-100
+      border-b-4 border-gray-400
+      drop-shadow-lg
+    "
   >
-    <h2 class="text-lg font-bold mb-2">Type</h2>
+    <h2 class="text-lg font-bold mb-2">Type(s)</h2>
 
-    <!-- Buttons -->
+    <!-- Grid -->
     <div
-      class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-3 mt-2 w-full justify-items-center"
+      class="
+        grid grid-cols-3
+        lg:grid-cols-4
+        xl:grid-cols-5
+        gap-3
+        mt-2
+        w-full
+        justify-items-center
+      "
     >
+      <!-- Buttons -->
       <BaseCheckboxButton
         v-for="type in types"
         :key="type.id"
@@ -21,11 +39,14 @@
 <script>
 import BaseCheckboxButton from "./Base/BaseCheckboxButton.vue";
 import types from "../constants/pokemon_types.json";
+
 export default {
   components: { BaseCheckboxButton },
   data() {
     return {
+      // All Pokémon types
       types: types,
+      // Checked types
       selectedTypes: [],
     };
   },

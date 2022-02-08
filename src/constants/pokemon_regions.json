@@ -1,0 +1,10 @@
+[
+  { "id": 0, "name": "kanto" },
+  { "id": 1, "name": "johto" },
+  { "id": 2, "name": "hoenn" },
+  { "id": 3, "name": "sinnoh" },
+  { "id": 4, "name": "unova" },
+  { "id": 5, "name": "kalos" },
+  { "id": 6, "name": "alola" },
+  { "id": 7, "name": "galar" }
+]

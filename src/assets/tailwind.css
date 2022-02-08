@@ -3,3 +3,86 @@
 @tailwind components;
 
 @tailwind utilities;
+
+/* BUTTONS */
+
+.btn-primary {
+  @apply font-bold border-b-4 rounded-b-md drop-shadow-lg border-pokemon-blue-700 py-2 px-10 rounded-md bg-pokemon-blue-500 text-white ease-in-out duration-100;
+}
+
+.btn-primary:hover {
+  @apply bg-pokemon-blue-400;
+}
+
+.btn-primary:active {
+  @apply mt-1 pb-1 border-transparent border-b-4;
+}
+
+.btn-secondary {
+  @apply bg-transparent drop-shadow-lg border-b-4 rounded-b-md text-pokemon-blue-500 font-semibold  px-4 border-2 border-pokemon-blue-500 rounded-md ease-in-out duration-100;
+}
+
+.btn-secondary:active {
+  @apply mt-0.5  border-b-2;
+}
+
+.btn-secondary:hover {
+  @apply text-pokemon-blue-400;
+}
+
+/* TYPES COLORS */
+
+.btn-type-fire {
+  @apply peer-checked:bg-fire border-fire;
+}
+.btn-type-water {
+  @apply peer-checked:bg-water border-water;
+}
+.btn-type-grass {
+  @apply peer-checked:bg-grass border-grass;
+}
+.btn-type-electric {
+  @apply peer-checked:bg-electric border-electric;
+}
+.btn-type-psychic {
+  @apply peer-checked:bg-psychic border-psychic;
+}
+.btn-type-ice {
+  @apply peer-checked:bg-ice border-ice;
+}
+.btn-type-fighting {
+  @apply peer-checked:bg-fighting border-fighting;
+}
+.btn-type-flying {
+  @apply peer-checked:bg-flying border-flying;
+}
+.btn-type-poison {
+  @apply peer-checked:bg-poison border-poison;
+}
+.btn-type-ground {
+  @apply peer-checked:bg-ground border-ground;
+}
+.btn-type-rock {
+  @apply peer-checked:bg-rock border-rock;
+}
+.btn-type-bug {
+  @apply peer-checked:bg-bug border-bug;
+}
+.btn-type-dragon {
+  @apply peer-checked:bg-dragon border-dragon;
+}
+.btn-type-ghost {
+  @apply peer-checked:bg-ghost border-ghost;
+}
+.btn-type-dark {
+  @apply peer-checked:bg-dark border-dark;
+}
+.btn-type-steel {
+  @apply peer-checked:bg-steel border-steel;
+}
+.btn-type-fairy {
+  @apply peer-checked:bg-fairy border-fairy;
+}
+.btn-type-normal {
+  @apply peer-checked:bg-normal border-normal;
+}

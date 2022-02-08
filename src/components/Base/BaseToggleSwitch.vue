@@ -1,14 +1,38 @@
 <template>
-  <label class="relative flex justify-between items-center text-sm md:text:base"
-    ><span class="pr-2">{{ label }}</span>
+  <label class="relative flex justify-between items-center font-medium"
+    ><span class="pr-2 capitalize">{{ inputValue }}</span>
+
     <input
       v-model="model"
       type="checkbox"
-      class="absolute left-0 right-0 w-full h-full peer cursor-pointer appearance-none"
+      class="
+        absolute
+        left-0
+        right-0
+        w-full
+        h-full
+        peer
+        cursor-pointer
+        appearance-none
+      "
       :value="inputValue"
     />
+    <!-- Switch appearance -->
     <span
-      class="bg-gray-300 w-11 h-7 rounded-full flex flex-shrink-0 items-center after:bg-white after:h-5 after:w-5 after:rounded-full p-1 peer-checked:bg-green-500 peer-checked:after:translate-x-4 ease-in-out duration-300 after:duration-300"
+      class="
+        bg-gray-400
+        w-11
+        h-7
+        rounded-full
+        flex flex-shrink-0
+        items-center
+        after:bg-white after:h-5 after:w-5 after:rounded-full
+        p-1
+        peer-checked:bg-pokemon-blue-500 peer-checked:after:translate-x-4
+        ease-in-out
+        duration-100
+        after:duration-100
+      "
     ></span>
   </label>
 </template>
@@ -17,11 +41,7 @@
 export default {
   name: "BaseToggleSwitch",
   props: {
-    label: {
-      type: String,
-      required: true,
-      default: "",
-    },
+    // Value of the input & Label text
     inputValue: {
       type: String,
       required: true,
@@ -33,6 +53,7 @@ export default {
       default: () => [],
     },
   },
+  // To update selectedTypes in the parent component
   emits: ["update:modelValue"],
   computed: {
     model: {
