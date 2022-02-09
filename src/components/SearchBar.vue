@@ -1,19 +1,6 @@
 <template>
   <div
-    class="
-      relative
-      flex
-      items-center
-      w-full
-      h-12
-      rounded-xl
-      focus-within:border-black
-      bg-white
-      border-2
-      overflow-hidden
-      border-b-4
-      drop-shadow-lg
-    "
+    class="relative flex items-center w-full h-12 rounded-xl focus-within:border-black bg-white border-2 overflow-hidden border-b-4 drop-shadow-lg"
   >
     <div class="grid place-items-center h-full w-12 text-gray-300">
       <!-- Icon -->
@@ -34,7 +21,7 @@
     </div>
 
     <input
-      class="peer h-full w-full outline-none text-gray-700 pr-2 text-lg"
+      class="h-full w-full outline-none text-gray-700 pr-2 text-lg"
       type="text"
       placeholder="Search Pokémon..."
     />

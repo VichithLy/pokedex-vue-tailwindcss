@@ -1,37 +1,32 @@
 <template>
   <header
-    class="flex flex-col justify-center items-center bg-pokemon-red-400 py-10"
+    class="flex flex-col justify-center items-center bg-pokemon-red-300 pt-10 pb-5"
   >
-    <!-- Logo -->
-    <router-link to="/">
-      <img class="w-60" src="../assets/images/logo.png" alt="logo" srcset="" />
-    </router-link>
+    <BaseLogo />
 
-    <!-- Search & Sort -->
-    <div class="w-5/6 mt-12">
+    <div class="w-5/6 mt-8 h-auto">
       <SearchBar />
-      <div class="flex flex-wrap gap-y-5 gap-x-5 mt-6 items-start">
-        <SortByRegion />
-        <SortByType />
-      </div>
-
-      <!-- Reset & Confirm -->
-      <div class="flex justify-between pt-6">
-        <button class="btn-secondary">Reset</button>
-        <button class="btn-primary">Confirm</button>
-      </div>
+      <SortingAccordion />
     </div>
+
+    <AdvancedSearch />
   </header>
 </template>
 
 <script>
-import SearchBar from "./SearchBar.vue";
-import SortByRegion from "./SortByRegion.vue";
-import SortByType from "./SortByType.vue";
+import SortingAccordion from "./SortingAccordion.vue";
+import BaseLogo from "../Base/BaseLogo.vue";
+import SearchBar from "../SearchBar.vue";
+import AdvancedSearch from "../Header/AdvancedSearch.vue";
 
 export default {
   name: "TheHeader",
-  components: { SearchBar, SortByType, SortByRegion },
+  components: {
+    SortingAccordion,
+    BaseLogo,
+    SearchBar,
+    AdvancedSearch,
+  },
 };
 </script>
 

@@ -10,7 +10,7 @@
 
 <script>
 // @ is an alias to /src
-import TheHeader from "../components/TheHeader.vue";
+import TheHeader from "../components/Header/TheHeader.vue";
 import TheMain from "../components/TheMain.vue";
 import TheFooter from "../components/TheFooter.vue";
 
