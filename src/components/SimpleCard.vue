@@ -2,7 +2,20 @@
   <!-- Card -->
 
   <div
-    class="rounded-2xl hover:scale-105 ease-in-out duration-300 bg-yellow-600 cursor-pointer relative h-64 w-40 mx-2 my-2 sm:mx-4 sm:my-4 sm:h-80 sm:w-60"
+    class="
+      rounded-2xl
+      hover:scale-105
+      ease-in-out
+      duration-300
+      bg-yellow-600
+      cursor-pointer
+      relative
+      h-64
+      w-40
+      mx-2
+      my-2
+      sm:mx-4 sm:my-4 sm:h-80 sm:w-60
+    "
   >
     <!-- Number and Type container -->
     <div
@@ -11,14 +24,34 @@
     >
       <!-- Number -->
       <div
-        class="flex items-center justify-items-center text-base font-extrabold style-num ml-1 my-2 mx-4 text-xl sm:ml-4 sm:my-1 sm:mx-4 sm:text-4xl"
+        class="
+          flex
+          items-center
+          justify-items-center
+          text-base
+          font-extrabold
+          style-num
+          ml-1
+          my-2
+          mx-4
+          text-xl
+          sm:ml-4 sm:my-1 sm:mx-4 sm:text-4xl
+        "
       >
         #{{ pokemonNum }}
       </div>
 
       <!-- Type -->
       <div
-        class="shadow-2xl w-8 h-8 sm:w-10 sm:h-10 bg-green-400 rounded-full mr-4"
+        class="
+          shadow-2xl
+          w-8
+          h-8
+          sm:w-10 sm:h-10
+          bg-green-400
+          rounded-full
+          mr-4
+        "
       >
         <img
           class="w-6 h-6 mt-1 sm:w-6 sm:h-6 m-auto sm:mt-2"
@@ -40,7 +73,16 @@
     <!-- Name -->
     <div name="card-title ">
       <div
-        class="style-name text-center text-xl sm:text-2xl absolute bottom-0 left-1/2 -translate-x-1/2 mb-4"
+        class="
+          style-name
+          text-center text-xl
+          sm:text-2xl
+          absolute
+          bottom-0
+          left-1/2
+          -translate-x-1/2
+          mb-4
+        "
       >
         {{ pokemonName }}
       </div>
