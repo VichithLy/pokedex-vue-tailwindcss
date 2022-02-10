@@ -1,13 +1,6 @@
 <template>
   <header
-    class="
-      flex flex-col
-      justify-center
-      items-center
-      bg-pokemon-red-300
-      pt-10
-      pb-5
-    "
+    class="flex flex-col justify-center items-center bg-pokemon-red-300 pt-10 pb-5"
   >
     <BaseLogo />
 
