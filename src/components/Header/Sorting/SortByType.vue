@@ -10,10 +10,9 @@
       class="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-2 w-full justify-items-center"
     >
       <!-- Buttons -->
-      <BaseCheckboxButton
+      <TypeCheckboxButton
         v-for="type in types"
         :key="type.id"
-        v-model="selectedTypes"
         :input-value="type.name"
       />
     </form>
@@ -21,17 +20,15 @@
 </template>
 
 <script>
-import BaseCheckboxButton from "../Base/BaseCheckboxButton.vue";
-import types from "../../constants/pokemon_types.json";
+import TypeCheckboxButton from "./TypeCheckboxButton.vue";
+import types from "../../../constants/pokemon_types.json";
 
 export default {
-  components: { BaseCheckboxButton },
+  components: { TypeCheckboxButton },
   data() {
     return {
       // All Pokémon types
       types: types,
-      // Checked types
-      selectedTypes: [],
     };
   },
 };

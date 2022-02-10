@@ -3,7 +3,7 @@
     ><span class="pr-2 capitalize">{{ inputValue }}</span>
 
     <input
-      v-model="model"
+      v-model="selectedRegions"
       type="checkbox"
       class="absolute left-0 right-0 w-full h-full peer cursor-pointer appearance-none"
       :value="inputValue"
@@ -31,15 +31,15 @@ export default {
       default: () => [],
     },
   },
-  // To update selectedTypes in the parent component
-  emits: ["update:modelValue"],
   computed: {
-    model: {
+    // Checked regions
+    selectedRegions: {
       get() {
-        return this.modelValue;
+        return this.$store.state.selectedRegions;
       },
       set(value) {
-        this.$emit("update:modelValue", value);
+        this.$store.commit("updateSelectedRegions", value);
+        return 0; // Avoid computed property error
       },
     },
   },

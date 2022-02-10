@@ -21,14 +21,14 @@
     </div>
     <div class="flex flex-wrap justify-center">
       <DetailedCard
-        :pokemonAbout="pokemonAbout"
-        :pokemonStats="pokemonStats"
-        :pokemonEvolution="pokemonEvolution"
-        :pokemonMensuration="pokemonMensuration"
-        :pokemonTypePict="pokemonTypePict"
-        :pokemonPict="pokemonPict"
-        :pokemonNum="pokemonNum"
-        :pokemonName="pokemonName"
+        :pokemon-about="pokemonAbout"
+        :pokemon-stats="pokemonStats"
+        :pokemon-evolution="pokemonEvolution"
+        :pokemon-mensuration="pokemonMensuration"
+        :pokemon-type-pict="pokemonTypePict"
+        :pokemon-pict="pokemonPict"
+        :pokemon-num="pokemonNum"
+        :pokemon-name="pokemonName"
       />
     </div>
   </main>

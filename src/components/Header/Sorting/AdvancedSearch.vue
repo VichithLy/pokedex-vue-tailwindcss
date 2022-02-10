@@ -5,6 +5,7 @@
   >
     <h3 class="peer font-semibold">Advanced search</h3>
 
+    <!-- Arrow icon -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-5 w-5 ml-1 duration-200"
@@ -23,15 +24,22 @@
 
 <script>
 import { mapMutations, mapState } from "vuex";
+import scrollTo from "../../../utils";
 
 export default {
   computed: {
     ...mapState(["isOpen"]),
   },
   methods: {
-    ...mapMutations(["setIsOpen"]),
+    ...mapMutations(["updateIsOpen"]),
+    // To scroll to an element id in the DOM
+    scrollTo,
+    /**
+     * To toggle the sorting section
+     */
     toggle: function () {
-      this.setIsOpen({ isOpen: !this.isOpen });
+      this.updateIsOpen({ isOpen: !this.isOpen });
+      if (this.isOpen == true) this.scrollTo("sorting-section");
     },
   },
 };

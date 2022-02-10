@@ -2,7 +2,7 @@
   <div class="relative w-full">
     <input
       :id="'toggle-' + inputValue"
-      v-model="model"
+      v-model="selectedTypes"
       type="checkbox"
       :value="inputValue"
       class="absolute peer w-full h-full left-0 right-0 appearance-none"
@@ -28,6 +28,7 @@
         ' items-start',
         'font-medium',
         'shadow-xl',
+        'px-2',
         'btn-type-' + inputValue,
       ]"
     >
@@ -50,15 +51,15 @@ export default {
       default: () => [],
     },
   },
-  // To update selectedTypes in the parent component
-  emits: ["update:modelValue"],
   computed: {
-    model: {
+    // Checked types
+    selectedTypes: {
       get() {
-        return this.modelValue;
+        return this.$store.state.selectedTypes;
       },
       set(value) {
-        this.$emit("update:modelValue", value);
+        this.$store.commit("updateSelectedTypes", value);
+        return 0; // Avoid computed property error
       },
     },
   },

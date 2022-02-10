@@ -6,10 +6,9 @@
     <!-- Grid -->
     <form id="regions" class="grid grid-cols-2 gap-x-8 gap-y-2 mt-2 w-full">
       <!-- Switches -->
-      <BaseToggleSwitch
+      <RegionToggleSwitch
         v-for="region in regions"
         :key="region.id"
-        v-model="selectedRegions"
         :input-value="region.name"
       />
     </form>
@@ -17,16 +16,14 @@
 </template>
 
 <script>
-import BaseToggleSwitch from "../Base/BaseToggleSwitch.vue";
-import regions from "../../constants/pokemon_regions.json";
+import RegionToggleSwitch from "./RegionToggleSwitch.vue";
+import regions from "../../../constants/pokemon_regions.json";
 
 export default {
   name: "SortByRegion",
-  components: { BaseToggleSwitch },
+  components: { RegionToggleSwitch },
   data() {
     return {
-      // Checked regions
-      selectedRegions: [],
       // All Pokémon regions
       regions: regions,
     };
