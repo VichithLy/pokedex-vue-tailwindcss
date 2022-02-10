@@ -7,13 +7,14 @@
       </p>
       <!-- ----- GitHub link -->
       <div class="flex justify-center items-center">
-        <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss"
-          ><img
+        <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss">
+          <img
             class="mr-5"
             src="https://github.githubassets.com/favicons/favicon.png"
-        /></a>
+          />
+        </a>
         <!-- ----- Legal Mentions page link -->
-        <p><a href="#">Legal Mentions</a></p>
+        <p><router-link to="/legal-mentions">Legal Mentions</router-link></p>
       </div>
     </div>
   </footer>
