@@ -42,16 +42,17 @@
         implementation and monitoring:<br />
         Owner :
         <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss"
-          >VichithLy and JulienMillot</a
+          >Vichith LY and Julien MILLOT</a
         ><br />
-        SIRET : Siret Publication manager:
+
+        Publication manager:
         <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss"
-          >VichithLy and JulienMillot</a
+          >Vichith LY and Julien MILLOT</a
         ><br />
         Co-responsible for publication : Graphic design / Web design /
         Development :
         <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss"
-          >VichithLy and JulienMillot</a
+          >Vichith LY and Julien MILLOT</a
         ><br />
         Host :<br />
         Hebergeur – et ses coordoonées
@@ -126,7 +127,7 @@
         All of the information on this website was provided by
         <a href="https://pokeapi.co/">PokéApi</a> so the owners of the Website
         <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss"
-          >VichithLy and JulienMillot
+          >Vichith LY and Julien MILLOT
         </a>
         do not guarantee the veracity of the information.
       </p>
