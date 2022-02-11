@@ -164,6 +164,7 @@ export default {
     pokemonEvolution: {
       type: Array,
       required: false,
+      default: () => [],
     },
     pokemonMensuration: {
       type: Object,
