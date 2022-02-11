@@ -30,10 +30,4 @@ export default {
 };
 </script>
 
-<style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap");
-
-* {
-  font-family: "Nunito", sans-serif;
-}
-</style>
+<style scoped></style>

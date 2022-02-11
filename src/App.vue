@@ -6,4 +6,10 @@
 export default {};
 </script>
 
-<style></style>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+  font-family: "Nunito", sans-serif;
+}
+</style>

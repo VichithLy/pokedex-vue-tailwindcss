@@ -2,7 +2,7 @@
   <!-- Card -->
 
   <div
-    class="rounded-2xl hover:scale-105 ease-in-out duration-300 bg-yellow-600 cursor-pointer relative h-64 w-40 mx-2 my-2 sm:mx-4 sm:my-4 sm:h-80 sm:w-60"
+    class="simple-card rounded-2xl hover:scale-105 ease-in-out duration-300 bg-yellow-600 cursor-pointer relative h-64 w-40 mx-2 my-2 sm:mx-4 sm:my-4 sm:h-80 sm:w-60"
   >
     <!-- Number and Type container -->
     <div
@@ -11,7 +11,7 @@
     >
       <!-- Number -->
       <div
-        class="flex items-center justify-items-center text-base font-extrabold style-num ml-1 my-2 mx-4 text-xl sm:ml-4 sm:my-1 sm:mx-4 sm:text-4xl"
+        class="flex items-center justify-items-center font-extrabold text-2xl sm:ml-4 my-1 mx-4 sm:text-4xl"
       >
         #{{ pokemonNum }}
       </div>
@@ -40,7 +40,7 @@
     <!-- Name -->
     <div name="card-title ">
       <div
-        class="style-name text-center text-xl sm:text-2xl absolute bottom-0 left-1/2 -translate-x-1/2 mb-4"
+        class="text-center text-xl sm:text-2xl absolute bottom-0 left-1/2 -translate-x-1/2 mb-4"
       >
         {{ pokemonName }}
       </div>
@@ -71,12 +71,4 @@ export default {
 };
 </script>
 
-<style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Teko:wght@400;700&family=Ubuntu:wght@500&display=swap");
-.style-name {
-  font-family: "Press Start 2P", cursive;
-}
-.style-num {
-  font-family: "Ubuntu", sans-serif;
-}
-</style>
+<style scoped></style>

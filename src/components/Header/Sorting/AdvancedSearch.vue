@@ -24,7 +24,7 @@
 
 <script>
 import { mapMutations, mapState } from "vuex";
-import scrollTo from "../../../utils";
+import smoothScrollTo from "../../../utils";
 
 export default {
   computed: {
@@ -33,13 +33,13 @@ export default {
   methods: {
     ...mapMutations(["updateIsOpen"]),
     // To scroll to an element id in the DOM
-    scrollTo,
+    smoothScrollTo,
     /**
      * To toggle the sorting section
      */
     toggle: function () {
       this.updateIsOpen({ isOpen: !this.isOpen });
-      if (this.isOpen == true) this.scrollTo("sorting-section");
+      if (this.isOpen == true) this.smoothScrollTo("sorting-section");
     },
   },
 };

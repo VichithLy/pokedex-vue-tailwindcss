@@ -1,5 +1,7 @@
 <template>
   <div>
+    <TheCursor />
+
     <TheHeader />
 
     <TheMain />
@@ -13,6 +15,7 @@
 import TheHeader from "../components/Header/TheHeader.vue";
 import TheMain from "../components/TheMain.vue";
 import TheFooter from "../components/TheFooter.vue";
+import TheCursor from "../components/TheCursor.vue";
 
 export default {
   name: "Home",
@@ -20,6 +23,7 @@ export default {
     TheFooter,
     TheHeader,
     TheMain,
+    TheCursor,
   },
 };
 </script>
