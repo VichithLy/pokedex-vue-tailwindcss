@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import SimpleCard from "./SimpleCard.vue";
+import SimpleCard from "./Cards/SimpleCard.vue";
 import DetailedCard from "./DetailedCard.vue";
 
 export default {
