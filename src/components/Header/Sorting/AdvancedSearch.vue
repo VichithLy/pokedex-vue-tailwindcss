@@ -9,7 +9,7 @@
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-5 w-5 ml-1 duration-200"
-      :class="[isOpen ? 'rotate-180' : '']"
+      :class="isOpen && 'rotate-180'"
       viewBox="0 0 20 20"
       fill="currentColor"
     >
@@ -23,22 +23,21 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapState } from "vuex";
 import smoothScrollTo from "../../../utils";
 
 export default {
   computed: {
-    ...mapState(["isOpen"]),
+    ...mapState("accordion", ["isOpen"]),
   },
   methods: {
-    ...mapMutations(["updateIsOpen"]),
-    // To scroll to an element id in the DOM
+    // To scroll to an element in the DOM
     smoothScrollTo,
     /**
      * To toggle the sorting section
      */
     toggle: function () {
-      this.updateIsOpen({ isOpen: !this.isOpen });
+      this.$store.commit("accordion/UPDATE_IS_OPEN", !this.isOpen);
       if (this.isOpen == true) this.smoothScrollTo("sorting-section");
     },
   },

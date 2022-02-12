@@ -1,24 +1,17 @@
 import { createStore } from "vuex";
+import accordion from "./modules/accordion.js";
+import sorting from "./modules/sorting.js";
+//import pokemon from "./modules/pokemon.js";
 
 export default createStore({
-  state() {
-    return {
-      isOpen: false,
-      selectedTypes: [],
-      selectedRegions: [],
-    };
+  state: {},
+  mutations: {},
+  actions: {
+    // API calls
   },
-  mutations: {
-    updateIsOpen(state, payload) {
-      state.isOpen = payload.isOpen;
-    },
-    updateSelectedTypes(state, selectedTypes) {
-      state.selectedTypes = selectedTypes;
-    },
-    updateSelectedRegions(state, selectedRegions) {
-      state.selectedRegions = selectedRegions;
-    },
+  modules: {
+    accordion,
+    sorting,
+    //pokemon,
   },
-  actions: {},
-  modules: {},
 });

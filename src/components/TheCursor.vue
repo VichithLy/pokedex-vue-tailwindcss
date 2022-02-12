@@ -30,16 +30,16 @@ export default {
     });
 
     // Click on card animation
-    document.addEventListener("mousedown", () => {
-      if (this.isOverCard) {
-        cursor.classList.add("animate-ping");
-        cursor.classList.remove("animate-bounce");
+    // document.addEventListener("mousedown", () => {
+    //   if (this.isOverCard) {
+    //     cursor.classList.add("animate-ping");
+    //     cursor.classList.remove("animate-bounce");
 
-        setTimeout(() => {
-          cursor.classList.remove("animate-ping");
-        }, 1000);
-      }
-    });
+    //     setTimeout(() => {
+    //       cursor.classList.remove("animate-ping");
+    //     }, 1000);
+    //   }
+    // });
 
     // Detect when cursor is on a card
     const simpleCards = document.querySelectorAll(".simple-card");
@@ -56,17 +56,4 @@ export default {
 };
 </script>
 
-<style>
-.cursor {
-  //animation: cursorAnim 0.5s infinite alternate;
-}
-
-/* @keyframes cursorAnim {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0.85);
-  }
-} */
-</style>
+<style></style>

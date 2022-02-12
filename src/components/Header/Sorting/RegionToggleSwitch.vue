@@ -17,7 +17,6 @@
 
 <script>
 export default {
-  name: "BaseToggleSwitch",
   props: {
     // Value of the input & Label text
     inputValue: {
@@ -25,20 +24,15 @@ export default {
       required: true,
       default: "",
     },
-    modelValue: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
   },
   computed: {
     // Checked regions
     selectedRegions: {
       get() {
-        return this.$store.state.selectedRegions;
+        return this.$store.state.sorting.selectedRegions;
       },
       set(value) {
-        this.$store.commit("updateSelectedRegions", value);
+        this.$store.commit("sorting/UPDATE_SELECTED_REGIONS", value);
         return 0; // Avoid computed property error
       },
     },

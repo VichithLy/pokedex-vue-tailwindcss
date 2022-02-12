@@ -12,7 +12,7 @@
     <label
       :for="'toggle-' + inputValue"
       class="flex relative rounded-full border-4 cursor-pointer z-10 ease-in-out duration-100 hover:scale-105 select-none capitalize place-content-center py-0.5 items-start font-medium shadow-xl px-2"
-      :class="['btn-type-' + inputValue]"
+      :class="'btn-type-' + inputValue"
     >
       {{ inputValue }}
     </label>
@@ -27,20 +27,15 @@ export default {
       required: true,
       default: "",
     },
-    modelValue: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
   },
   computed: {
     // Checked types
     selectedTypes: {
       get() {
-        return this.$store.state.selectedTypes;
+        return this.$store.state.sorting.selectedTypes;
       },
       set(value) {
-        this.$store.commit("updateSelectedTypes", value);
+        this.$store.commit("sorting/UPDATE_SELECTED_TYPES", value);
         return 0; // Avoid computed property error
       },
     },

@@ -2,7 +2,7 @@
   <div
     id="sorting-section"
     class="relative overflow-hidden transition-all duration-300 ease-in-out max-h-0 sm:max-h-1000"
-    :class="[isOpen ? 'max-h-1000' : '']"
+    :class="isOpen && 'max-h-1000'"
   >
     <!-- Sorting section -->
     <div class="flex flex-wrap gap-y-5 gap-x-5 mt-6 items-start">
@@ -26,12 +26,12 @@ import SortByType from "./SortByType.vue";
 export default {
   components: { SortByRegion, SortByType },
   computed: {
-    ...mapState(["isOpen"]),
+    ...mapState("accordion", ["isOpen"]),
   },
   methods: {
     resetSorting() {
-      this.$store.commit("updateSelectedRegions", []);
-      this.$store.commit("updateSelectedTypes", []);
+      this.$store.commit("sorting/UPDATE_SELECTED_REGIONS", []);
+      this.$store.commit("sorting/UPDATE_SELECTED_TYPES", []);
     },
   },
 };
