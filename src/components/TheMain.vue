@@ -4,21 +4,17 @@
 
     <!-- Sort by name or ID -->
 
-    <!-- List of SimpleCard components -->
-    <div class="flex flex-wrap justify-center">
-      <SimpleCard
-        :pokemon-name="pokemonName"
-        :pokemon-num="pokemonNum"
-        :pokemon-pict="pokemonPict"
-        :pokemon-type-pict="pokemonTypePict"
-      />
-      <SimpleCard
-        :pokemon-name="pokemonName"
-        :pokemon-num="pokemonNum"
-        :pokemon-pict="pokemonPict"
-        :pokemon-type-pict="pokemonTypePict"
-      />
-    </div>
+    <!-- For async component -->
+    <Suspense>
+      <template #default>
+        <SimpleCardsList />
+      </template>
+
+      <template #fallback>
+        <SimpleCardsSkeletonList />
+      </template>
+    </Suspense>
+
     <div class="flex flex-wrap justify-center">
       <DetailedCard
         :pokemon-about="pokemonAbout"
@@ -35,12 +31,17 @@
 </template>
 
 <script>
-import SimpleCard from "./Cards/SimpleCard.vue";
+import SimpleCardsList from "./Cards/SimpleCardsList.vue";
+import SimpleCardsSkeletonList from "./Cards/SimpleCardsSkeletonList.vue";
 import DetailedCard from "./DetailedCard.vue";
 
 export default {
   name: "TheMain",
-  components: { SimpleCard, DetailedCard },
+  components: {
+    DetailedCard,
+    SimpleCardsList,
+    SimpleCardsSkeletonList,
+  },
   data() {
     return {
       pokemonName: "Pikachu",

@@ -1,6 +1,6 @@
 <template>
   <img
-    class="w-36 h-36 sm:w-48 sm:h-48 mx-auto"
+    class="sc-picture-wrapper"
     :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/35.png'"
     :alt="pokemonPictAlt"
   />

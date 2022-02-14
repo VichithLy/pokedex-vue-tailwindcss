@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full justify-center place-items-center cursor-pointer mt-5 flex sm:hidden"
+    class="w-full justify-center place-items-center cursor-pointer mt-5 flex md:hidden"
     @click="toggle()"
   >
     <h3 class="peer font-semibold">Advanced search</h3>

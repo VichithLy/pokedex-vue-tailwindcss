@@ -23,7 +23,7 @@
 }
 
 .btn-secondary:active {
-  @apply mt-0.5  border-b-2;
+  @apply mt-0.5 border-b-2;
 }
 
 .btn-secondary:hover {
@@ -85,4 +85,30 @@
 }
 .btn-type-normal {
   @apply peer-checked:bg-normal border-normal;
+}
+
+/* CARDS */
+
+.sc-container {
+  @apply rounded-2xl relative h-64 w-40 mx-2 my-2 sm:mx-4 sm:my-4 sm:h-80 sm:w-60;
+}
+
+.sc-number-type-container {
+  @apply flex items-center flex-row justify-between py-2;
+}
+
+.sc-number-wrapper {
+  @apply flex items-center justify-items-center font-extrabold text-2xl sm:ml-4 my-1 mx-4 sm:text-4xl;
+}
+
+.sc-type-wrapper {
+  @apply w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-4;
+}
+
+.sc-picture-wrapper {
+  @apply w-32 h-32 mt-2 sm:mt-0 sm:w-48 sm:h-48 mx-auto;
+}
+
+.sc-name-wrapper {
+  @apply text-center text-xl sm:text-2xl absolute bottom-0 left-1/2 -translate-x-1/2 mb-4;
 }

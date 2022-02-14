@@ -1,11 +1,9 @@
 <template>
-  <!-- Card -->
-
   <div
-    class="simple-card rounded-2xl hover:scale-105 ease-in-out duration-300 bg-yellow-600 cursor-pointer relative h-64 w-40 mx-2 my-2 sm:mx-4 sm:my-4 sm:h-80 sm:w-60"
+    class="sc-container hover:scale-105 ease-in-out duration-300 bg-yellow-600 cursor-pointer"
   >
     <!-- Number and Type container -->
-    <div class="flex items-center flex-row justify-between py-2">
+    <div class="sc-number-type-container">
       <PokemonNumber> #{{ pokemonNum }} </PokemonNumber>
 
       <PokemonType :pokemon-type-pict-alt="pokemonTypePict.alt" />
