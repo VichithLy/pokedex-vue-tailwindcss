@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import pokeballImg from "../assets/images/cursor/pokeball.png";
 import pokeballOpenImg from "../assets/images/cursor/pokeball_open.png";
 
@@ -16,41 +17,19 @@ export default {
     return {
       pokeballImg,
       pokeballOpenImg,
-      isOverCard: false,
     };
   },
+  computed: {
+    ...mapState("cursor", ["isOverCard"]),
+  },
   mounted() {
-    // Image that follows the cursor
+    // Picture that follows the cursor
     const cursor = document.querySelector(".cursor");
     document.addEventListener("mousemove", (e) => {
       cursor.setAttribute(
         "style",
         "top: " + (e.pageY + 12) + "px; left: " + (e.pageX + 12) + "px;"
       );
-    });
-
-    // Click on card animation
-    // document.addEventListener("mousedown", () => {
-    //   if (this.isOverCard) {
-    //     cursor.classList.add("animate-ping");
-    //     cursor.classList.remove("animate-bounce");
-
-    //     setTimeout(() => {
-    //       cursor.classList.remove("animate-ping");
-    //     }, 1000);
-    //   }
-    // });
-
-    // Detect when cursor is on a card
-    const simpleCards = document.querySelectorAll(".simple-card");
-    simpleCards.forEach((card) => {
-      card.addEventListener("mouseenter", () => {
-        this.isOverCard = true;
-      });
-
-      card.addEventListener("mouseleave", () => {
-        this.isOverCard = false;
-      });
     });
   },
 };

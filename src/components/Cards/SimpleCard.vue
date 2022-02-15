@@ -1,6 +1,8 @@
 <template>
   <div
     class="sc-container hover:scale-105 ease-in-out duration-300 bg-yellow-600 cursor-pointer"
+    @mouseover="updateIsOverCard(true)"
+    @mouseleave="updateIsOverCard(false)"
   >
     <!-- Number and Type container -->
     <div class="sc-number-type-container">
@@ -44,6 +46,12 @@ export default {
       type: String,
       required: true,
       default: "",
+    },
+  },
+
+  methods: {
+    updateIsOverCard(value) {
+      this.$store.commit("cursor/UPDATE_IS_OVER_CARD", value);
     },
   },
 };
