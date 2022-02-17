@@ -7,7 +7,7 @@
 /* BUTTONS */
 
 .btn-primary {
-  @apply font-bold border-b-4 rounded-b-md drop-shadow-lg border-pokemon-blue-700 py-2 w-1/2 rounded-md bg-pokemon-blue-500 text-white ease-in-out duration-100;
+  @apply font-bold border-b-4 rounded-b-md drop-shadow-lg border-pokemon-blue-700 py-2 w-1/2 rounded-md bg-pokemon-blue-500 text-white ease-in-out;
 }
 
 .btn-primary:hover {
@@ -19,7 +19,7 @@
 }
 
 .btn-secondary {
-  @apply bg-transparent drop-shadow-lg border-b-4 rounded-b-md text-pokemon-blue-500 font-semibold  px-4 border-2 border-pokemon-blue-500 rounded-md ease-in-out duration-100;
+  @apply bg-transparent drop-shadow-lg border-b-4 rounded-b-md text-pokemon-blue-500 font-semibold px-4 border-2 border-pokemon-blue-500 rounded-md ease-in-out;
 }
 
 .btn-secondary:active {
@@ -28,6 +28,14 @@
 
 .btn-secondary:hover {
   @apply text-pokemon-blue-400;
+}
+
+.sort-btn {
+  @apply bg-transparent drop-shadow-lg border-b-4 rounded-b-md text-pokemon-blue-500 font-semibold  px-4 border-2 border-pokemon-blue-500 rounded-md ease-in-out;
+}
+
+.sort-btn:active {
+  @apply mt-0.5 border-b-2 bg-pokemon-blue-500 text-white;
 }
 
 /* TYPES COLORS */

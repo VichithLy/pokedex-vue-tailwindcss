@@ -11,8 +11,8 @@
     </div>
 
     <!-- Reset & Confirm -->
-    <div class="flex justify-between pt-6" @click="resetSorting()">
-      <button class="btn-secondary">Reset</button>
+    <div class="flex justify-between pt-6">
+      <button class="btn-secondary" @click="resetSorting()">Reset</button>
       <button class="btn-primary">Confirm</button>
     </div>
   </div>

@@ -1,6 +1,7 @@
 <template>
-  <main class="container mx-auto">
+  <main class="container mx-auto flex flex-col items-center">
     <!-- Sort by name or ID -->
+    <SortByIdOrName />
 
     <!-- For async component -->
     <Suspense>
@@ -32,6 +33,7 @@
 import SimpleCardsList from "./Cards/SimpleCardsList.vue";
 import SimpleCardsSkeletonList from "./Cards/SimpleCardsSkeletonList.vue";
 import DetailedCard from "./DetailedCard.vue";
+import SortByIdOrName from "./SortByIdOrName.vue";
 
 export default {
   name: "TheMain",
@@ -39,6 +41,7 @@ export default {
     DetailedCard,
     SimpleCardsList,
     SimpleCardsSkeletonList,
+    SortByIdOrName,
   },
   data() {
     return {
