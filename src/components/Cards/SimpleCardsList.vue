@@ -1,18 +1,12 @@
 <template>
   <div class="flex flex-wrap justify-center">
-    <SimpleCard
-      v-for="n in 10"
-      :key="n"
-      :pokemon-name="pokemonName"
-      :pokemon-num="pokemonNum"
-      :pokemon-pict="pokemonPict"
-      :pokemon-type-pict="pokemonTypePict"
-    />
+    <SimpleCard v-for="n in 10" :key="n" :pokemon="pokemon" />
   </div>
 </template>
 
 <script>
 import SimpleCard from "./SimpleCard.vue";
+import PokemonJson from "../../../src/constants/pokemon_request.json";
 export default {
   components: { SimpleCard },
   //Composition API
@@ -21,7 +15,7 @@ export default {
     const promise = new Promise((resolve) => {
       setTimeout(() => {
         resolve("resolved");
-      }, 2000);
+      }, 200);
     });
 
     const result = await promise;
@@ -30,16 +24,20 @@ export default {
   },
   data() {
     return {
-      pokemonName: "Pikachu",
-      pokemonNum: 200,
-      pokemonPict: {
-        source: "../assets/images/pika.png",
-        alt: "Un pokemon",
+      pokemon: {
+        name:
+          PokemonJson.forms[0].name.charAt(0).toUpperCase() +
+          PokemonJson.forms[0].name.slice(1),
+        id: PokemonJson.id,
+        picture: PokemonJson.sprites.other["official-artwork"].front_default,
+        types: PokemonJson.types,
       },
-      pokemonTypePict: {
-        source: "images/electric.png",
-        alt: "Un type de pokemon",
-      },
+      // name:
+      //   PokemonJson.forms[0].name.charAt(0).toUpperCase() +
+      //   PokemonJson.forms[0].name.slice(1),
+      // id: PokemonJson.id,
+      // picture: PokemonJson.sprites.other["official-artwork"].front_default,
+      // types: PokemonJson.types,
       pokemonAbout:
         "When several of these POKéMON gather, their electricity could build and cause lightning storms.",
       pokemonStats: {

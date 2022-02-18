@@ -1,15 +1,11 @@
 <template>
-  <img
-    class="sc-picture-wrapper"
-    :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/35.png'"
-    :alt="pokemonPictAlt"
-  />
+  <img class="sc-picture-wrapper" :src="pokemonPict" />
 </template>
 
 <script>
 export default {
   props: {
-    pokemonPictAlt: {
+    pokemonPict: {
       type: String,
       required: true,
       default: "",

@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       pokemonName: "Pikachu",
-      pokemonNum: 200,
+      pokemonNum: "PokemonJson.id",
       pokemonPict: {
         source: "../assets/images/pika.png",
         alt: "Un pokemon",
