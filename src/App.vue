@@ -12,4 +12,9 @@ export default {};
 * {
   font-family: "Nunito", sans-serif;
 }
+
+body {
+  /* When cursor is out the page */
+  overflow-x: hidden;
+}
 </style>

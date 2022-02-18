@@ -1,5 +1,5 @@
 <template>
-  <main class="container mx-auto flex flex-col items-center">
+  <main class="container-auto-center">
     <!-- Sort by name or ID -->
     <SortByIdOrName />
 

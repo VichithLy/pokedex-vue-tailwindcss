@@ -1,15 +1,15 @@
 <template>
-  <header
-    class="flex flex-col justify-center items-center bg-pokemon-red-300 pt-10 pb-5"
-  >
-    <BaseLogo />
+  <header class="bg-pokemon-red-300 md:py-10">
+    <div class="container-auto-center">
+      <BaseLogo />
 
-    <div class="w-5/6 mt-8 h-auto">
-      <SearchBar />
-      <SortingAccordion />
+      <div class="w-5/6 mt-8 h-auto">
+        <SearchBar />
+        <SortingAccordion />
+      </div>
+
+      <AdvancedSearch />
     </div>
-
-    <AdvancedSearch />
   </header>
 </template>
 

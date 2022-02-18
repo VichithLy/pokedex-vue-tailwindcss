@@ -4,6 +4,18 @@
 
 @tailwind utilities;
 
+/* CONTAINER */
+
+.container-auto-center {
+  @apply container mx-auto flex flex-col items-center;
+}
+
+/* LINKS */
+
+.link {
+  @apply underline text-pokemon-blue-500 hover:text-pokemon-blue-800 visited:text-pokemon-blue-400;
+}
+
 /* BUTTONS */
 
 .btn-primary {
