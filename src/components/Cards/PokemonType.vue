@@ -1,9 +1,12 @@
 <template>
-  <div class="sc-type-wrapper shadow-2xl" :class="colortype">
+  <div
+    class="sc-type-wrapper shadow border-white"
+    :class="'back-color-' + typeColor"
+  >
     <img
       class="w-6 h-6 mt-1 sm:w-6 sm:h-6 m-auto sm:mt-2"
-      :src="getImg(pokemonColor)"
-      :alt="pokemonColor"
+      :src="getImg(typeColor)"
+      :alt="typeColor"
     />
   </div>
 </template>
@@ -11,19 +14,15 @@
 <script>
 export default {
   props: {
-    pokemonColor: {
+    typeColor: {
       type: Object,
       required: true,
     },
   },
-  data: function () {
-    return {
-      colortype: "bg-" + this.pokemonColor,
-    };
-  },
   methods: {
-    getImg(pokemonColor) {
-      return require("../../assets/images/types/" + pokemonColor + ".png");
+    // This function return the pic who's associate to the type
+    getImg(typeColor) {
+      return require("../../assets/images/types/" + typeColor + ".png");
     },
   },
 };

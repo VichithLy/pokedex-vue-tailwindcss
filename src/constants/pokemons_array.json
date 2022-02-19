@@ -1,0 +1,77 @@
+[{
+  "id": 1,
+  "name": "bulbasaur",
+  "about": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis Pokémon.",
+  "types": ["steel"],
+  "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+  "weight": {
+    "kg": "60.0",
+    "lbs": "132.3"
+  },
+  "height": {
+    "m": "7",
+    "ft": "3'3"
+  },
+  "base_stats": {
+    "hp": 35,
+    "attack": 55,
+    "defense": 40,
+    "specialAttack": 50,
+    "specialDefense": 50,
+    "speed": 90
+  },
+  "abilities": ["raining,fire"],
+  "evolutions": ["bulbasaur", "ivysaur", "venusaur"]
+},
+{
+  "id": 25,
+  "name": "Pikachu",
+  "about": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis Pokémon.",
+  "types": ["electric"],
+  "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+  "weight": {
+    "kg": "60",
+    "lbs": "60"
+  },
+  "height": {
+    "m": "60",
+    "ft": "4"
+  },
+  "base_stats": {
+    "hp": 35,
+    "attack": 55,
+    "defense": 40,
+    "specialAttack": 50,
+    "specialDefense": 50,
+    "speed": 90
+  },
+  "abilities": ["raining,fire"],
+  "evolutions": ["bulbasaur", "ivysaur", "venusaur"]
+},
+{
+  "id": 34,
+  "name": "Nidoking",
+  "about": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis Pokémon.",
+  "types": ["poison"],
+  "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/34.png",
+  "weight": {
+    "kg": "60.0",
+    "lbs": "132.3"
+  },
+  "height": {
+    "m": "7",
+    "ft": "3'3"
+  },
+  "base_stats": {
+    "hp": 35,
+    "attack": 55,
+    "defense": 40,
+    "specialAttack": 50,
+    "specialDefense": 50,
+    "speed": 90
+  },
+  "abilities": ["raining,fire"],
+  "evolutions": ["bulbasaur", "ivysaur", "venusaur"]
+}
+
+]

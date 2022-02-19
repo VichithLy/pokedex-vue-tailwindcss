@@ -1,24 +1,26 @@
 <template>
   <div
-    class="sc-container hover:scale-105 ease-in-out duration-300 cursor-pointer"
-    :class="getArrayType(pokemon)"
+    class="sc-container hover:scale-105 ease-in-out duration-300 cursor-pointer border-b-4 border-gray-400 drop-shadow-lg"
+    :class="gradientBackground"
     @mouseover="updateIsOverCard(true)"
     @mouseleave="updateIsOverCard(false)"
   >
     <!-- Number and Type container -->
     <div class="sc-number-type-container">
-      <PokemonNumber> #{{ pokemon.id }} </PokemonNumber>
+      <PokemonNumber> #{{ id }} </PokemonNumber>
 
-      <PokemonType
-        v-for="(type, index) in pokemon.types"
-        :key="index"
-        :pokemon-color="type.type.name"
-      />
+      <div class="flex items-center flex-row justify-between gap-x-2 mr-4">
+        <PokemonType
+          v-for="(type, index) in types"
+          :key="index"
+          :type-color="type"
+        />
+      </div>
     </div>
 
-    <PokemonPicture :pokemon-pict="pokemon.picture" />
+    <PokemonPicture :pokemon-pict="picture" />
 
-    <PokemonName>{{ pokemon.name }}</PokemonName>
+    <PokemonName>{{ name }}</PokemonName>
   </div>
 </template>
 
@@ -31,47 +33,33 @@ import PokemonType from "./PokemonType.vue";
 export default {
   components: { PokemonType, PokemonNumber, PokemonPicture, PokemonName },
   props: {
-    pokemon: {
-      type: Object,
+    pokemonObject: {
+      type: Array,
       required: true,
+      default: () => {},
     },
-    // pokemonNum: {
-    //   type: Number,
-    //   required: true,
-    //   default: 0,
-    // },
-    // pokemonPict: {
-    //   type: String,
-    //   required: true,
-    //   default: "",
-    // },
-    // pokemonType: {
-    //   type: Object,
-    //   required: true,
-    // },
+  },
+  data() {
+    return {
+      id: this.pokemonObject.id,
+      name: this.pokemonObject.name,
+      about: this.pokemonObject.about,
+      picture: this.pokemonObject.picture,
+      types: this.pokemonObject.types,
+    };
+  },
+  computed: {
+    // This function return the bg class to apply on the cards if there are one or two types
+    gradientBackground: function () {
+      if (this.types.length == 2) {
+        return `bg-gradient-to-b back-from-${this.types[0]} back-to-${this.types[1]}`;
+      }
+      return `back-color-${this.types[0]}-dark`;
+    },
   },
   methods: {
     updateIsOverCard(value) {
       this.$store.commit("cursor/UPDATE_IS_OVER_CARD", value);
-    },
-    getArrayType(pokemon) {
-      console.log(pokemon.types);
-      let listtype = [];
-      for (let i = 0; i < Object.keys(pokemon.types).length; i++) {
-        listtype.push(pokemon.types[i]["type"]["name"]);
-      }
-      if (listtype.length == 2) {
-        console.log(listtype);
-        console.log(
-          "bg-gradient-to-b from-" + listtype[0] + "  to-" + listtype[1]
-        );
-        console.log("il y a 2 types");
-        return "bg-gradient-to-b from-" + listtype[0] + " to-" + listtype[1];
-        // return "bg-poison";
-      } else {
-        console.log("il y a 1 type");
-        return "bg-" + listtype[0];
-      }
     },
   },
 };

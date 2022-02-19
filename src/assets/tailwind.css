@@ -50,7 +50,7 @@
   @apply mt-0.5 border-b-2 bg-pokemon-blue-500 text-white;
 }
 
-/* TYPES COLORS */
+/* BUTTON TYPE COLORS */
 
 .btn-type-fire {
   @apply peer-checked:bg-fire border-fire;
@@ -122,7 +122,7 @@
 }
 
 .sc-type-wrapper {
-  @apply w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-4;
+  @apply w-8 h-8 sm:w-10 sm:h-10 rounded-full;
 }
 
 .sc-picture-wrapper {
@@ -131,4 +131,229 @@
 
 .sc-name-wrapper {
   @apply text-center text-xl sm:text-2xl absolute bottom-0 left-1/2 -translate-x-1/2 mb-4;
+}
+
+/* BACKGROUNDS DARK */
+
+.back-color-fire-dark {
+  @apply bg-fire-dark;
+}
+.back-color-water-dark {
+  @apply bg-water-dark;
+}
+.back-color-grass-dark {
+  @apply bg-grass-dark;
+}
+.back-color-electric-dark {
+  @apply bg-electric-dark;
+}
+.back-color-psychic-dark {
+  @apply bg-psychic-dark;
+}
+.back-color-ice-dark {
+  @apply bg-ice-dark;
+}
+.back-color-fighting-dark {
+  @apply bg-fighting-dark;
+}
+.back-color-flying-dark {
+  @apply bg-flying-dark;
+}
+.back-color-poison-dark {
+  @apply bg-poison-dark;
+}
+.back-color-ground-dark {
+  @apply bg-ground-dark;
+}
+.back-color-rock-dark {
+  @apply bg-rock-dark;
+}
+.back-color-bug-dark {
+  @apply bg-bug-dark;
+}
+.back-color-dragon-dark {
+  @apply bg-dragon-dark;
+}
+.back-color-ghost-dark {
+  @apply bg-ghost-dark;
+}
+.back-color-dark-dark {
+  @apply bg-dark-dark;
+}
+.back-color-steel-dark {
+  @apply bg-steel-dark;
+}
+.back-color-fairy-dark {
+  @apply bg-fairy-dark;
+}
+.back-color-normal-dark {
+  @apply bg-normal-dark;
+}
+/* BACKGROUNDS */
+
+.back-color-fire {
+  @apply bg-fire;
+}
+.back-color-water {
+  @apply bg-water;
+}
+.back-color-grass {
+  @apply bg-grass;
+}
+.back-color-electric {
+  @apply bg-electric;
+}
+.back-color-psychic {
+  @apply bg-psychic;
+}
+.back-color-ice {
+  @apply bg-ice;
+}
+.back-color-fighting {
+  @apply bg-fighting;
+}
+.back-color-flying {
+  @apply bg-flying;
+}
+.back-color-poison {
+  @apply bg-poison;
+}
+.back-color-ground {
+  @apply bg-ground;
+}
+.back-color-rock {
+  @apply bg-rock;
+}
+.back-color-bug {
+  @apply bg-bug;
+}
+.back-color-dragon {
+  @apply bg-dragon;
+}
+.back-color-ghost {
+  @apply bg-ghost;
+}
+.back-color-dark {
+  @apply bg-dark;
+}
+.back-color-steel {
+  @apply bg-steel;
+}
+.back-color-fairy {
+  @apply bg-fairy;
+}
+.back-color-normal {
+  @apply bg-normal;
+}
+
+/* BACKGROUND GRADIENTS FROM */
+.back-from-fire {
+  @apply from-fire;
+}
+.back-from-water {
+  @apply from-water;
+}
+.back-from-grass {
+  @apply from-grass;
+}
+.back-from-electric {
+  @apply from-electric;
+}
+.back-from-psychic {
+  @apply from-psychic;
+}
+.back-from-ice {
+  @apply from-ice;
+}
+.back-from-fighting {
+  @apply from-fighting;
+}
+.back-from-flying {
+  @apply from-flying;
+}
+.back-from-poison {
+  @apply from-poison;
+}
+.back-from-ground {
+  @apply from-ground;
+}
+.back-from-rock {
+  @apply from-rock;
+}
+.back-from-bug {
+  @apply from-bug;
+}
+.back-from-dragon {
+  @apply from-dragon;
+}
+.back-from-ghost {
+  @apply from-ghost;
+}
+.back-from-dark {
+  @apply from-dark;
+}
+.back-from-steel {
+  @apply from-steel;
+}
+.back-from-fairy {
+  @apply from-fairy;
+}
+.back-from-normal {
+  @apply from-normal;
+}
+
+/* BACKGROUND GRADIENTS TO */
+.back-to-fire {
+  @apply to-fire;
+}
+.back-to-water {
+  @apply to-water;
+}
+.back-to-grass {
+  @apply to-grass;
+}
+.back-to-electric {
+  @apply to-electric;
+}
+.back-to-psychic {
+  @apply to-psychic;
+}
+.back-to-ice {
+  @apply to-ice;
+}
+.back-to-fighting {
+  @apply to-fighting;
+}
+.back-to-flying {
+  @apply to-flying;
+}
+.back-to-poison {
+  @apply to-poison;
+}
+.back-to-ground {
+  @apply to-ground;
+}
+.back-to-rock {
+  @apply to-rock;
+}
+.back-to-bug {
+  @apply to-bug;
+}
+.back-to-dragon {
+  @apply to-dragon;
+}
+.back-to-ghost {
+  @apply to-ghost;
+}
+.back-to-dark {
+  @apply to-dark;
+}
+.back-to-steel {
+  @apply to-steel;
+}
+.back-to-fairy {
+  @apply to-fairy;
+}
+.back-to-normal {
+  @apply to-normal;
 }

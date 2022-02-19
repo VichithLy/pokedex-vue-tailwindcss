@@ -6,7 +6,7 @@
     <!-- For async component -->
     <Suspense>
       <template #default>
-        <SimpleCardsList />
+        <SimpleCardsList :pokemons-array="PokemonsArray" />
       </template>
 
       <template #fallback>
@@ -34,6 +34,7 @@ import SimpleCardsList from "./Cards/SimpleCardsList.vue";
 import SimpleCardsSkeletonList from "./Cards/SimpleCardsSkeletonList.vue";
 import DetailedCard from "./DetailedCard.vue";
 import SortByIdOrName from "./SortByIdOrName.vue";
+import PokemonsArray from "@/constants/pokemons_array.json";
 
 export default {
   name: "TheMain",
@@ -43,39 +44,10 @@ export default {
     SimpleCardsSkeletonList,
     SortByIdOrName,
   },
+
   data() {
     return {
-      pokemonName: "Pikachu",
-      pokemonNum: "PokemonJson.id",
-      pokemonPict: {
-        source: "../assets/images/pika.png",
-        alt: "Un pokemon",
-      },
-      pokemonTypePict: {
-        source: "images/electric.png",
-        alt: "Un type de pokemon",
-      },
-      pokemonAbout:
-        "When several of these POKéMON gather, their electricity could build and cause lightning storms.",
-      pokemonStats: {
-        hp: 35,
-        attack: 55,
-        defense: 40,
-        specialAttack: 50,
-        specialDefense: 50,
-        speed: 90,
-      },
-      pokemonEvolution: ["pikachu", "raichu"],
-      pokemonMensuration: {
-        height: {
-          meter: "1m",
-          feet: "3'3",
-        },
-        weight: {
-          kg: "60.0 kg",
-          lbs: "132.3 lbs",
-        },
-      },
+      PokemonsArray,
     };
   },
 };
