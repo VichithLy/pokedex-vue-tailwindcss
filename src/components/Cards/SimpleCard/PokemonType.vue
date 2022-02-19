@@ -22,7 +22,7 @@ export default {
   methods: {
     // This function return the pic who's associate to the type
     getImg(typeColor) {
-      return require("../../assets/images/types/" + typeColor + ".png");
+      return require("@/assets/images/types/" + typeColor + ".png");
     },
   },
 };

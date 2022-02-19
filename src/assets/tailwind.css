@@ -130,7 +130,7 @@
 }
 
 .sc-name-wrapper {
-  @apply text-center text-xl sm:text-2xl absolute bottom-0 left-1/2 -translate-x-1/2 mb-4;
+  @apply text-center text-xl sm:text-2xl absolute bottom-0 left-1/2 -translate-x-1/2 mb-4 capitalize;
 }
 
 /* BACKGROUNDS DARK */
@@ -353,6 +353,116 @@
 }
 .back-to-fairy {
   @apply to-fairy;
+}
+.back-to-normal {
+  @apply to-normal;
+}
+
+/* BACKGROUND GRADIENTS TO */
+.back-from-detailed-300-fire {
+  @apply from-fire;
+}
+.back-to-detailed-300-fire {
+  @apply to-fire;
+}
+.back-from-water {
+  @apply from-blue-300;
+}
+.back-to-water {
+  @apply to-blue-400;
+}
+.back-from-grass {
+  @apply from-green-300;
+}
+.back-to-grass {
+  @apply to-green-300;
+}
+.back-from-electric {
+  @apply from-yellow-300;
+}
+.back-to-electric {
+  @apply to-yellow-400;
+}
+.back-from-psychic {
+  @apply from-pink-300;
+}
+.back-to-psychic {
+  @apply to-pink-400;
+}
+.back-from-ice {
+  @apply from-blue-300;
+}
+.back-to-ice {
+  @apply to-blue-300;
+}
+.back-from-fighting {
+  @apply from-pink-300;
+}
+.back-to-fighting {
+  @apply to-pink-300;
+}
+.back-from-flying {
+  @apply from-blue-300;
+}
+.back-to-flying {
+  @apply to-blue-300;
+}
+.back-from-poison {
+  @apply from-purple-300;
+}
+.back-to-poison {
+  @apply to-purple-400;
+}
+.back-from-ground {
+  @apply from-ground;
+}
+.back-to-ground {
+  @apply to-ground;
+}
+.back-from-rock {
+  @apply from-pokemon-yellow-300;
+}
+.back-to-rock {
+  @apply to-pokemon-yellow-400;
+}
+.back-from-bug {
+  @apply from-green-300;
+}
+.back-to-bug {
+  @apply to-green-400;
+}
+.back-from-dragon {
+  @apply from-blue-300;
+}
+.back-to-dragon {
+  @apply to-blue-400;
+}
+.back-from-ghost {
+  @apply from-blue-300;
+}
+.back-to-ghost {
+  @apply to-blue-400;
+}
+.back-from-dark {
+  @apply from-dark;
+}
+.back-to-dark {
+  @apply to-dark;
+}
+.back-from-steel {
+  @apply from-steel;
+}
+.back-to-steel {
+  @apply to-steel;
+}
+.back-from-fairy {
+  @apply from-fairy;
+}
+.back-to-fairy {
+  @apply to-fairy;
+}
+.back-from-normal {
+  @apply from-normal;
 }
 .back-to-normal {
   @apply to-normal;

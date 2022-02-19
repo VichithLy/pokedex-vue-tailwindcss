@@ -14,25 +14,20 @@
       </template>
     </Suspense>
 
-    <div class="flex flex-wrap justify-center">
+    <div class="flex flex-col justify-center gap-y-12 mt-10">
       <DetailedCard
-        :pokemon-about="pokemonAbout"
-        :pokemon-stats="pokemonStats"
-        :pokemon-evolution="pokemonEvolution"
-        :pokemon-mensuration="pokemonMensuration"
-        :pokemon-type-pict="pokemonTypePict"
-        :pokemon-pict="pokemonPict"
-        :pokemon-num="pokemonNum"
-        :pokemon-name="pokemonName"
+        v-for="(pokemon, index) in PokemonsArray"
+        :key="index"
+        :pokemon-object="pokemon"
       />
     </div>
   </main>
 </template>
 
 <script>
-import SimpleCardsList from "./Cards/SimpleCardsList.vue";
-import SimpleCardsSkeletonList from "./Cards/SimpleCardsSkeletonList.vue";
-import DetailedCard from "./DetailedCard.vue";
+import SimpleCardsList from "./Cards/SimpleCard/SimpleCardsList.vue";
+import SimpleCardsSkeletonList from "./Cards/SimpleCard/SimpleCardsSkeletonList.vue";
+import DetailedCard from "./Cards/DetailedCard/DetailedCard.vue";
 import SortByIdOrName from "./SortByIdOrName.vue";
 import PokemonsArray from "@/constants/pokemons_array.json";
 

@@ -1,8 +1,8 @@
 [{
   "id": 1,
   "name": "bulbasaur",
-  "about": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis Pokémon.",
-  "types": ["steel"],
+  "about": "A strange seed was planted on its back at birth. The plant sprouts\nand grows with this Pokémon.",
+  "types": ["grass","poison"],
   "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
   "weight": {
     "kg": "60.0",
@@ -20,12 +20,12 @@
     "specialDefense": 50,
     "speed": 90
   },
-  "abilities": ["raining,fire"],
+  "abilities": ["storm","fire"],
   "evolutions": ["bulbasaur", "ivysaur", "venusaur"]
 },
 {
   "id": 25,
-  "name": "Pikachu",
+  "name": "pikachu",
   "about": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis Pokémon.",
   "types": ["electric"],
   "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
@@ -45,12 +45,12 @@
     "specialDefense": 50,
     "speed": 90
   },
-  "abilities": ["raining,fire"],
+  "abilities": ["katon","doton","raiton"],
   "evolutions": ["bulbasaur", "ivysaur", "venusaur"]
 },
 {
   "id": 34,
-  "name": "Nidoking",
+  "name": "nidoking",
   "about": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis Pokémon.",
   "types": ["poison"],
   "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/34.png",
@@ -60,7 +60,7 @@
   },
   "height": {
     "m": "7",
-    "ft": "3'3"
+    "ft": "3'3\""
   },
   "base_stats": {
     "hp": 35,
@@ -70,8 +70,33 @@
     "specialDefense": 50,
     "speed": 90
   },
-  "abilities": ["raining,fire"],
+  "abilities": ["suiton","mokuton"],
   "evolutions": ["bulbasaur", "ivysaur", "venusaur"]
+},
+{
+  "id": 66,
+  "name": "Machop",
+  "about": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis Pokémon.",
+  "types": ["fighting"],
+  "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/66.png",
+  "weight": {
+    "kg": "19.5",
+    "lbs": "43.0"
+  },
+  "height": {
+    "m": "0.8",
+    "ft": "2'7\""
+  },
+  "base_stats": {
+    "hp": 35,
+    "attack": 55,
+    "defense": 40,
+    "specialAttack": 50,
+    "specialDefense": 50,
+    "speed": 90
+  },
+  "abilities": ["Guts","No-Guard","Steadfast"],
+  "evolutions": ["Machop", "Machoke", "Machamp"]
 }
 
 ]
