@@ -15,8 +15,9 @@
 export default {
   props: {
     typeColor: {
-      type: Object,
+      type: String,
       required: true,
+      default: "",
     },
   },
   methods: {

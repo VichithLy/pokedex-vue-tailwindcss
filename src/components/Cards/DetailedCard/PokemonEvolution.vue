@@ -15,7 +15,6 @@
           <img
             class="w-6 h-6 mt-1 sm:w-20 sm:h-20 m-auto sm:mt-2"
             :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg'"
-            :alt="pokemonTypePictAlt"
           />
         </div>
         <div
@@ -24,7 +23,6 @@
           <img
             class="w-6 h-6 mt-1 sm:w-20 sm:h-20 m-auto sm:mt-2"
             :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg'"
-            :alt="pokemonTypePictAlt"
           />
         </div>
         <div
@@ -33,7 +31,6 @@
           <img
             class="w-6 h-6 mt-1 sm:w-20 sm:h-20 m-auto sm:mt-2"
             :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg'"
-            :alt="pokemonTypePictAlt"
           />
         </div>
       </div>

@@ -34,7 +34,7 @@ export default {
   components: { PokemonType, PokemonNumber, PokemonPicture, PokemonName },
   props: {
     pokemonObject: {
-      type: Array,
+      type: Object,
       required: true,
       default: () => {},
     },
