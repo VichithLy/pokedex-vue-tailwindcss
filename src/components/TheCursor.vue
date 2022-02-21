@@ -3,7 +3,7 @@
     :src="isOverCard ? pokeballOpenImg : pokeballImg"
     alt=""
     class="cursor absolute w-8 duration-200 ease-out z-10 drop-shadow"
-    :class="isOverCard ? 'animate-bounce' : ''"
+    :class="isOverCard && !isMobileDevice ? 'animate-bounce' : ''"
   />
 </template>
 
@@ -21,16 +21,31 @@ export default {
   },
   computed: {
     ...mapState("cursor", ["isOverCard"]),
+    isMobileDevice() {
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        return true;
+      }
+      return false;
+    },
   },
   mounted() {
     // Picture that follows the cursor
     const cursor = document.querySelector(".cursor");
-    document.addEventListener("mousemove", (e) => {
-      cursor.setAttribute(
-        "style",
-        "top: " + (e.pageY + 12) + "px; left: " + (e.pageX + 12) + "px;"
-      );
-    });
+
+    if (!this.isMobileDevice) {
+      // false for not mobile device
+      document.addEventListener("mousemove", (e) => {
+        cursor.setAttribute(
+          "style",
+          "top: " + (e.pageY + 12) + "px; left: " + (e.pageX + 12) + "px;"
+        );
+      });
+    }
+    cursor.classList.add("hidden");
   },
 };
 </script>
