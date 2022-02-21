@@ -16,13 +16,20 @@
         />
       </svg>
       using
-      <a href="https://pokeapi.co/" class="link ml-1">PokéAPI</a>,
-      <a href="https://vuejs.org/" class="link mx-1">Vue.js</a> and
-      <a href="https://tailwindcss.com/" class="link ml-1">Tailwind CSS</a>
+      <a href="https://pokeapi.co/" target="_blank" class="link ml-1">PokéAPI</a
+      >,
+      <a href="https://vuejs.org/" target="_blank" class="link mx-1">Vue.js</a>
+      and
+      <a href="https://tailwindcss.com/" target="_blank" class="link ml-1"
+        >Tailwind CSS</a
+      >
     </p>
     <!-- GitHub link -->
     <div class="flex justify-center items-center gap-x-10">
-      <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss">
+      <a
+        href="https://github.com/VichithLy/pokedex-vue-tailwindcss"
+        target="_blank"
+      >
         <img src="https://github.githubassets.com/favicons/favicon.png" />
       </a>
       <!-- Legal Mentions page -->
