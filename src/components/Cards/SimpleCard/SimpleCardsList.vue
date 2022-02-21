@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap justify-center">
+  <div class="flex flex-wrap justify-center gap-5">
     <SimpleCard
       v-for="(pokemon, index) in pokemonsArray"
       :key="index"

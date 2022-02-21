@@ -110,11 +110,11 @@
 /* CARDS */
 
 .sc-container {
-  @apply rounded-2xl relative h-64 w-40 mx-2 my-2 sm:mx-4 sm:my-4 sm:h-80 sm:w-60;
+  @apply flex flex-col justify-between rounded-2xl h-64 w-40 sm:h-80 sm:w-60 py-2 sm:py-3;
 }
 
 .sc-number-type-container {
-  @apply flex items-center flex-row justify-between py-2;
+  @apply flex items-center flex-row justify-between;
 }
 
 .sc-number-wrapper {
@@ -130,7 +130,7 @@
 }
 
 .sc-name-wrapper {
-  @apply text-center text-xl sm:text-2xl absolute bottom-0 left-1/2 -translate-x-1/2 mb-4 capitalize;
+  @apply flex justify-center text-xl sm:text-2xl  capitalize;
 }
 
 /* BACKGROUNDS DARK */

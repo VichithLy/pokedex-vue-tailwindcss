@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col justify-between p-5 md:row-span-2 rounded-2xl bg-gray-100 bg-opacity-60"
+    class="flex flex-col justify-between gap-y-6 p-5 md:row-span-2 rounded-2xl bg-gray-100 bg-opacity-60"
   >
     <div
       class="flex justify-center rounded-2xl text-xl font-semibold md:font-bold lg:text-2xl bg-gray-500 bg-opacity-30"

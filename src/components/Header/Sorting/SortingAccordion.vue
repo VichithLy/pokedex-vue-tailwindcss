@@ -1,7 +1,7 @@
 <template>
   <div
     id="sorting-section"
-    class="relative overflow-hidden transition-all duration-300 ease-in-out max-h-0 md:max-h-1000"
+    class="relative overflow-hidden transition-all duration-100 ease-in-out max-h-0 md:max-h-1000"
     :class="isOpen && 'max-h-1000'"
   >
     <!-- Sorting section -->

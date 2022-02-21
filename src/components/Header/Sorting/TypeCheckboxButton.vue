@@ -11,7 +11,7 @@
     <!-- The label looks like a button -->
     <label
       :for="'toggle-' + inputValue"
-      class="flex relative rounded-full border-4 cursor-pointer z-10 ease-in-out duration-100 hover:scale-105 select-none capitalize place-content-center py-0.5 items-start font-medium shadow-xl px-2"
+      class="flex relative rounded-full border-4 cursor-pointer z-10 ease-in-out hover:scale-105 select-none capitalize place-content-center py-0.5 items-start font-medium shadow-xl px-2"
       :class="'btn-type-' + inputValue"
     >
       {{ inputValue }}
