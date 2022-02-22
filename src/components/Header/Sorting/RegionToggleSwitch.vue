@@ -16,6 +16,9 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import { UPDATE_SELECTED_REGIONS } from "@/store/mutation-types";
+
 export default {
   props: {
     // Value of the input & Label text
@@ -32,10 +35,12 @@ export default {
         return this.$store.state.sorting.selectedRegions;
       },
       set(value) {
-        this.$store.commit("sorting/UPDATE_SELECTED_REGIONS", value);
-        return 0; // Avoid computed property error
+        this.UPDATE_SELECTED_REGIONS(value);
       },
     },
+  },
+  methods: {
+    ...mapActions("sorting", [UPDATE_SELECTED_REGIONS]),
   },
 };
 </script>

@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
+import { UPDATE_IS_OPEN } from "../../../store/mutation-types";
 import smoothScrollTo from "../../../utils";
 
 export default {
@@ -31,13 +32,14 @@ export default {
     ...mapState("accordion", ["isOpen"]),
   },
   methods: {
+    ...mapActions("accordion", [UPDATE_IS_OPEN]),
     // To scroll to an element in the DOM
     smoothScrollTo,
     /**
      * To toggle the sorting section
      */
     toggle: function () {
-      this.$store.commit("accordion/UPDATE_IS_OPEN", !this.isOpen);
+      this.UPDATE_IS_OPEN(!this.isOpen);
       if (this.isOpen == true) this.smoothScrollTo("sorting-section");
     },
   },

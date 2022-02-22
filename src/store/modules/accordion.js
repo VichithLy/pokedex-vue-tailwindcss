@@ -15,7 +15,11 @@ export default {
     },
   },
 
-  actions: {},
+  actions: {
+    [UPDATE_IS_OPEN]({ commit }, isOpen) {
+      commit(UPDATE_IS_OPEN, isOpen);
+    },
+  },
 
   getters: {},
 };

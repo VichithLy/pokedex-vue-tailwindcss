@@ -2,8 +2,9 @@
   <div
     class="sc-container hover:scale-105 ease-in-out duration-300 cursor-pointer border-b-4 border-gray-400 drop-shadow-lg"
     :class="gradientBackground"
-    @mouseover="updateIsOverCard(true)"
-    @mouseleave="updateIsOverCard(false)"
+    @mouseover="UPDATE_IS_OVER_CARD(true)"
+    @mouseleave="UPDATE_IS_OVER_CARD(false)"
+    @click="UPDATE_SELECTED_POKEMON(pokemonObject)"
   >
     <!-- Number and Type container -->
     <div class="sc-number-type-container">
@@ -25,10 +26,13 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import { UPDATE_IS_OVER_CARD } from "@/store/mutation-types";
 import PokemonName from "./PokemonName.vue";
 import PokemonNumber from "./PokemonNumber.vue";
 import PokemonPicture from "./PokemonPicture.vue";
 import PokemonType from "./PokemonType.vue";
+import { UPDATE_SELECTED_POKEMON } from "../../../store/mutation-types";
 
 export default {
   components: { PokemonType, PokemonNumber, PokemonPicture, PokemonName },
@@ -58,9 +62,8 @@ export default {
     },
   },
   methods: {
-    updateIsOverCard(value) {
-      this.$store.commit("cursor/UPDATE_IS_OVER_CARD", value);
-    },
+    ...mapActions("cursor", [UPDATE_IS_OVER_CARD]),
+    ...mapActions("pokemon", [UPDATE_SELECTED_POKEMON]),
   },
 };
 </script>

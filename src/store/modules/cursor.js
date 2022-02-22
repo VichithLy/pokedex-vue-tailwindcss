@@ -15,7 +15,11 @@ export default {
     },
   },
 
-  actions: {},
+  actions: {
+    [UPDATE_IS_OVER_CARD]({ commit }, isOverCard) {
+      commit(UPDATE_IS_OVER_CARD, isOverCard);
+    },
+  },
 
   getters: {},
 };

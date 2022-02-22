@@ -20,6 +20,9 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import { UPDATE_SELECTED_TYPES } from "../../../store/mutation-types";
+
 export default {
   props: {
     inputValue: {
@@ -35,10 +38,12 @@ export default {
         return this.$store.state.sorting.selectedTypes;
       },
       set(value) {
-        this.$store.commit("sorting/UPDATE_SELECTED_TYPES", value);
-        return 0; // Avoid computed property error
+        this.UPDATE_SELECTED_TYPES(value);
       },
     },
+  },
+  methods: {
+    ...mapActions("sorting", [UPDATE_SELECTED_TYPES]),
   },
 };
 </script>

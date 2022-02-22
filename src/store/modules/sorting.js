@@ -20,7 +20,14 @@ export default {
     },
   },
 
-  actions: {},
+  actions: {
+    [UPDATE_SELECTED_TYPES]({ commit }, selectedTypes) {
+      commit(UPDATE_SELECTED_TYPES, selectedTypes);
+    },
+    [UPDATE_SELECTED_REGIONS]({ commit }, selectedRegions) {
+      commit(UPDATE_SELECTED_REGIONS, selectedRegions);
+    },
+  },
 
   getters: {},
 };
