@@ -7,8 +7,8 @@
         Abilities
       </div>
       <!-- Abilities text -->
-      <div class="mt-1 lg:sm:mt-4">
-        <ul class="list-disc flex flex-col items-center mt-2 gap-y-3">
+      <div class="mt-5 lg:mt-4">
+        <ul class="list-disc flex flex-col items-center gap-y-3">
           <li
             v-for="(ability, index) in abilities"
             :key="index"

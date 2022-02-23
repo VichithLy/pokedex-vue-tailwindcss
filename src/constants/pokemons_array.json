@@ -21,7 +21,16 @@
     "speed": 90
   },
   "abilities": ["storm","fire"],
-  "evolutions": ["bulbasaur", "ivysaur", "venusaur"]
+  "evolutions": [{
+    "nom":"pikachu",
+    "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+  },{
+    "nom":"raichu",
+    "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/34.png"
+  },{
+    "nom":"bulbasaur",
+    "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+  }]
 },
 {
   "id": 25,
@@ -46,7 +55,13 @@
     "speed": 90
   },
   "abilities": ["katon","doton","raiton"],
-  "evolutions": ["bulbasaur", "ivysaur", "venusaur"]
+  "evolutions": [{
+    "nom":"pikachu",
+    "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/140.png"
+  },{
+    "nom":"raichu",
+    "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/34.png"
+  }]
 },
 {
   "id": 34,
@@ -71,14 +86,19 @@
     "speed": 90
   },
   "abilities": ["suiton","mokuton"],
-  "evolutions": ["bulbasaur", "ivysaur", "venusaur"]
-},
-{
-  "id": 66,
-  "name": "Machop",
+  "evolutions": [{
+    "nom":"bulbasaur",
+    "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/140.png"
+  },{
+    "nom":"ivysaur",
+    "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/34.png"
+  }]
+},{
+  "id": 140,
+  "name": "kabuto",
   "about": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis Pokémon.",
-  "types": ["fighting"],
-  "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/66.png",
+  "types": ["rock","water"],
+  "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/140.png",
   "weight": {
     "kg": "19.5",
     "lbs": "43.0"
@@ -96,7 +116,15 @@
     "speed": 90
   },
   "abilities": ["Guts","No-Guard","Steadfast"],
-  "evolutions": ["Machop", "Machoke", "Machamp"]
+  "evolutions": [{
+    "nom":"pikachu",
+    "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+  },{
+    "nom":"raichu",
+    "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/34.png"
+  },{
+    "nom":"bulbasaur",
+    "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+  }]
 }
-
 ]

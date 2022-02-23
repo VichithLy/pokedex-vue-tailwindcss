@@ -8,39 +8,42 @@
       </div>
 
       <!-- Evolutions -->
-      <div class="sm:m-5 flex flex-row justify-around">
+      <div class="flex justify-center md:flex-row">
         <div
-          class="shadow-2xl w-20 h-20 <!-- sm:w-24 sm:h-24 --> bg-green-400 rounded-full mr-4"
+          v-for="(pokemonEvo, index) in evolutions"
+          :key="index"
+          class="mt-4 md:mt-8 mx-5 lg:mx-10"
         >
-          <img
-            class="w-6 h-6 mt-1 sm:w-20 sm:h-20 m-auto sm:mt-2"
-            :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg'"
-          />
-        </div>
-        <div
-          class="shadow-2xl w-20 h-20 <!-- sm:w-24 sm:h-24 --> bg-green-400 rounded-full mr-4"
-        >
-          <img
-            class="w-6 h-6 mt-1 sm:w-20 sm:h-20 m-auto sm:mt-2"
-            :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg'"
-          />
-        </div>
-        <div
-          class="shadow-2xl w-20 h-20 <!-- sm:w-24 sm:h-24 --> bg-green-400 rounded-full mr-4"
-        >
-          <img
-            class="w-6 h-6 mt-1 sm:w-20 sm:h-20 m-auto sm:mt-2"
-            :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg'"
-          />
+          <div
+            class="shadow-2xl w-20 h-20 sm:w-24 sm:h-24 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 bg-green-400 rounded-full"
+          >
+            <img
+              class="sm:w-28 m-auto"
+              :src="pokemonEvo.picture"
+              :alt="pokemonEvo.nom"
+            />
+          </div>
+          <div
+            class="text-center mt-1 lg:mt-4 font-semibold capitalize text-lg lg:text-xl"
+          >
+            {{ pokemonEvo.nom }}
+          </div>
         </div>
       </div>
-      <p class="text-center mt-1 lg:sm:mt-4"></p>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    evolutions: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+  },
+};
 </script>
 
 <style></style>
