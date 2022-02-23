@@ -1,7 +1,7 @@
 <template>
   <!-- bg-gradient-to-b back-from-detailed back-to-detailed  -->
   <div
-    class="border-b-4 border-gray-400 drop-shadow-lg p-5 grid grid-cols-1 gap-4 md:grid-cols-3 rounded-2xl"
+    class="dc-container border-b-4 border-gray-400"
     :class="`bg-gradient-to-b back-from-${profile.types[0]} back-to-${profile.types[0]}`"
   >
     <PokemonProfile :profile="profile" />

@@ -1,13 +1,13 @@
 <template>
-  <div class="h-52 p-3 rounded-2xl bg-gray-50 bg-opacity-60">
+  <div class="dc-abilities-container bg-gray-50 bg-opacity-60">
     <div>
       <div
-        class="h-82 flex justify-center rounded-3xl text-xl font-semibold md:font-bold lg:text-2xl bg-gray-500 bg-opacity-30"
+        class="dc-abilities-title-wrapper text-xl font-semibold md:font-bold lg:text-2xl bg-gray-500 bg-opacity-30"
       >
         Abilities
       </div>
       <!-- Abilities text -->
-      <div class="mt-5 lg:mt-4">
+      <div class="dc-abilities-content-wrapper">
         <ul class="list-disc flex flex-col items-center gap-y-3">
           <li
             v-for="(ability, index) in abilities"

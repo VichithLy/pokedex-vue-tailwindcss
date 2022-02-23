@@ -1,16 +1,14 @@
 <template>
-  <div
-    class="flex flex-col gap-y-6 p-5 md:row-span-2 rounded-2xl bg-gray-100 bg-opacity-60"
-  >
+  <div class="dc-stats-container bg-gray-100 bg-opacity-60">
     <div
-      class="flex justify-center rounded-2xl text-xl font-semibold md:font-bold lg:text-2xl bg-gray-500 bg-opacity-30"
+      class="dc-stats-title-wrapper text-xl font-semibold md:font-bold lg:text-2xl bg-gray-500 bg-opacity-30"
     >
       Base stats
     </div>
 
     <!-- Base stats graph -->
     <div class="flex flex-col gap-y-4">
-      <div class="flex items-center">
+      <div class="dc-stats-graph-wrapper">
         <img :src="heartIcon" class="w-9 icon-heart" />
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
@@ -25,7 +23,8 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center">
+
+      <div class="dc-stats-graph-wrapper">
         <img :src="swordIcon" class="w-9 icon-sword" />
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
@@ -40,7 +39,8 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center">
+
+      <div class="dc-stats-graph-wrapper">
         <img :src="shieldIcon" class="w-9 icon-shield" />
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
@@ -55,7 +55,8 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center">
+
+      <div class="dc-stats-graph-wrapper">
         <img :src="speedIcon" class="w-9 icon-speed" />
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
@@ -70,7 +71,8 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center">
+
+      <div class="dc-stats-graph-wrapper">
         <img :src="heartIcon" class="w-9 icon-heart" />
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
@@ -85,7 +87,8 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center">
+
+      <div class="dc-stats-graph-wrapper">
         <img :src="heartIcon" class="w-9 icon-shield" />
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">

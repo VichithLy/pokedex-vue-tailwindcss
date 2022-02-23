@@ -1,113 +1,4 @@
-@tailwind base;
-
-@tailwind components;
-
-@tailwind utilities;
-
-/* CONTAINER */
-
-.container-auto-center {
-  @apply container mx-auto flex flex-col items-center;
-}
-
-/* LINKS */
-
-.link {
-  @apply underline text-pokemon-blue-500 hover:text-pokemon-blue-800 visited:text-pokemon-blue-400;
-}
-
-/* BUTTONS */
-
-.btn-primary {
-  @apply font-bold border-b-4 rounded-b-md drop-shadow-lg border-pokemon-blue-700 py-2 w-1/2 rounded-md bg-pokemon-blue-500 text-white ease-in-out;
-}
-
-.btn-primary:hover {
-  @apply bg-pokemon-blue-400;
-}
-
-.btn-primary:active {
-  @apply mt-1 pb-1 border-transparent border-b-4;
-}
-
-.btn-secondary {
-  @apply bg-transparent drop-shadow-lg border-b-4 rounded-b-md text-pokemon-blue-500 font-semibold px-4 border-2 border-pokemon-blue-500 rounded-md ease-in-out;
-}
-
-.btn-secondary:active {
-  @apply mt-0.5 border-b-2;
-}
-
-.btn-secondary:hover {
-  @apply text-pokemon-blue-400;
-}
-
-.sort-btn {
-  @apply bg-transparent drop-shadow-lg border-b-4 rounded-b-md text-pokemon-blue-500 font-semibold  px-4 border-2 border-pokemon-blue-500 rounded-md ease-in-out;
-}
-
-.sort-btn:active {
-  @apply mt-0.5 border-b-2 bg-pokemon-blue-500 text-white;
-}
-
-/* BUTTON TYPE COLORS */
-
-.btn-type-fire {
-  @apply peer-checked:bg-fire border-fire;
-}
-.btn-type-water {
-  @apply peer-checked:bg-water border-water;
-}
-.btn-type-grass {
-  @apply peer-checked:bg-grass border-grass;
-}
-.btn-type-electric {
-  @apply peer-checked:bg-electric border-electric;
-}
-.btn-type-psychic {
-  @apply peer-checked:bg-psychic border-psychic;
-}
-.btn-type-ice {
-  @apply peer-checked:bg-ice border-ice;
-}
-.btn-type-fighting {
-  @apply peer-checked:bg-fighting border-fighting;
-}
-.btn-type-flying {
-  @apply peer-checked:bg-flying border-flying;
-}
-.btn-type-poison {
-  @apply peer-checked:bg-poison border-poison;
-}
-.btn-type-ground {
-  @apply peer-checked:bg-ground border-ground;
-}
-.btn-type-rock {
-  @apply peer-checked:bg-rock border-rock;
-}
-.btn-type-bug {
-  @apply peer-checked:bg-bug border-bug;
-}
-.btn-type-dragon {
-  @apply peer-checked:bg-dragon border-dragon;
-}
-.btn-type-ghost {
-  @apply peer-checked:bg-ghost border-ghost;
-}
-.btn-type-dark {
-  @apply peer-checked:bg-dark border-dark;
-}
-.btn-type-steel {
-  @apply peer-checked:bg-steel border-steel;
-}
-.btn-type-fairy {
-  @apply peer-checked:bg-fairy border-fairy;
-}
-.btn-type-normal {
-  @apply peer-checked:bg-normal border-normal;
-}
-
-/* CARDS */
+/* SIMPLE CARDS STYLE */
 
 .sc-container {
   @apply flex flex-col justify-between rounded-2xl h-64 w-40 sm:h-80 sm:w-60 py-2 sm:py-3;
@@ -131,6 +22,162 @@
 
 .sc-name-wrapper {
   @apply flex justify-center text-xl sm:text-2xl  capitalize;
+}
+
+/* DETAILED CARD */
+
+.dc-container {
+  @apply rounded-2xl grid grid-cols-1 gap-4 md:grid-cols-3 drop-shadow-lg p-5;
+}
+
+/* ----- PROFILE */
+.dc-profile-container {
+  @apply row-span-2 md:row-span-3 rounded-2xl flex flex-col justify-between py-10 items-center;
+}
+/* ---------- ID */
+.dc-profile-id-wrapper {
+  @apply flex justify-center;
+}
+/* ---------- NAME */
+.dc-profile-name-wrapper {
+  @apply flex justify-center;
+}
+/* ---------- PICTURE */
+.dc-profile-picture-wrapper {
+  @apply mt-5 w-48 h-48 mx-auto;
+}
+/* ---------- TYPES */
+.dc-profile-types-wrapper {
+  @apply flex items-center flex-row justify-between gap-x-2 mr-4;
+}
+/* ---------- HEIGHT & WEIGHT */
+.dc-profile-hw-container {
+  @apply flex flex-col gap-2 w-52;
+}
+
+.dc-profile-h-wrapper {
+  @apply flex justify-start items-center;
+}
+
+.dc-profile-w-wrapper {
+  @apply flex justify-start items-center;
+}
+
+/* ----- ABOUT */
+.dc-about-container {
+  @apply p-5 md:col-span-1 rounded-2xl;
+}
+/* ---------- TITLE */
+.dc-about-title-wrapper {
+  @apply flex justify-center rounded-3xl;
+}
+/* ---------- CONTENT */
+.dc-about-content-wrapper {
+  @apply mt-1 p-2 lg:sm:mt-4;
+}
+
+/* ----- STATS */
+.dc-stats-container {
+  @apply flex flex-col gap-y-6 p-5 md:row-span-2 rounded-2xl;
+}
+/* ---------- TITLE */
+.dc-stats-title-wrapper {
+  @apply flex justify-center rounded-2xl;
+}
+/* ---------- GRAPH */
+.dc-stats-graph-wrapper {
+  @apply flex items-center;
+}
+
+/* ----- ABILITIES */
+.dc-abilities-container {
+  @apply p-3 rounded-2xl;
+}
+/* ---------- TITLE */
+.dc-abilities-title-wrapper {
+  @apply flex justify-center rounded-3xl;
+}
+/* ---------- CONTENT */
+.dc-abilities-content-wrapper {
+  @apply mt-5 lg:mt-4;
+}
+
+/* ----- EVOLUTION */
+.dc-evolution-container {
+  @apply p-3 md:col-span-2 rounded-2xl;
+}
+/* ---------- TITLE */
+.dc-evolution-title-wrapper {
+  @apply flex justify-center rounded-3xl;
+}
+/* ---------- EVOLUTIONS */
+.dc-evolution-evolutions-wrapper {
+  @apply flex justify-center md:flex-row;
+}
+
+.dc-evolution-boxes-container {
+  @apply mt-4 md:mt-8 mx-5 lg:mx-10;
+}
+
+.dc-evolution-box-wrapper {
+  @apply rounded-full w-20 h-20 sm:w-24 sm:h-24 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32;
+}
+
+/* BACKGROUNDS */
+
+.back-color-fire {
+  @apply bg-fire;
+}
+.back-color-water {
+  @apply bg-water;
+}
+.back-color-grass {
+  @apply bg-grass;
+}
+.back-color-electric {
+  @apply bg-electric;
+}
+.back-color-psychic {
+  @apply bg-psychic;
+}
+.back-color-ice {
+  @apply bg-ice;
+}
+.back-color-fighting {
+  @apply bg-fighting;
+}
+.back-color-flying {
+  @apply bg-flying;
+}
+.back-color-poison {
+  @apply bg-poison;
+}
+.back-color-ground {
+  @apply bg-ground;
+}
+.back-color-rock {
+  @apply bg-rock;
+}
+.back-color-bug {
+  @apply bg-bug;
+}
+.back-color-dragon {
+  @apply bg-dragon;
+}
+.back-color-ghost {
+  @apply bg-ghost;
+}
+.back-color-dark {
+  @apply bg-dark;
+}
+.back-color-steel {
+  @apply bg-steel;
+}
+.back-color-fairy {
+  @apply bg-fairy;
+}
+.back-color-normal {
+  @apply bg-normal;
 }
 
 /* BACKGROUNDS DARK */
@@ -189,64 +236,9 @@
 .back-color-normal-dark {
   @apply bg-normal-dark;
 }
-/* BACKGROUNDS */
-
-.back-color-fire {
-  @apply bg-fire;
-}
-.back-color-water {
-  @apply bg-water;
-}
-.back-color-grass {
-  @apply bg-grass;
-}
-.back-color-electric {
-  @apply bg-electric;
-}
-.back-color-psychic {
-  @apply bg-psychic;
-}
-.back-color-ice {
-  @apply bg-ice;
-}
-.back-color-fighting {
-  @apply bg-fighting;
-}
-.back-color-flying {
-  @apply bg-flying;
-}
-.back-color-poison {
-  @apply bg-poison;
-}
-.back-color-ground {
-  @apply bg-ground;
-}
-.back-color-rock {
-  @apply bg-rock;
-}
-.back-color-bug {
-  @apply bg-bug;
-}
-.back-color-dragon {
-  @apply bg-dragon;
-}
-.back-color-ghost {
-  @apply bg-ghost;
-}
-.back-color-dark {
-  @apply bg-dark;
-}
-.back-color-steel {
-  @apply bg-steel;
-}
-.back-color-fairy {
-  @apply bg-fairy;
-}
-.back-color-normal {
-  @apply bg-normal;
-}
 
 /* BACKGROUND GRADIENTS FROM */
+
 .back-from-fire {
   @apply from-fire;
 }
@@ -303,6 +295,7 @@
 }
 
 /* BACKGROUND GRADIENTS TO */
+
 .back-to-fire {
   @apply to-fire;
 }
@@ -359,6 +352,7 @@
 }
 
 /* BACKGROUND GRADIENTS TO */
+
 .back-from-detailed-300-fire {
   @apply from-fire;
 }
