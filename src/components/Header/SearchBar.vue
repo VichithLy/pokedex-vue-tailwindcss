@@ -31,7 +31,7 @@
     </div>
 
     <!-- TESTING -->
-    <div>
+    <!-- <div>
       Mock Pokemons data :
       <div v-for="pokemon in pokemons" :key="pokemon.id">
         {{ pokemon.id }} - {{ pokemon.name }}
@@ -43,7 +43,7 @@
       <div v-for="pokemon in filteredPokemons" :key="pokemon.id">
         {{ pokemon.id }} - {{ pokemon.name }}
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

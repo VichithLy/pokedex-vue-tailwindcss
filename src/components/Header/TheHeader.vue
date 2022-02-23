@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-pokemon-red-300 md:py-10">
+  <header id="header" class="bg-pokemon-red-300 md:py-10">
     <div class="container-auto-center">
       <BaseLogo />
 

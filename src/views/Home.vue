@@ -25,5 +25,8 @@ export default {
     TheMain,
     TheCursor,
   },
+  mounted() {
+    // Initialize filteredPokemons state (get all Pokemons)
+  },
 };
 </script>

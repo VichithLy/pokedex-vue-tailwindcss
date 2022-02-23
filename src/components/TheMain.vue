@@ -21,6 +21,8 @@
         :pokemon-object="pokemon"
       />
     </div>
+
+    <ScrollButton />
   </main>
 </template>
 
@@ -30,6 +32,7 @@ import SimpleCardsSkeletonList from "./Cards/SimpleCard/SimpleCardsSkeletonList.
 import DetailedCard from "./Cards/DetailedCard/DetailedCard.vue";
 import SortByIdOrName from "./SortByIdOrName.vue";
 import PokemonsArray from "@/constants/pokemons_array.json";
+import ScrollButton from "./ScrollButton.vue";
 
 export default {
   name: "TheMain",
@@ -38,6 +41,7 @@ export default {
     SimpleCardsList,
     SimpleCardsSkeletonList,
     SortByIdOrName,
+    ScrollButton,
   },
 
   data() {

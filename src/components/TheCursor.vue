@@ -24,7 +24,7 @@ export default {
     isMobileDevice() {
       if (
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
+          navigator.userAgent,
         )
       ) {
         return true;
@@ -41,7 +41,7 @@ export default {
       document.addEventListener("mousemove", (e) => {
         cursor.setAttribute(
           "style",
-          "top: " + (e.pageY + 12) + "px; left: " + (e.pageX + 12) + "px;"
+          "top: " + (e.pageY + 12) + "px; left: " + (e.pageX + 12) + "px;",
         );
       });
     }

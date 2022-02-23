@@ -7,17 +7,12 @@
 </template>
 
 <script>
+import pokemonsArray from "@/constants/pokemons_array.json";
+
 export default {
   data() {
     return {
-      pokemonsArray: [
-        { id: 1, name: "bulbasaur" },
-        { id: 2, name: "ivysaur" },
-        { id: 3, name: "venusaur" },
-        { id: 4, name: "charmander" },
-        { id: 5, name: "charmeleon" },
-        { id: 6, name: "charizard" },
-      ],
+      pokemonsArray,
     };
   },
   methods: {

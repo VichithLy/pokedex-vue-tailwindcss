@@ -10,7 +10,7 @@ export default {
   state() {
     return {
       searchedPokemon: "",
-      selectedPokmon: {},
+      selectedPokemon: {},
       pokemons: pokemonsArray,
     };
   },
@@ -19,8 +19,8 @@ export default {
     [UPDATE_SEARCHED_POKEMON](state, searchedPokemon) {
       state.searchedPokemon = searchedPokemon;
     },
-    [UPDATE_SELECTED_POKEMON](state, selectedPokmon) {
-      state.selectedPokmon = selectedPokmon;
+    [UPDATE_SELECTED_POKEMON](state, selectedPokemon) {
+      state.selectedPokemon = selectedPokemon;
     },
     [UPDATE_POKEMONS](state, pokemons) {
       state.pokemons = pokemons;
@@ -31,8 +31,8 @@ export default {
     [UPDATE_SEARCHED_POKEMON]({ commit }, searchedPokemon) {
       commit(UPDATE_SEARCHED_POKEMON, searchedPokemon);
     },
-    [UPDATE_SELECTED_POKEMON]({ commit }, selectedPokmon) {
-      commit(UPDATE_SELECTED_POKEMON, selectedPokmon);
+    [UPDATE_SELECTED_POKEMON]({ commit }, selectedPokemon) {
+      commit(UPDATE_SELECTED_POKEMON, selectedPokemon);
     },
     [UPDATE_POKEMONS]({ commit }, pokemons) {
       commit(UPDATE_POKEMONS, pokemons);
