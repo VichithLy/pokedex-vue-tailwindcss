@@ -1,7 +1,7 @@
 <template>
   <!-- List of SimpleCard components -->
-  <div class="flex flex-wrap justify-center">
-    <SimpleCardSkeleton v-for="n in 10" :key="n" />
+  <div class="sc-list-container">
+    <SimpleCardSkeleton v-for="n in 4" :key="n" />
   </div>
 </template>
 

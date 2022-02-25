@@ -1,5 +1,5 @@
 <template>
-  <div class="sc-number-wrapper">
+  <div class="sc-number-wrapper font-extrabold text-2xl sm:text-4xl">
     <slot></slot>
   </div>
 </template>

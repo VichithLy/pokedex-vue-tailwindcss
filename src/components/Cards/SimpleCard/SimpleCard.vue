@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sc-container hover:scale-105 ease-in-out duration-300 cursor-pointer border-b-4 border-gray-400 drop-shadow-lg"
+    class="sc-container hover:scale-105 ease-in-out duration-100 cursor-pointer border-b-4 border-gray-400 drop-shadow-lg"
     :class="gradientBackground"
     @mouseover="UPDATE_IS_OVER_CARD(true)"
     @mouseleave="UPDATE_IS_OVER_CARD(false)"
@@ -10,7 +10,7 @@
     <div class="sc-number-type-container">
       <PokemonNumber> #{{ id }} </PokemonNumber>
 
-      <div class="flex items-center flex-row justify-between gap-x-2 mr-4">
+      <div class="sc-types-container">
         <PokemonType
           v-for="(type, index) in types"
           :key="index"

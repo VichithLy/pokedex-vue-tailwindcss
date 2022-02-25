@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="sc-type-wrapper shadow border-white"
-    :class="'back-color-' + typeColor"
-  >
+  <div class="sc-type-wrapper shadow-inner" :class="'back-color-' + typeColor">
     <img
       class="w-6 h-6 mt-1 sm:w-6 sm:h-6 m-auto sm:mt-2"
       :src="getImg(typeColor)"

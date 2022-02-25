@@ -1,15 +1,44 @@
+/* SKELETON */
+
+.skeleton-0 {
+  @apply bg-gray-100;
+}
+.skeleton-1 {
+  @apply bg-gray-200;
+}
+
+.skeleton-1-pulse {
+  @apply bg-gray-300 animate-pulse;
+}
+
+.skeleton-2 {
+  @apply bg-gray-300;
+}
+
+.skeleton-2-pulse {
+  @apply bg-gray-300 animate-pulse;
+}
+
 /* SIMPLE CARDS STYLE */
 
 .sc-container {
   @apply flex flex-col justify-between rounded-2xl h-64 w-40 sm:h-80 sm:w-60 py-2 sm:py-3;
 }
 
+.sc-list-container {
+  @apply flex flex-wrap justify-center gap-5;
+}
+
 .sc-number-type-container {
-  @apply flex items-center flex-row justify-between;
+  @apply flex items-center flex-row justify-between mx-4;
 }
 
 .sc-number-wrapper {
-  @apply flex items-center justify-items-center font-extrabold text-2xl sm:ml-4 my-1 mx-4 sm:text-4xl;
+  @apply flex items-center justify-items-center;
+}
+
+.sc-types-container {
+  @apply flex items-center flex-row justify-between gap-x-2;
 }
 
 .sc-type-wrapper {
@@ -21,13 +50,13 @@
 }
 
 .sc-name-wrapper {
-  @apply flex justify-center text-xl sm:text-2xl  capitalize;
+  @apply flex justify-center;
 }
 
 /* DETAILED CARD */
 
 .dc-container {
-  @apply rounded-2xl grid grid-cols-1 gap-4 md:grid-cols-3 drop-shadow-lg p-5;
+  @apply rounded-2xl grid grid-cols-1 gap-4 md:grid-cols-3 p-5;
 }
 
 /* ----- PROFILE */
@@ -36,11 +65,11 @@
 }
 /* ---------- ID */
 .dc-profile-id-wrapper {
-  @apply flex justify-center;
+  @apply flex justify-center text-xl md:text-2xl lg:text-3xl md:font-semibold;
 }
 /* ---------- NAME */
 .dc-profile-name-wrapper {
-  @apply flex justify-center;
+  @apply flex justify-center text-2xl md:text-3xl lg:text-4xl md:font-semibold capitalize;
 }
 /* ---------- PICTURE */
 .dc-profile-picture-wrapper {
@@ -52,15 +81,15 @@
 }
 /* ---------- HEIGHT & WEIGHT */
 .dc-profile-hw-container {
-  @apply flex flex-col gap-2 w-52;
+  @apply flex flex-col gap-2 w-52 font-semibold text-lg;
 }
 
-.dc-profile-h-wrapper {
-  @apply flex justify-start items-center;
+.dc-profile-hw-icon {
+  @apply w-5 md:w-6 lg:w-7 mr-4;
 }
 
-.dc-profile-w-wrapper {
-  @apply flex justify-start items-center;
+.dc-profile-hw-wrapper {
+  @apply flex justify-between items-center;
 }
 
 /* ----- ABOUT */
@@ -69,11 +98,11 @@
 }
 /* ---------- TITLE */
 .dc-about-title-wrapper {
-  @apply flex justify-center rounded-3xl;
+  @apply flex justify-center rounded-3xl text-xl font-semibold md:font-bold lg:text-2xl;
 }
 /* ---------- CONTENT */
 .dc-about-content-wrapper {
-  @apply mt-1 p-2 lg:sm:mt-4;
+  @apply mt-1 p-2 lg:sm:mt-4 text-lg text-justify font-semibold;
 }
 
 /* ----- STATS */
@@ -82,33 +111,41 @@
 }
 /* ---------- TITLE */
 .dc-stats-title-wrapper {
-  @apply flex justify-center rounded-2xl;
+  @apply flex justify-center rounded-2xl text-xl font-semibold md:font-bold lg:text-2xl;
 }
 /* ---------- GRAPH */
 .dc-stats-graph-wrapper {
   @apply flex items-center;
 }
 
+.dc-stats-graph-pct {
+  @apply text-xs font-medium text-blue-100 text-center p-0.5 leading-none;
+}
+
 /* ----- ABILITIES */
 .dc-abilities-container {
-  @apply p-3 rounded-2xl;
+  @apply p-5 rounded-2xl;
 }
 /* ---------- TITLE */
 .dc-abilities-title-wrapper {
-  @apply flex justify-center rounded-3xl;
+  @apply flex justify-center rounded-3xl text-xl font-semibold md:font-bold lg:text-2xl;
 }
 /* ---------- CONTENT */
 .dc-abilities-content-wrapper {
   @apply mt-5 lg:mt-4;
 }
 
+.dc-abilities-ul {
+  @apply list-disc flex flex-col items-center gap-y-3 capitalize text-xl font-semibold;
+}
+
 /* ----- EVOLUTION */
 .dc-evolution-container {
-  @apply p-3 md:col-span-2 rounded-2xl;
+  @apply p-5 md:col-span-2 rounded-2xl;
 }
 /* ---------- TITLE */
 .dc-evolution-title-wrapper {
-  @apply flex justify-center rounded-3xl;
+  @apply flex justify-center rounded-3xl text-xl font-semibold md:font-bold lg:text-2xl;
 }
 /* ---------- EVOLUTIONS */
 .dc-evolution-evolutions-wrapper {
@@ -121,6 +158,10 @@
 
 .dc-evolution-box-wrapper {
   @apply rounded-full w-20 h-20 sm:w-24 sm:h-24 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32;
+}
+
+.dc-evolution-box-label {
+  @apply text-center mt-1 lg:mt-4 font-semibold capitalize text-lg lg:text-xl;
 }
 
 /* BACKGROUNDS */

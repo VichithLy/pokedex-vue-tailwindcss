@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap justify-center gap-5">
+  <div class="sc-list-container">
     <SimpleCard
       v-for="(pokemon, index) in pokemonsArray"
       :key="index"
@@ -26,7 +26,7 @@ export default {
     const promise = new Promise((resolve) => {
       setTimeout(() => {
         resolve("resolved");
-      }, 200);
+      }, 2000);
     });
 
     const result = await promise;
