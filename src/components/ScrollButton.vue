@@ -1,8 +1,8 @@
 <template>
   <svg
+    v-show="userHasScrolled"
     xmlns="http://www.w3.org/2000/svg"
     class="h-12 w-12 fixed bottom-5 right-5 cursor-pointer text-pokemon-blue-500"
-    :class="!userHasScrolled && 'hidden'"
     viewBox="0 0 20 20"
     fill="currentColor"
     @click="smoothScrollTo('header')"

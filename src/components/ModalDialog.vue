@@ -1,82 +1,43 @@
 <template>
   <teleport to="body">
-    <transition
-      enter-active-class="transition ease-out duration-200 transform"
-      enter-from-class="opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="transition ease-in duration-200 transform"
-      leave-from-class="opacity-100"
-      leave-to-class="opacity-0"
+    <div
+      v-if="showModal"
+      ref="modal-backdrop"
+      class="fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-50 border-4"
+      @click="UPDATE_SHOW_MODAL(!showModal)"
     >
-      <div
-        v-if="showModal"
-        ref="modal-backdrop"
-        class="fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-50"
-      >
-        <div class="flex justify-center items-center h-full">
-          <div
-            v-show="showModal"
-            ref="modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-headline"
-            class="w-11/12 -sm:border-pink-400 -border-4 -md:border-black -lg:border-green-400"
-          >
-            <DetailedCard
-              :pokemon-object="selectedPokemon"
-              @click="closeModal"
-            />
-          </div>
+      <div class="flex justify-center items-center h-full">
+        <div
+          v-show="showModal"
+          ref="modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-headline"
+          class="w-11/12 -sm:border-pink-400 -border-4 -md:border-black -lg:border-green-400"
+        >
+          <DetailedCard :pokemon-object="selectedPokemon" />
         </div>
       </div>
-    </transition>
+    </div>
   </teleport>
 </template>
 
 <script>
 import DetailedCard from "../components/Cards/DetailedCard/DetailedCard.vue";
-import { ref, watch } from "vue";
-import { mapState } from "vuex";
-import PokemonsArray from "@/constants/pokemons_array.json";
+import { mapActions, mapState } from "vuex";
+import { UPDATE_SHOW_MODAL } from "../store/mutation-types";
 
 export default {
   name: "ModalDialog",
   components: {
     DetailedCard,
   },
-  props: {
-    show: {
-      type: Boolean,
-      default: false,
-    },
-  },
-
-  setup(props) {
-    const showModal = ref(false);
-
-    function closeModal() {
-      showModal.value = false;
-    }
-
-    watch(
-      () => props.show,
-      (show) => {
-        showModal.value = show;
-      },
-    );
-
-    return {
-      showModal,
-      closeModal,
-    };
-  },
-  data() {
-    return {
-      PokemonsArray,
-    };
-  },
   computed: {
     ...mapState("pokemon", ["selectedPokemon"]),
+    ...mapState("modal", ["showModal"]),
+  },
+  methods: {
+    ...mapActions("modal", [UPDATE_SHOW_MODAL]),
   },
 };
 </script>

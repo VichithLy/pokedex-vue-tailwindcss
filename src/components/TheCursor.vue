@@ -1,7 +1,7 @@
 <template>
   <img
     :src="isOverCard ? pokeballOpenImg : pokeballImg"
-    alt=""
+    alt="cursor"
     class="cursor absolute w-8 duration-200 ease-out z-10 drop-shadow"
     :class="isOverCard && !isMobileDevice ? 'animate-bounce' : ''"
   />

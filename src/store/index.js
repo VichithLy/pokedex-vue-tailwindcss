@@ -3,6 +3,7 @@ import cursor from "./modules/cursor.js";
 import accordion from "./modules/accordion.js";
 import sorting from "./modules/sorting.js";
 import pokemon from "./modules/pokemon.js";
+import modal from "./modules/modal.js";
 
 export default createStore({
   modules: {
@@ -10,5 +11,6 @@ export default createStore({
     accordion,
     sorting,
     pokemon,
+    modal,
   },
 });

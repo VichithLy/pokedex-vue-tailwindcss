@@ -4,7 +4,7 @@
     :class="gradientBackground"
     @mouseover="UPDATE_IS_OVER_CARD(true)"
     @mouseleave="UPDATE_IS_OVER_CARD(false)"
-    @click="UPDATE_SELECTED_POKEMON(pokemonObject)"
+    @click="handleOnCardClick"
   >
     <!-- Number and Type container -->
     <div class="sc-number-type-container">
@@ -23,19 +23,31 @@
 
     <PokemonName>{{ name }}</PokemonName>
   </div>
+
+  <ModalDialog />
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { UPDATE_IS_OVER_CARD } from "@/store/mutation-types";
+import { mapActions, mapState } from "vuex";
 import PokemonName from "./PokemonName.vue";
 import PokemonNumber from "./PokemonNumber.vue";
 import PokemonPicture from "./PokemonPicture.vue";
 import PokemonType from "./PokemonType.vue";
-import { UPDATE_SELECTED_POKEMON } from "../../../store/mutation-types";
+import {
+  UPDATE_SELECTED_POKEMON,
+  UPDATE_SHOW_MODAL,
+  UPDATE_IS_OVER_CARD,
+} from "../../../store/mutation-types";
+import ModalDialog from "../../ModalDialog.vue";
 
 export default {
-  components: { PokemonType, PokemonNumber, PokemonPicture, PokemonName },
+  components: {
+    PokemonType,
+    PokemonNumber,
+    PokemonPicture,
+    PokemonName,
+    ModalDialog,
+  },
   props: {
     pokemonObject: {
       type: Object,
@@ -53,6 +65,7 @@ export default {
     };
   },
   computed: {
+    ...mapState("modal", ["showModal"]),
     // This function return the bg class to apply on the cards if there are one or two types
     gradientBackground: function () {
       if (this.types.length == 2) {
@@ -64,6 +77,12 @@ export default {
   methods: {
     ...mapActions("cursor", [UPDATE_IS_OVER_CARD]),
     ...mapActions("pokemon", [UPDATE_SELECTED_POKEMON]),
+    ...mapActions("modal", [UPDATE_SHOW_MODAL]),
+    handleOnCardClick() {
+      this.UPDATE_SELECTED_POKEMON(this.pokemonObject).then(() => {
+        this.UPDATE_SHOW_MODAL(!this.showModal);
+      });
+    },
   },
 };
 </script>
