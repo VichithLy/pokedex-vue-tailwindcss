@@ -26,7 +26,7 @@ export default {
     const promise = new Promise((resolve) => {
       setTimeout(() => {
         resolve("resolved");
-      }, 2000);
+      }, 300);
     });
 
     const result = await promise;

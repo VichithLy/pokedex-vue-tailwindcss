@@ -6,14 +6,17 @@
     <!-- For async component -->
     <Suspense>
       <template #default>
-        <SimpleCardsList :pokemons-array="PokemonsArray" />
+        <SimpleCardsList
+          :pokemons-array="PokemonsArray"
+          @click="showModal = !showModal"
+        />
       </template>
 
       <template #fallback>
         <SimpleCardsSkeletonList />
       </template>
     </Suspense>
-
+    <ModalDialog :show="showModal" />
     <div class="flex flex-col justify-center gap-y-12 mt-10">
       <DetailedCardSkeleton class="mt-10" />
 
@@ -36,6 +39,8 @@ import SortByIdOrName from "./SortByIdOrName.vue";
 import PokemonsArray from "@/constants/pokemons_array.json";
 import ScrollButton from "./ScrollButton.vue";
 import DetailedCardSkeleton from "./Cards/DetailedCard/DetailedCardSkeleton.vue";
+import ModalDialog from "../components/ModalDialog.vue";
+import { ref } from "vue";
 
 export default {
   name: "TheMain",
@@ -46,8 +51,17 @@ export default {
     SortByIdOrName,
     ScrollButton,
     DetailedCardSkeleton,
+    ModalDialog,
   },
+  setup() {
+    const showModal = ref(false);
+    const closeModal = ref(true);
 
+    return {
+      showModal,
+      closeModal,
+    };
+  },
   data() {
     return {
       PokemonsArray,
