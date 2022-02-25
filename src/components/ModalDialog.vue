@@ -13,21 +13,19 @@
         ref="modal-backdrop"
         class="fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-50"
       >
-        <div class="flex items-start justify-center min-h-screen text-center">
+        <div class="flex justify-center items-center h-full">
           <div
+            v-show="showModal"
             ref="modal"
-            class="rounded-lg text-left overflow-hidden shadow-xl p-28"
             role="dialog"
             aria-modal="true"
-            v-show="showModal"
             aria-labelledby="modal-headline"
+            class="w-11/12 -sm:border-pink-400 -border-4 -md:border-black -lg:border-green-400"
           >
-            <div class="flex flex-col justify-center gap-y-12 mt-10">
-              <DetailedCard
-                :pokemon-object="selectedPokemon"
-                @click="closeModal"
-              />
-            </div>
+            <DetailedCard
+              :pokemon-object="selectedPokemon"
+              @click="closeModal"
+            />
           </div>
         </div>
       </div>
@@ -83,4 +81,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style></style>
