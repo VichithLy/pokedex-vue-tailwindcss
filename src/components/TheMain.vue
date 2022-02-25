@@ -15,6 +15,8 @@
     </Suspense>
 
     <div class="flex flex-col justify-center gap-y-12 mt-10">
+      <DetailedCardSkeleton class="mt-10" />
+
       <DetailedCard
         v-for="(pokemon, index) in PokemonsArray"
         :key="index"
@@ -33,6 +35,7 @@ import DetailedCard from "./Cards/DetailedCard/DetailedCard.vue";
 import SortByIdOrName from "./SortByIdOrName.vue";
 import PokemonsArray from "@/constants/pokemons_array.json";
 import ScrollButton from "./ScrollButton.vue";
+import DetailedCardSkeleton from "./Cards/DetailedCard/DetailedCardSkeleton.vue";
 
 export default {
   name: "TheMain",
@@ -42,6 +45,7 @@ export default {
     SimpleCardsSkeletonList,
     SortByIdOrName,
     ScrollButton,
+    DetailedCardSkeleton,
   },
 
   data() {

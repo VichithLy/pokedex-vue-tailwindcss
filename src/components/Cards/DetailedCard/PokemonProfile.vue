@@ -1,16 +1,10 @@
 <template>
   <div class="dc-profile-container bg-gray-50 bg-opacity-60">
     <!-- Pokemon ID -->
-    <div
-      class="dc-profile-id-wrapper text-xl md:text-2xl lg:text-3xl md:font-semibold"
-    >
-      #{{ profile.id }}
-    </div>
+    <div class="dc-profile-id-wrapper">#{{ profile.id }}</div>
 
     <!-- Pokemon name -->
-    <div
-      class="dc-profile-name-wrapper text-2xl md:text-3xl lg:text-4xl md:font-semibold capitalize"
-    >
+    <div class="dc-profile-name-wrapper">
       {{ profile.name }}
     </div>
 
@@ -28,12 +22,12 @@
 
     <!-- Pokemon weight & height -->
     <div class="dc-profile-hw-container font-semibold text-lg">
-      <div class="dc-profile-h-wrapper">
-        <img class="w-5 md:w-6 lg:w-7 mr-4" :src="heightIcon" />
+      <div class="dc-profile-hw-wrapper">
+        <img class="dc-profile-hw-icon" :src="heightIcon" />
         <div>{{ profile.height.m }} m / {{ profile.height.ft }} ft</div>
       </div>
-      <div class="dc-profile-w-wrapper">
-        <img class="w-5 md:w-6 lg:w-7 mr-4" :src="weightIcon" />
+      <div class="dc-profile-hw-wrapper">
+        <img class="dc-profile-hw-icon" :src="weightIcon" />
         <div>{{ profile.weight.kg }} kg / {{ profile.weight.lbs }} lbs</div>
       </div>
     </div>

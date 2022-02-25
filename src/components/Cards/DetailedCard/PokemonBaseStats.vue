@@ -1,8 +1,6 @@
 <template>
   <div class="dc-stats-container bg-gray-100 bg-opacity-60">
-    <div
-      class="dc-stats-title-wrapper text-xl font-semibold md:font-bold lg:text-2xl bg-gray-500 bg-opacity-30"
-    >
+    <div class="dc-stats-title-wrapper bg-gray-500 bg-opacity-30">
       Base stats
     </div>
 
@@ -29,7 +27,7 @@
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
-              class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full"
+              class="dc-stats-graph-pct bg-blue-600 rounded-l-full"
               :style="{
                 width: baseStats.attack + '%',
               }"
