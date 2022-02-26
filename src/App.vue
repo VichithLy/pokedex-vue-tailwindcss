@@ -17,4 +17,9 @@ body {
   /* When cursor is out the page */
   overflow-x: hidden;
 }
+
+.hide-overflow-y {
+  /* When modal is open */
+  overflow-y: hidden;
+}
 </style>

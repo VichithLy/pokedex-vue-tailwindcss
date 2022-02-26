@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sc-container hover:scale-105 ease-in-out duration-100 cursor-pointer border-b-4 border-gray-400 drop-shadow-lg"
+    class="sc-container hover:scale-105 ease-in-out duration-100 cursor-pointer border-b-4 border-gray-400 drop-shadow-lg select-none"
     :class="gradientBackground"
     @mouseover="UPDATE_IS_OVER_CARD(true)"
     @mouseleave="UPDATE_IS_OVER_CARD(false)"
@@ -39,6 +39,7 @@ import {
   UPDATE_IS_OVER_CARD,
 } from "../../../store/mutation-types";
 import ModalDialog from "../../ModalDialog.vue";
+import { hideBodyOverflowY } from "../../../utils";
 
 export default {
   components: {
@@ -81,6 +82,7 @@ export default {
     handleOnCardClick() {
       this.UPDATE_SELECTED_POKEMON(this.pokemonObject).then(() => {
         this.UPDATE_SHOW_MODAL(!this.showModal);
+        hideBodyOverflowY(true);
       });
     },
   },

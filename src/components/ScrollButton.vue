@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import smoothScrollTo from "../utils";
+import { smoothScrollTo } from "../utils";
 
 export default {
   data() {
