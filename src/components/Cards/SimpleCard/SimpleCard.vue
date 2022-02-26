@@ -23,8 +23,6 @@
 
     <PokemonName>{{ name }}</PokemonName>
   </div>
-
-  <ModalDialog />
 </template>
 
 <script>
@@ -38,7 +36,7 @@ import {
   UPDATE_SHOW_MODAL,
   UPDATE_IS_OVER_CARD,
 } from "../../../store/mutation-types";
-import ModalDialog from "../../ModalDialog.vue";
+
 import { hideBodyOverflowY } from "../../../utils";
 
 export default {
@@ -47,7 +45,6 @@ export default {
     PokemonNumber,
     PokemonPicture,
     PokemonName,
-    ModalDialog,
   },
   props: {
     pokemonObject: {

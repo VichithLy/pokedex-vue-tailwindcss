@@ -56,7 +56,7 @@
 /* DETAILED CARD */
 
 .dc-container {
-  @apply rounded-2xl grid grid-cols-1 gap-4 md:grid-cols-3 p-5;
+  @apply rounded-2xl grid grid-cols-1 gap-4 md:grid-cols-3 p-5 overflow-hidden;
 }
 
 /* ----- PROFILE */
