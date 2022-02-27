@@ -1,6 +1,6 @@
 [{
   "id": 1,
-  "name": "bulbasaur",
+  "name": "Butterfree",
   "about": "A strange seed was planted on its back at birth. The plant sprouts\nand grows with this Pokémon.",
   "types": ["grass","poison"],
   "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
@@ -34,7 +34,7 @@
 },
 {
   "id": 25,
-  "name": "pikachu",
+  "name": "Bellsprout",
   "about": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis Pokémon.",
   "types": ["electric"],
   "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
@@ -65,7 +65,7 @@
 },
 {
   "id": 34,
-  "name": "nidoking",
+  "name": "Tentacool",
   "about": "A strange seed was\nplanted on its\nback at birth.\fThe plant sprouts\nand grows with\nthis Pokémon.",
   "types": ["poison"],
   "picture": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/34.png",
@@ -117,10 +117,10 @@
   },
   "abilities": ["Guts","No-Guard","Steadfast"],
   "evolutions": [{
-    "nom":"pikachu",
+    "nom":"Tentacool",
     "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
   },{
-    "nom":"raichu",
+    "nom":"Bellsprout",
     "picture":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/34.png"
   },{
     "nom":"bulbasaur",

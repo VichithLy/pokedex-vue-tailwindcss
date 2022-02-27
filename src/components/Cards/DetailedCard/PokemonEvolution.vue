@@ -12,13 +12,9 @@
         class="dc-evolution-boxes-container"
       >
         <div class="dc-evolution-box-wrapper shadow-2xl bg-green-400">
-          <img
-            class="sm:w-28 m-auto"
-            :src="pokemonEvo.picture"
-            :alt="pokemonEvo.nom"
-          />
+          <img :src="pokemonEvo.picture" :alt="pokemonEvo.nom" />
         </div>
-        <div class="dc-evolution-box-label">
+        <div class="hidden sm:block dc-evolution-box-label">
           {{ pokemonEvo.nom }}
         </div>
       </div>

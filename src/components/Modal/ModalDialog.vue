@@ -6,7 +6,7 @@
       <div class="modal-wrapper">
         <div
           ref="modal"
-          class="w-10/12"
+          class="w-11/12"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-headline"

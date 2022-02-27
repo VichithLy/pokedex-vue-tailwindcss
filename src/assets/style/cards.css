@@ -61,7 +61,7 @@
 
 /* ----- PROFILE */
 .dc-profile-container {
-  @apply row-span-2 md:row-span-3 rounded-2xl flex flex-col justify-between py-10 items-center;
+  @apply row-span-2 md:row-span-3 rounded-2xl flex flex-col justify-between py-10 gap-6 items-center;
 }
 /* ---------- ID */
 .dc-profile-id-wrapper {
@@ -141,7 +141,7 @@
 
 /* ----- EVOLUTION */
 .dc-evolution-container {
-  @apply p-5 md:col-span-2 rounded-2xl;
+  @apply p-2 md:col-span-2 rounded-2xl;
 }
 /* ---------- TITLE */
 .dc-evolution-title-wrapper {
@@ -149,15 +149,15 @@
 }
 /* ---------- EVOLUTIONS */
 .dc-evolution-evolutions-wrapper {
-  @apply flex justify-center md:flex-row;
+  @apply flex justify-center overflow-x-auto gap-5 mt-3 px-4;
 }
 
 .dc-evolution-boxes-container {
-  @apply mt-4 md:mt-8 mx-5 lg:mx-10;
+  /* @apply mt-4 md:mt-8 mx-2 lg:mx-10; */
 }
 
 .dc-evolution-box-wrapper {
-  @apply rounded-full w-20 h-20 sm:w-24 sm:h-24 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32;
+  @apply rounded-full  w-20 h-20 sm:w-24 sm:h-24 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32;
 }
 
 .dc-evolution-box-label {

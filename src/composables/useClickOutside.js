@@ -13,6 +13,7 @@ function useEventListener(...args) {
   let event;
   let listener;
   let options;
+  let noop;
 
   [target, event, listener, options] = args;
 

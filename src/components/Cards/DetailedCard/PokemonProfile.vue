@@ -12,7 +12,7 @@
     <img class="dc-profile-picture-wrapper" :src="profile.picture" />
 
     <!-- Pokemon types -->
-    <div class="dc-profile-types-wrapper">
+    <div class="dc-profile-types-wrapper md:border-green-700">
       <PokemonType
         v-for="(type, index) in profile.types"
         :key="index"
