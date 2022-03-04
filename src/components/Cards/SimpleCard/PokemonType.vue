@@ -1,10 +1,6 @@
 <template>
-  <div class="sc-type-wrapper shadow-inner" :class="'back-color-' + typeColor">
-    <img
-      class="w-6 h-6 mt-1 sm:w-6 sm:h-6 m-auto sm:mt-2"
-      :src="getImg(typeColor)"
-      :alt="typeColor"
-    />
+  <div class="sc-type-wrapper" :class="'back-color-' + typeColor">
+    <img class="sc-type-picture" :src="getImg(typeColor)" :alt="typeColor" />
   </div>
 </template>
 
@@ -18,7 +14,7 @@ export default {
     },
   },
   methods: {
-    // This function return the pic who's associate to the type
+    // This function returns the pic who's associated to the type
     getImg(typeColor) {
       return require("@/assets/images/types/" + typeColor + ".png");
     },
