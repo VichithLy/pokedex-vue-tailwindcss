@@ -5,7 +5,7 @@
     </div>
 
     <!-- Base stats graph -->
-    <div class="flex flex-col gap-y-4">
+    <div class="dc-stats-list">
       <div class="dc-stats-graph-wrapper">
         <img :src="heartIcon" class="w-9 icon-heart" />
         <div class="w-10/12 ml-3">

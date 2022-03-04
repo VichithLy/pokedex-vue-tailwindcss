@@ -49,7 +49,7 @@
       <div class="dc-stats-title-wrapper skeleton-2-pulse text-transparent">
         text
       </div>
-      <div class="flex flex-col gap-y-4">
+      <div class="dc-stats-list">
         <div v-for="n in 6" :key="n" class="dc-stats-graph-wrapper">
           <div class="w-9 h-9 skeleton-2-pulse rounded-full"></div>
           <div
@@ -78,7 +78,9 @@
       <div class="dc-evolution-evolutions-wrapper">
         <div v-for="n in 3" :key="n" class="dc-evolution-boxes-container">
           <div class="dc-evolution-box-wrapper skeleton-2-pulse"></div>
-          <div class="text-center mt-1 lg:mt-4 rounded-lg skeleton-2-pulse">
+          <div
+            class="dc-evolution-box-label rounded-lg w-full skeleton-2-pulse"
+          >
             text
           </div>
         </div>

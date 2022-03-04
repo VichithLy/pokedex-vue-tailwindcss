@@ -60,7 +60,7 @@
 /* DETAILED CARD */
 
 .dc-container {
-  @apply rounded-2xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5 overflow-hidden;
+  @apply rounded-2xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5;
 }
 
 /* ----- PROFILE */
@@ -111,8 +111,13 @@
 
 /* ----- STATS */
 .dc-stats-container {
-  @apply flex flex-col gap-y-6 p-5 md:row-span-2 rounded-2xl;
+  @apply flex flex-col p-5 md:row-span-2 rounded-2xl;
 }
+
+.dc-stats-list {
+  @apply flex flex-col mt-4 gap-y-2;
+}
+
 /* ---------- TITLE */
 .dc-stats-title-wrapper {
   @apply flex justify-center rounded-2xl text-xl font-semibold md:font-bold lg:text-2xl;
@@ -140,12 +145,12 @@
 }
 
 .dc-abilities-ul {
-  @apply list-disc flex flex-col items-center gap-y-3 capitalize text-xl font-semibold;
+  @apply list-disc flex flex-col items-center gap-y-3 capitalize text-xl font-semibold mt-4;
 }
 
 /* ----- EVOLUTION */
 .dc-evolution-container {
-  @apply md:col-span-2 rounded-2xl p-5;
+  @apply md:col-span-2 rounded-2xl p-5 flex flex-col justify-between;
 }
 /* ---------- TITLE */
 .dc-evolution-title-wrapper {
@@ -153,19 +158,20 @@
 }
 /* ---------- EVOLUTIONS */
 .dc-evolution-evolutions-wrapper {
-  @apply flex justify-center flex-wrap gap-5 mt-3 px-4;
+  @apply flex lg:justify-center overflow-x-auto w-auto gap-5 lg:gap-16 mt-4;
 }
 
 .dc-evolution-boxes-container {
-  /* @apply mt-4 md:mt-8 mx-2 lg:mx-10; */
+  @apply flex flex-col items-center m-auto lg:m-0 cursor-pointer;
 }
 
 .dc-evolution-box-wrapper {
-  @apply rounded-full  w-20 h-20 sm:w-24 sm:h-24 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32;
+  @apply rounded-full w-24 h-24 p-2 bg-gray-500 bg-opacity-20;
 }
 
 .dc-evolution-box-label {
   @apply text-center mt-1 lg:mt-4 font-semibold capitalize text-lg lg:text-xl;
+  /*hidden sm:block*/
 }
 
 /* BACKGROUNDS */
