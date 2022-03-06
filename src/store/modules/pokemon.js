@@ -1,8 +1,8 @@
 import { UPDATE_SEARCHED_POKEMON } from "@/store/mutation-types";
 import { UPDATE_SELECTED_POKEMON } from "@/store/mutation-types";
-// Mock data
-import pokemonsArray from "@/constants/pokemons_array.json";
-import { UPDATE_POKEMONS } from "../mutation-types";
+//import pokemonsArray from "@/data/pokemons_array.json";
+import { UPDATE_POKEMONS, GET_POKEMONS, ADD_POKEMON } from "../mutation-types";
+import { getPokemonByName, getPokemons } from "@/services/PokeAPI";
 
 export default {
   namespaced: true,
@@ -11,7 +11,8 @@ export default {
     return {
       searchedPokemon: "",
       selectedPokemon: {},
-      pokemons: pokemonsArray,
+      //pokemons: pokemonsArray,
+      pokemons2: [],
     };
   },
 
@@ -25,6 +26,9 @@ export default {
     [UPDATE_POKEMONS](state, pokemons) {
       state.pokemons = pokemons;
     },
+    [ADD_POKEMON](state, pokemon) {
+      state.pokemons2.push(pokemon);
+    },
   },
 
   actions: {
@@ -34,8 +38,26 @@ export default {
     [UPDATE_SELECTED_POKEMON]({ commit }, selectedPokemon) {
       commit(UPDATE_SELECTED_POKEMON, selectedPokemon);
     },
-    [UPDATE_POKEMONS]({ commit }, pokemons) {
-      commit(UPDATE_POKEMONS, pokemons);
+
+    [GET_POKEMONS]({ commit }) {
+      getPokemons().then((response) => {
+        const pokemons = response.data.results;
+
+        pokemons.forEach((pokemon) => {
+          getPokemonByName(pokemon.name).then((result) => {
+            const pokemon = result.data;
+
+            const pokemonObject = {
+              id: pokemon.id,
+              name: pokemon.name,
+              types: pokemon.types.map((object) => object.type.name),
+              picture: pokemon.sprites.other["official-artwork"].front_default,
+            };
+
+            commit(ADD_POKEMON, pokemonObject);
+          });
+        });
+      });
     },
   },
 
