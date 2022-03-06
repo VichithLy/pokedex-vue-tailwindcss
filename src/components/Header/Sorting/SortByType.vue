@@ -21,7 +21,7 @@
 
 <script>
 import TypeCheckboxButton from "./TypeCheckboxButton.vue";
-import types from "../../../constants/pokemon_types.json";
+import types from "@/data/pokemon_types.json";
 
 export default {
   components: { TypeCheckboxButton },

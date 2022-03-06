@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import pokemonsArray from "@/constants/pokemons_array.json";
+import pokemonsArray from "@/data/pokemons_array.json";
 
 export default {
   data() {

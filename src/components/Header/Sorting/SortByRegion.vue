@@ -17,7 +17,7 @@
 
 <script>
 import RegionToggleSwitch from "./RegionToggleSwitch.vue";
-import regions from "../../../constants/pokemon_regions.json";
+import regions from "../../../data/pokemon_regions.json";
 
 export default {
   name: "SortByRegion",

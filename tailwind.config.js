@@ -1,4 +1,4 @@
-const types = require("./src/constants/pokemon_types.json");
+const types = require("./src/data/pokemon_types.json");
 
 module.exports = {
   mode: "jit",
