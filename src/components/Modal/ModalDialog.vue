@@ -51,10 +51,7 @@ export default {
     // Composable
     const { onClickOutside } = useClickOutside();
 
-    onClickOutside(modal, () => {
-      console.log("onClickOutside");
-      closeModal();
-    });
+    onClickOutside(modal, closeModal());
 
     return {
       selectedPokemon,

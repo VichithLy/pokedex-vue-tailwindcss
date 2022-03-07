@@ -1,6 +1,5 @@
 import { UPDATE_SEARCHED_POKEMON } from "@/store/mutation-types";
 import { UPDATE_SELECTED_POKEMON } from "@/store/mutation-types";
-//import pokemonsArray from "@/data/pokemons_array.json";
 import { UPDATE_POKEMONS, GET_POKEMONS, ADD_POKEMON } from "../mutation-types";
 import { getPokemonByName, getPokemons } from "@/services/PokeAPI";
 
@@ -11,8 +10,7 @@ export default {
     return {
       searchedPokemon: "",
       selectedPokemon: {},
-      //pokemons: pokemonsArray,
-      pokemons2: [],
+      pokemons: [],
     };
   },
 
@@ -27,7 +25,7 @@ export default {
       state.pokemons = pokemons;
     },
     [ADD_POKEMON](state, pokemon) {
-      state.pokemons2.push(pokemon);
+      state.pokemons.push(pokemon);
     },
   },
 
@@ -39,26 +37,41 @@ export default {
       commit(UPDATE_SELECTED_POKEMON, selectedPokemon);
     },
 
-    [GET_POKEMONS]({ commit }) {
-      getPokemons().then((response) => {
-        const pokemons = response.data.results;
+    async [GET_POKEMONS]({ commit }) {
+      return new Promise((resolve, reject) => {
+        getPokemons()
+          .then((response) => {
+            const pokemons = response.data.results;
 
-        pokemons.forEach((pokemon) => {
-          getPokemonByName(pokemon.name).then((result) => {
-            const pokemon = result.data;
+            pokemons.forEach((pokemon) => {
+              getPokemonByName(pokemon.name).then((result) => {
+                const pokemon = result.data;
 
-            const pokemonObject = {
-              id: pokemon.id,
-              name: pokemon.name,
-              types: pokemon.types.map((object) => object.type.name),
-              picture: pokemon.sprites.other["official-artwork"].front_default,
-            };
+                const pokemonObject = {
+                  id: pokemon.id,
+                  name: pokemon.name,
+                  types: pokemon.types.map((object) => object.type.name),
+                  picture:
+                    pokemon.sprites.other["official-artwork"].front_default,
+                };
 
-            commit(ADD_POKEMON, pokemonObject);
+                commit(ADD_POKEMON, pokemonObject);
+                resolve(pokemonObject);
+              });
+            });
+          })
+          .catch((error) => {
+            reject(error);
           });
-        });
       });
     },
+    // TODO : getPokemonByName and make Pokemon object (for DetailedCard)
+    // TODO : commit to selectedPokemon
+
+    // async [GET_POKEMON]({ commit }, name) {
+    //   return new Promise((resolve, reject) => {
+    //   });
+    // },
   },
 
   getters: {

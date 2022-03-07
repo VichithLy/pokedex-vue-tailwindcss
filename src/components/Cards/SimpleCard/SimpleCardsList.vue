@@ -1,7 +1,7 @@
 <template>
   <div class="sc-list-container">
     <SimpleCard
-      v-for="(pokemon, index) in pokemonsArray"
+      v-for="(pokemon, index) in pokemons"
       :key="index"
       :pokemon-object="pokemon"
     />
@@ -9,29 +9,28 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { useStore } from "vuex";
 import SimpleCard from "./SimpleCard.vue";
+import { GET_POKEMONS } from "../../../store/mutation-types";
 
 export default {
   components: { SimpleCard },
-  props: {
-    pokemonsArray: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
-  },
   //Composition API
   async setup() {
-    // Artificial promise (PokéAPI will be used)
-    const promise = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("resolved");
-      }, 300);
-    });
+    // Access states and actions in store
+    const { state, dispatch } = useStore();
 
-    const result = await promise;
+    const pokemons = computed(() => state.pokemon.pokemons);
 
-    return { result };
+    try {
+      // For Suspense component
+      await dispatch("pokemon/" + GET_POKEMONS);
+    } catch (error) {
+      console.log(error);
+    }
+
+    return { pokemons };
   },
 };
 </script>

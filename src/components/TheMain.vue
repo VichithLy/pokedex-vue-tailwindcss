@@ -11,15 +11,13 @@
     <!-- For async component -->
     <Suspense>
       <template #default>
-        <SimpleCardsList :pokemons-array="pokemons2" />
+        <SimpleCardsList />
       </template>
 
       <template #fallback>
         <SimpleCardsSkeletonList />
       </template>
     </Suspense>
-
-    <!-- ! TO UNCOMMENT -->
 
     <!-- <div class="flex flex-col justify-center gap-y-12 mt-10">
       <DetailedCardSkeleton class="mt-10" />
@@ -48,8 +46,7 @@ import SimpleCardsSkeletonList from "./Cards/SimpleCard/SimpleCardsSkeletonList.
 import SortByIdOrName from "./SortByIdOrName.vue";
 import ScrollButton from "./ScrollButton.vue";
 //import DetailedCardSkeleton from "./Cards/DetailedCard/DetailedCardSkeleton.vue";
-import { mapActions, mapState } from "vuex";
-import { GET_POKEMONS } from "../store/mutation-types";
+import { mapState } from "vuex";
 //import ModalDialog from "./Modal/ModalDialog.vue";
 
 export default {
@@ -69,14 +66,7 @@ export default {
     };
   },
   computed: {
-    // ! REPLACE POKEMONS BY POKEMONS2
-    ...mapState("pokemon", ["pokemons", "selectedPokemon", "pokemons2"]),
-  },
-  mounted() {
-    this.GET_POKEMONS();
-  },
-  methods: {
-    ...mapActions("pokemon", [GET_POKEMONS]),
+    ...mapState("pokemon", ["pokemons", "selectedPokemon"]),
   },
 };
 </script>
