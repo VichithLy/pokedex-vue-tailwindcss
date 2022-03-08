@@ -15,3 +15,7 @@ export const getPokemons = () => {
 export const getPokemonByName = (name) => {
   return API().get(`/pokemon/${name}`);
 };
+
+export const getInfoByUrl = (url) => {
+  return API(url).get();
+};

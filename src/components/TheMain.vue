@@ -31,9 +31,9 @@
 
     <!-- ! TO UNCOMMENT -->
 
-    <!-- <ModalDialog v-if="selectedPokemon">
+    <ModalDialog v-if="selectedPokemon">
       <DetailedCard :pokemon-object="selectedPokemon" />
-    </ModalDialog> -->
+    </ModalDialog>
 
     <ScrollButton />
   </main>
@@ -42,23 +42,24 @@
 <script>
 import SimpleCardsList from "./Cards/SimpleCard/SimpleCardsList.vue";
 import SimpleCardsSkeletonList from "./Cards/SimpleCard/SimpleCardsSkeletonList.vue";
-//import DetailedCard from "./Cards/DetailedCard/DetailedCard.vue";
+import DetailedCard from "./Cards/DetailedCard/DetailedCard.vue";
 import SortByIdOrName from "./SortByIdOrName.vue";
 import ScrollButton from "./ScrollButton.vue";
 //import DetailedCardSkeleton from "./Cards/DetailedCard/DetailedCardSkeleton.vue";
 import { mapState } from "vuex";
-//import ModalDialog from "./Modal/ModalDialog.vue";
+
+import ModalDialog from "./Modal/ModalDialog.vue";
 
 export default {
   name: "TheMain",
   components: {
-    //DetailedCard,
+    DetailedCard,
     SimpleCardsList,
     SimpleCardsSkeletonList,
     SortByIdOrName,
     ScrollButton,
     //DetailedCardSkeleton,
-    //ModalDialog,
+    ModalDialog,
   },
   data() {
     return {
@@ -67,6 +68,7 @@ export default {
   },
   computed: {
     ...mapState("pokemon", ["pokemons", "selectedPokemon"]),
+    ...mapState("modal", ["showModal"]),
   },
 };
 </script>

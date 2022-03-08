@@ -4,6 +4,10 @@
     <!-- Page overlay -->
     <div v-if="showModal" class="modal-overlay">
       <div class="modal-wrapper">
+        <!-- Close button -->
+        <div class="flex w-full justify-end mb-2">
+          <CloseButton @click="closeModal" />
+        </div>
         <div
           ref="modal"
           class="w-11/12"
@@ -11,10 +15,6 @@
           aria-modal="true"
           aria-labelledby="modal-headline"
         >
-          <!-- Close button -->
-          <div class="flex w-full justify-end mb-2">
-            <CloseButton @click="closeModal" />
-          </div>
           <slot></slot>
         </div>
       </div>
@@ -50,8 +50,7 @@ export default {
     }
     // Composable
     const { onClickOutside } = useClickOutside();
-
-    onClickOutside(modal, closeModal());
+    onClickOutside(modal, () => closeModal());
 
     return {
       selectedPokemon,

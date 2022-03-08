@@ -3,6 +3,8 @@ import { UPDATE_SELECTED_POKEMON } from "@/store/mutation-types";
 import { UPDATE_POKEMONS, GET_POKEMONS, ADD_POKEMON } from "../mutation-types";
 import { getPokemonByName, getPokemons } from "@/services/PokeAPI";
 
+const pokemonsArray = require("../../data/pokemons_array.json");
+
 export default {
   namespaced: true,
 
@@ -10,7 +12,7 @@ export default {
     return {
       searchedPokemon: "",
       selectedPokemon: {},
-      pokemons: [],
+      pokemons: pokemonsArray,
     };
   },
 

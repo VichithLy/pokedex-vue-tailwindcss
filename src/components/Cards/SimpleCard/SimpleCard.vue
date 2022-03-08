@@ -37,7 +37,8 @@ import {
   UPDATE_IS_OVER_CARD,
 } from "../../../store/mutation-types";
 
-import { hideBodyOverflowY } from "../../../utils";
+import { hideBodyOverflowY, getRecursiveEvolution } from "@/utils";
+import { getPokemonByName, getInfoByUrl } from "@/services/PokeAPI";
 
 export default {
   components: {
@@ -64,7 +65,7 @@ export default {
   },
   computed: {
     ...mapState("modal", ["showModal"]),
-    // This function return the bg class to apply on the cards if there are one or two types
+    // This function returns the bg class to apply on the cards if there are one or two types
     gradientBackground: function () {
       if (this.types.length == 2) {
         return `bg-gradient-to-b back-from-${this.types[0]} back-to-${this.types[1]}`;
@@ -76,10 +77,65 @@ export default {
     ...mapActions("cursor", [UPDATE_IS_OVER_CARD]),
     ...mapActions("pokemon", [UPDATE_SELECTED_POKEMON]),
     ...mapActions("modal", [UPDATE_SHOW_MODAL]),
+
     handleOnCardClick() {
       this.UPDATE_SELECTED_POKEMON(this.pokemonObject).then(() => {
         this.UPDATE_SHOW_MODAL(!this.showModal);
         hideBodyOverflowY(true);
+      });
+    },
+
+    setDetailedPokemon(name) {
+      getPokemonByName(name).then((response) => {
+        const pokemon = response.data;
+        const species_url = pokemon.species.url;
+
+        // Get the species
+        getInfoByUrl(species_url).then((response) => {
+          const species = response.data;
+
+          // About
+          const about = species.flavor_text_entries[0].flavor_text;
+
+          // Evolution
+          const evolution_chain_url = species.evolution_chain.url;
+
+          // Get the evolution chain
+          getInfoByUrl(evolution_chain_url).then((response) => {
+            const evolution_chain = response.data.chain;
+
+            let evolution_chain_array = [];
+            getRecursiveEvolution(evolution_chain, evolution_chain_array);
+
+            // Create the Pokemon object used in the DetailedCard component
+            const pokemonObject = {
+              id: pokemon.id,
+              name: pokemon.name,
+              about: about,
+              types: pokemon.types.map((object) => object.type.name),
+              picture: pokemon.sprites.other["official-artwork"].front_default,
+              weight: pokemon.weight,
+              height: pokemon.height,
+              base_stats: {
+                hp: pokemon.stats[0].base_stat,
+                attack: pokemon.stats[1].base_stat,
+                defense: pokemon.stats[2].base_stat,
+                specialAttack: pokemon.stats[3].base_stat,
+                specialDefense: pokemon.stats[4].base_stat,
+                speed: pokemon.stats[5].base_stat,
+              },
+              abilities: pokemon.abilities.map((object) => object.ability.name),
+              evolutions: evolution_chain_array,
+            };
+
+            console.log(pokemonObject);
+
+            this.UPDATE_SELECTED_POKEMON(pokemonObject).then(() => {
+              this.UPDATE_SHOW_MODAL(!this.showModal);
+              hideBodyOverflowY(true);
+            });
+          });
+        });
       });
     },
   },

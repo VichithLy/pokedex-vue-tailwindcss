@@ -1,5 +1,5 @@
 /**
- * Scrolls to the element id in the DOM
+ * Scrolls to the element id in the DOM.
  * @param { String } id
  */
 export const smoothScrollTo = (id) => {
@@ -23,5 +23,30 @@ export const hideBodyOverflowY = (bool) => {
 
   if (!bool) {
     document.body.classList.remove("hide-overflow-y");
+  }
+};
+
+/**
+ * Get recursively an array of a Pokemon's evolution chain.
+ * This function have to be applied on the chain returned by the request to PokeAPI https://pokeapi.co/api/v2/evolution-chain/{id}/.
+ * @param { Array || Object } data : the evolves_to Array
+ * @param { Array } resultArray : the array of the evolutions chains (e.g. ["grass", "fire"])
+ * @returns { Array } the result array
+ */
+export const getRecursiveEvolution = (data, resultArray) => {
+  // Base case
+  if (Array.isArray(data) && data.length == 0) {
+    return resultArray;
+  } else {
+    // Recursive case
+    if (Array.isArray(data)) {
+      resultArray.push(data[0].species.name);
+      return getRecursiveEvolution(data[0].evolves_to, resultArray);
+    }
+
+    if (data instanceof Object) {
+      resultArray.push(data.species.name);
+      return getRecursiveEvolution(data.evolves_to, resultArray);
+    }
   }
 };
