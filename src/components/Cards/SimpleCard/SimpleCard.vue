@@ -73,6 +73,9 @@ export default {
       return `back-color-${this.types[0]}-dark`;
     },
   },
+  mounted() {
+    console.log(this.setDetailedPokemon("butterfree"));
+  },
   methods: {
     ...mapActions("cursor", [UPDATE_IS_OVER_CARD]),
     ...mapActions("pokemon", [UPDATE_SELECTED_POKEMON]),
@@ -89,7 +92,6 @@ export default {
       getPokemonByName(name).then((response) => {
         const pokemon = response.data;
         const species_url = pokemon.species.url;
-
         // Get the species
         getInfoByUrl(species_url).then((response) => {
           const species = response.data;
@@ -99,14 +101,13 @@ export default {
 
           // Evolution
           const evolution_chain_url = species.evolution_chain.url;
+          console.log(evolution_chain_url);
 
           // Get the evolution chain
           getInfoByUrl(evolution_chain_url).then((response) => {
             const evolution_chain = response.data.chain;
-
             let evolution_chain_array = [];
             getRecursiveEvolution(evolution_chain, evolution_chain_array);
-
             // Create the Pokemon object used in the DetailedCard component
             const pokemonObject = {
               id: pokemon.id,
@@ -114,8 +115,14 @@ export default {
               about: about,
               types: pokemon.types.map((object) => object.type.name),
               picture: pokemon.sprites.other["official-artwork"].front_default,
-              weight: pokemon.weight,
-              height: pokemon.height,
+              weight: {
+                kg: pokemon.weight / 10,
+                lbs: ((pokemon.weight / 10) * 2.205).toFixed(1),
+              },
+              height: {
+                m: pokemon.height / 10,
+                ft: ((pokemon.height / 10) * 3.281).toFixed(1),
+              },
               base_stats: {
                 hp: pokemon.stats[0].base_stat,
                 attack: pokemon.stats[1].base_stat,
@@ -127,7 +134,6 @@ export default {
               abilities: pokemon.abilities.map((object) => object.ability.name),
               evolutions: evolution_chain_array,
             };
-
             console.log(pokemonObject);
 
             this.UPDATE_SELECTED_POKEMON(pokemonObject).then(() => {
