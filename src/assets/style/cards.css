@@ -65,15 +65,15 @@
 
 /* ----- PROFILE */
 .dc-profile-container {
-  @apply row-span-2 md:row-span-3 flex flex-col justify-between items-center text-2xl rounded-2xl p-5 gap-5 sm:gap-0;
+  @apply row-span-2 md:row-span-3 flex flex-col justify-between items-center rounded-2xl p-5 gap-5 sm:gap-0;
 }
 /* ---------- ID */
 .dc-profile-id-wrapper {
-  @apply flex justify-center font-extrabold;
+  @apply flex justify-center font-extrabold text-2xl;
 }
 /* ---------- NAME */
 .dc-profile-name-wrapper {
-  @apply flex justify-center capitalize;
+  @apply flex justify-center capitalize text-2xl;
 }
 /* ---------- PICTURE */
 .dc-profile-picture-wrapper {

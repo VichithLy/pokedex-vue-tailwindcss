@@ -26,3 +26,13 @@
 .modal-wrapper {
   @apply flex flex-col items-center justify-center min-h-screen text-center;
 }
+
+/* TOOLTIP */
+
+.tooltip {
+  @apply invisible absolute;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible z-10;
+}
