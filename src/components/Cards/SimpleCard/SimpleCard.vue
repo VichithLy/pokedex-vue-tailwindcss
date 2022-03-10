@@ -136,10 +136,11 @@ export default {
             };
             console.log(pokemonObject);
 
-            this.UPDATE_SELECTED_POKEMON(pokemonObject).then(() => {
-              this.UPDATE_SHOW_MODAL(!this.showModal);
-              hideBodyOverflowY(true);
-            });
+            // ! KEEP IT COMMENTED FOR NOW
+            // this.UPDATE_SELECTED_POKEMON(pokemonObject).then(() => {
+            //   this.UPDATE_SHOW_MODAL(!this.showModal);
+            //   hideBodyOverflowY(true);
+            // });
           });
         });
       });

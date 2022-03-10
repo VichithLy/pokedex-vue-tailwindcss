@@ -14,7 +14,7 @@
 /* LINKS */
 
 .link {
-  @apply underline text-pokemon-blue-500 hover:text-pokemon-blue-800 visited:text-pokemon-blue-400;
+  @apply text-pokemon-blue-500 hover:underline visited:text-pokemon-blue-700;
 }
 
 /* MODAL */

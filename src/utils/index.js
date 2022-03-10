@@ -28,9 +28,9 @@ export const hideBodyOverflowY = (bool) => {
 
 /**
  * Get recursively an array of a Pokemon's evolution chain.
- * This function have to be applied on the chain returned by the request to PokeAPI https://pokeapi.co/api/v2/evolution-chain/{id}/.
- * @param { Array || Object } data : the evolves_to Array
- * @param { Array } resultArray : the array of the evolutions chains (e.g. ["grass", "fire"])
+ * This function has to be applied on the chain returned by the request to PokeAPI https://pokeapi.co/api/v2/evolution-chain/{id}/.
+ * @param { Object } data the evolves_to Array
+ * @param { Array } resultArray the array of the evolutions chains (e.g. ["grass", "fire"])
  * @returns { Array } the result array
  */
 export const getRecursiveEvolution = (data, resultArray) => {
