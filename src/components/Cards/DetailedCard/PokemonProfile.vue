@@ -16,7 +16,7 @@
       <PokemonType
         v-for="(type, index) in profile.types"
         :key="index"
-        :type-color="type"
+        :type="type"
       />
     </div>
 

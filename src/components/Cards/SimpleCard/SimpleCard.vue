@@ -11,11 +11,7 @@
       <PokemonNumber> #{{ id }} </PokemonNumber>
 
       <div class="sc-types-container">
-        <PokemonType
-          v-for="(type, index) in types"
-          :key="index"
-          :type-color="type"
-        />
+        <PokemonType v-for="(type, index) in types" :key="index" :type="type" />
       </div>
     </div>
 
@@ -101,7 +97,6 @@ export default {
 
           // Evolution
           const evolution_chain_url = species.evolution_chain.url;
-          console.log(evolution_chain_url);
 
           // Get the evolution chain
           getInfoByUrl(evolution_chain_url).then((response) => {
@@ -134,6 +129,7 @@ export default {
               abilities: pokemon.abilities.map((object) => object.ability.name),
               evolutions: evolution_chain_array,
             };
+
             console.log(pokemonObject);
 
             // ! KEEP IT COMMENTED FOR NOW

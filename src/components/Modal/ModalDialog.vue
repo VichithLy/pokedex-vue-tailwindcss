@@ -5,7 +5,7 @@
     <div v-if="showModal" class="modal-overlay">
       <div class="modal-wrapper">
         <!-- Close button -->
-        <div class="flex w-full justify-end mb-2">
+        <div class="flex w-full justify-end mb-2 mr-4">
           <CloseButton @click="closeModal" />
         </div>
         <div
