@@ -1,6 +1,6 @@
 /**
  * Scrolls to the element id in the DOM.
- * @param { String } id
+ * @param { string } id
  */
 export const smoothScrollTo = (id) => {
   // time param needs to be greater than the css animation duration
@@ -29,9 +29,9 @@ export const hideBodyOverflowY = (bool) => {
 /**
  * Get recursively an array of a Pokemon's evolution chain.
  * This function has to be applied on the chain returned by the request to PokeAPI https://pokeapi.co/api/v2/evolution-chain/{id}/.
- * @param { Object } data the evolves_to Array
- * @param { Array } resultArray the array of the evolutions chains (e.g. ["grass", "fire"])
- * @returns { Array } the result array
+ * @param { object } data the evolves_to Array
+ * @param { array } resultArray the array of the evolutions chains (e.g. ["grass", "fire"])
+ * @returns { array } the result array
  */
 export const getRecursiveEvolution = (data, resultArray) => {
   // Base case
@@ -50,3 +50,17 @@ export const getRecursiveEvolution = (data, resultArray) => {
     }
   }
 };
+
+/**
+ * Converts kg to lbs
+ * @param { number } weight
+ * @returns kg weight in lbs
+ */
+export const kgToLbs = (weight) => parseFloat((weight * 2.205).toFixed(1));
+
+/**
+ * Converts m to ft
+ * @param { number } height
+ * @returns m height in ft
+ */
+export const mToFt = (height) => parseFloat((height * 3.281).toFixed(1));
