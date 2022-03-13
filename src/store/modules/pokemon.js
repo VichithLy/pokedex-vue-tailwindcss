@@ -23,6 +23,8 @@ export default {
       searchedPokemon: "",
       selectedPokemon: {},
       pokemons: pokemonsArray,
+      //allPokemons
+      //filteredPokemons
     };
   },
 
@@ -39,6 +41,9 @@ export default {
     [ADD_POKEMON](state, pokemon) {
       state.pokemons.push(pokemon);
     },
+    // [UPDATE_FILTERED_POKEMONS](state, filteredPokemons) {
+    //   state.filteredPokemons = filteredPokemons;
+    // },
   },
 
   actions: {
@@ -137,6 +142,23 @@ export default {
           });
       });
     },
+    // async [SET_POKEMONS_BY_REGIONS]({ commit }, ids) {
+    //   ids.forEach((id) => {
+    //     getGenerationById(id).then((response) => {
+    //       const pokemons_species = response.pokemon_species;
+
+    //       const pokemons_by_regions = [];
+
+    //       pokemons_species.forEach((specie) => {
+    //         getPokemonByName(specie.name).then((pokemon) =>
+    //           pokemons_by_regions.push(pokemon),
+    //         );
+    //       });
+
+    //       commit(UPDATE_POKEMONS, pokemons_by_regions);
+    //     });
+    //   });
+    // },
   },
 
   getters: {
