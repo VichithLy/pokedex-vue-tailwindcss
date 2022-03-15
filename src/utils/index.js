@@ -52,15 +52,30 @@ export const getRecursiveEvolution = (data, resultArray) => {
 };
 
 /**
- * Converts kg to lbs
+ * Converts hg to kg
  * @param { number } weight
- * @returns kg weight in lbs
+ * @returns hg weihgt in kg
  */
-export const kgToLbs = (weight) => parseFloat((weight * 2.205).toFixed(1));
+export const hgToKg = (weight) => weight / 10;
+/**
+ * Converts hg to lbs
+ * @param { number } weight
+ * @returns hg weight in lbs
+ */
+export const hgToLbs = (weight) =>
+  parseFloat(((weight / 10) * 2.205).toFixed(1));
+
+/**
+ * Converts dm to m
+ * @param { number } height
+ * @returns dm height in m
+ */
+export const dmToM = (height) => height / 10;
 
 /**
  * Converts m to ft
  * @param { number } height
  * @returns m height in ft
  */
-export const mToFt = (height) => parseFloat((height * 3.281).toFixed(1));
+export const dmToFt = (height) =>
+  parseFloat(((height / 10) * 3.281).toFixed(1));

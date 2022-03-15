@@ -36,8 +36,8 @@ export default {
     [UPDATE_SEARCHED_POKEMON](state, searchedPokemon) {
       state.searchedPokemon = searchedPokemon;
     },
-    [UPDATE_SELECTED_POKEMON](state, selectedPokemon) {
-      state.selectedPokemon = selectedPokemon;
+    [UPDATE_SELECTED_POKEMON](state, pokemon) {
+      state.selectedPokemon = pokemon;
     },
     [SET_ALL_POKEMONS](state, payload) {
       state.allPokemons.count = payload.count;
@@ -58,8 +58,8 @@ export default {
     [UPDATE_SEARCHED_POKEMON]({ commit }, searchedPokemon) {
       commit(UPDATE_SEARCHED_POKEMON, searchedPokemon);
     },
-    [UPDATE_SELECTED_POKEMON]({ commit }, selectedPokemon) {
-      commit(UPDATE_SELECTED_POKEMON, selectedPokemon);
+    [UPDATE_SELECTED_POKEMON]({ commit }, pokemon) {
+      commit(UPDATE_SELECTED_POKEMON, pokemon);
     },
 
     [SET_ALL_POKEMONS]({ commit }) {
@@ -84,29 +84,29 @@ export default {
       const FILTERED_POKEMONS_COUNT = state.filteredPokemons.count;
       const ALL_POKEMONS_COUNT = state.allPokemons.count - 1;
 
-      console.log("ALL POKEMON", state.allPokemons.results);
+      // console.log("ALL POKEMON", state.allPokemons.results);
 
       let RESULTS_NUMBER = 20;
 
       const BEGIN = FILTERED_POKEMONS_COUNT;
-      console.log("BEGIN", BEGIN);
+      // console.log("BEGIN", BEGIN);
       let END;
 
       if (ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT > RESULTS_NUMBER) {
         END = BEGIN + RESULTS_NUMBER;
-        console.log("END", END);
+        // console.log("END", END);
 
-        console.log("We can add 20 Pokemons");
+        // console.log("We can add 20 Pokemons");
       }
 
       if (ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT < RESULTS_NUMBER) {
         RESULTS_NUMBER = ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT;
         END = BEGIN + RESULTS_NUMBER;
 
-        console.log("RESULTS_NUMBER", RESULTS_NUMBER);
-        console.log("END", END);
+        // console.log("RESULTS_NUMBER", RESULTS_NUMBER);
+        // console.log("END", END);
 
-        console.log("We cannot add 20 Pokemons");
+        // console.log("We cannot add 20 Pokemons");
       }
 
       if (ALL_POKEMONS_COUNT !== FILTERED_POKEMONS_COUNT) {
@@ -135,7 +135,6 @@ export default {
       }
     },
     async [SET_SELECTED_POKEMON]({ commit }, name) {
-      console.log("SET_SELECTED_POKEMON");
       return new Promise((resolve, reject) => {
         getPokemonByName(name)
           .then((response) => {
@@ -154,9 +153,9 @@ export default {
 
               // Get the evolution chain
               getInfoByUrl(evolution_chain_url).then((response) => {
-                const evolution_chain = response.data.chain;
-                let evolution_chain_array = [];
-                getRecursiveEvolution(evolution_chain, evolution_chain_array);
+                let evolution_chain = [];
+                getRecursiveEvolution(response.data.chain, evolution_chain);
+
                 // Create the Pokemon object used in the DetailedCard component
                 const pokemonObject = {
                   id: pokemon.id,
@@ -165,25 +164,14 @@ export default {
                   types: pokemon.types,
                   picture:
                     pokemon.sprites.other["official-artwork"].front_default,
-                  weight: pokemon.weight / 10,
-                  height: pokemon.height / 10,
-                  base_stats: pokemon.stats,
+                  weight: pokemon.weight,
+                  height: pokemon.height,
+                  stats: pokemon.stats,
                   abilities: pokemon.abilities,
-                  evolutions: evolution_chain_array,
+                  evolutions: evolution_chain,
                 };
 
-                // 1) Show modal for DetailedCard
-                // commit(
-                //   "modal/" + UPDATE_SHOW_MODAL,
-                //   !rootState.modal.showModal,
-                //   { root: true },
-                // );
-
-                // 2) Commit updateSetSelected state
-                // commit(UPDATE_SELECTED_POKEMON, pokemonObject);
-                commit(UPDATE_SELECTED_POKEMON, {});
-
-                // 3) hideBodyOverflowY(true);
+                commit(UPDATE_SELECTED_POKEMON, pokemonObject);
 
                 resolve(pokemonObject);
               });

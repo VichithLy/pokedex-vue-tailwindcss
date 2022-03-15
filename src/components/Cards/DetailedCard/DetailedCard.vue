@@ -2,17 +2,17 @@
   <!-- bg-gradient-to-b back-from-detailed back-to-detailed  -->
   <div
     class="dc-container drop-shadow-lg border-b-4 border-gray-400"
-    :class="`bg-gradient-to-b back-from-${profile.types[0]} back-to-${profile.types[0]}`"
+    :class="`bg-gradient-to-b back-from-${getTypes[0]} back-to-${getTypes[0]}`"
   >
-    <PokemonProfile :profile="profile" />
+    <PokemonProfile :profile="getProfile" />
 
-    <PokemonAbout :about="about" />
+    <PokemonAbout :about="getAbout" />
 
-    <PokemonBaseStats :base-stats="baseStats" />
+    <PokemonBaseStats :base-stats="getStats" />
 
-    <PokemonAbilities :abilities="abilities" />
+    <PokemonAbilities :abilities="getAbilities" />
 
-    <PokemonEvolution :evolutions="evolutions" />
+    <PokemonEvolution :evolutions="getEvolutions" />
   </div>
 </template>
 
@@ -38,28 +38,39 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {
-      profile: {
+  computed: {
+    getProfile() {
+      return {
         id: this.pokemonObject.id,
         name: this.pokemonObject.name,
-        picture: this.pokemonObject.picture,
-        types: this.pokemonObject.types,
+        picture: this.pokemonObject.picture || "",
+        types: this.getTypes,
         height: this.pokemonObject.height,
         weight: this.pokemonObject.weight,
-      },
-      about: this.pokemonObject.about,
-      baseStats: {
-        hp: this.pokemonObject.base_stats.hp,
-        attack: this.pokemonObject.base_stats.attack,
-        defense: this.pokemonObject.base_stats.defense,
-        specialAttack: this.pokemonObject.base_stats.specialAttack,
-        specialDefense: this.pokemonObject.base_stats.specialDefense,
-        speed: this.pokemonObject.base_stats.speed,
-      },
-      abilities: this.pokemonObject.abilities,
-      evolutions: this.pokemonObject.evolutions,
-    };
+      };
+    },
+    getAbout() {
+      return this.pokemonObject.about;
+    },
+    getStats() {
+      return {
+        hp: this.pokemonObject.stats[0].base_stat,
+        attack: this.pokemonObject.stats[1].base_stat,
+        defense: this.pokemonObject.stats[2].base_stat,
+        specialAttack: this.pokemonObject.stats[3].base_stat,
+        specialDefense: this.pokemonObject.stats[4].base_stat,
+        speed: this.pokemonObject.stats[5].base_stat,
+      };
+    },
+    getAbilities() {
+      return this.pokemonObject.abilities.map((object) => object.ability.name);
+    },
+    getTypes() {
+      return this.pokemonObject.types.map((object) => object.type.name);
+    },
+    getEvolutions() {
+      return this.pokemonObject.evolutions;
+    },
   },
 };
 </script>

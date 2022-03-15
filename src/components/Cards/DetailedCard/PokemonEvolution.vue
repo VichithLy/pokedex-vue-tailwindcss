@@ -7,15 +7,16 @@
     <!-- Evolutions -->
     <div class="dc-evolution-evolutions-wrapper">
       <div
-        v-for="(pokemonEvo, index) in evolutions"
+        v-for="(pokemon, index) in evolution_pokemons"
         :key="index"
         class="dc-evolution-boxes-container"
+        @click="SET_SELECTED_POKEMON(pokemon.name)"
       >
         <div class="dc-evolution-box-wrapper shadow-inner">
-          <img :src="pokemonEvo.picture" :alt="pokemonEvo.nom" />
+          <img :src="pokemon.picture" :alt="pokemon.name" />
         </div>
         <div class="dc-evolution-box-label">
-          {{ pokemonEvo.nom }}
+          {{ pokemon.name }}
         </div>
       </div>
     </div>
@@ -23,6 +24,10 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import { getPokemonByName } from "../../../services/PokeAPI";
+import { SET_SELECTED_POKEMON } from "../../../store/mutation-types";
+
 export default {
   props: {
     evolutions: {
@@ -30,6 +35,28 @@ export default {
       required: true,
       default: () => [],
     },
+  },
+  data() {
+    return {
+      evolution_pokemons: [],
+    };
+  },
+  mounted() {
+    if (this.evolutions.length !== 0) {
+      this.evolutions.forEach((name) => {
+        getPokemonByName(name).then((response) => {
+          const pokemon = {
+            name: response.data.name,
+            picture:
+              response.data.sprites.other["official-artwork"].front_default,
+          };
+          this.evolution_pokemons.push(pokemon);
+        });
+      });
+    }
+  },
+  methods: {
+    ...mapActions("pokemon", [SET_SELECTED_POKEMON]),
   },
 };
 </script>
