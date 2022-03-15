@@ -8,7 +8,7 @@ const API = (url = "https://pokeapi.co/api/v2") => {
 
 /* REQUESTS */
 export const getAllPokemons = () => {
-  return API.get("/pokemon?limit=-1");
+  return API().get("/pokemon?limit=-1");
 };
 
 export const getPokemons = () => {

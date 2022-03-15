@@ -1,5 +1,6 @@
 <template>
-  <img class="sc-picture-wrapper" :src="pokemonPict" />
+  <img v-if="pokemonPict" class="sc-picture-wrapper" :src="pokemonPict" />
+  <div v-else>NO IMAGE</div>
 </template>
 
 <script>

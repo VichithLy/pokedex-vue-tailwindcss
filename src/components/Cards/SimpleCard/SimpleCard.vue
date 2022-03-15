@@ -4,18 +4,23 @@
     :class="gradientBackground"
     @mouseover="UPDATE_IS_OVER_CARD(true)"
     @mouseleave="UPDATE_IS_OVER_CARD(false)"
-    @click="handleOnCardClick"
   >
+    <!-- @click="handleOnCardClick" -->
+
     <!-- Number and Type container -->
     <div class="sc-number-type-container">
       <PokemonNumber> #{{ id }} </PokemonNumber>
 
       <div class="sc-types-container">
-        <PokemonType v-for="(type, index) in types" :key="index" :type="type" />
+        <PokemonType
+          v-for="(type, index) in getTypes"
+          :key="index"
+          :type="type"
+        />
       </div>
     </div>
 
-    <PokemonPicture :pokemon-pict="picture" />
+    <PokemonPicture :pokemon-pict="picture || ''" />
 
     <PokemonName>{{ name }}</PokemonName>
   </div>
@@ -61,16 +66,19 @@ export default {
   },
   computed: {
     ...mapState("modal", ["showModal"]),
+    getTypes() {
+      return this.types.map((object) => object.type.name);
+    },
     // This function returns the bg class to apply on the cards if there are one or two types
-    gradientBackground: function () {
-      if (this.types.length == 2) {
-        return `bg-gradient-to-b back-from-${this.types[0]} back-to-${this.types[1]}`;
+    gradientBackground() {
+      if (this.getTypes.length == 2) {
+        return `bg-gradient-to-b back-from-${this.getTypes[0]} back-to-${this.getTypes[1]}`;
       }
-      return `back-color-${this.types[0]}-dark`;
+      return `back-color-${this.getTypes[0]}-dark`;
     },
   },
   mounted() {
-    console.log(this.setDetailedPokemon("butterfree"));
+    // console.log(this.setDetailedPokemon("butterfree"));
   },
   methods: {
     ...mapActions("cursor", [UPDATE_IS_OVER_CARD]),

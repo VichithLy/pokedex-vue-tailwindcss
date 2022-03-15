@@ -1,14 +1,15 @@
 import { UPDATE_SEARCHED_POKEMON } from "@/store/mutation-types";
 import { UPDATE_SELECTED_POKEMON } from "@/store/mutation-types";
 import {
-  UPDATE_POKEMONS,
+  SET_ALL_POKEMONS,
   GET_POKEMONS,
   ADD_POKEMON,
   SET_SELECTED_POKEMON,
+  UPDATE_FILTERED_POKEMONS,
 } from "../mutation-types";
 import {
+  getAllPokemons,
   getPokemonByName,
-  getPokemons,
   getInfoByUrl,
 } from "@/services/PokeAPI";
 import { getRecursiveEvolution } from "../../utils";
@@ -23,8 +24,11 @@ export default {
       searchedPokemon: "",
       selectedPokemon: {},
       pokemons: pokemonsArray,
-      //allPokemons
-      //filteredPokemons
+
+      // All existing Pokemons in the API
+      allPokemons: { count: 0, results: [] },
+      // Pokemons that will be displayed on the screen
+      filteredPokemons: { count: 0, results: [] },
     };
   },
 
@@ -35,15 +39,19 @@ export default {
     [UPDATE_SELECTED_POKEMON](state, selectedPokemon) {
       state.selectedPokemon = selectedPokemon;
     },
-    [UPDATE_POKEMONS](state, pokemons) {
-      state.pokemons = pokemons;
+    [SET_ALL_POKEMONS](state, payload) {
+      state.allPokemons.count = payload.count;
+      state.allPokemons.results = payload.results;
     },
-    [ADD_POKEMON](state, pokemon) {
-      state.pokemons.push(pokemon);
+    [ADD_POKEMON](state, payload) {
+      // state.pokemons.push(pokemon);
+      state.filteredPokemons.count += payload.count;
+      state.filteredPokemons.results.push(payload.pokemon);
     },
-    // [UPDATE_FILTERED_POKEMONS](state, filteredPokemons) {
-    //   state.filteredPokemons = filteredPokemons;
-    // },
+    [UPDATE_FILTERED_POKEMONS](state, payload) {
+      state.filteredPokemons.count = payload.count;
+      state.filteredPokemons.results = payload.results;
+    },
   },
 
   actions: {
@@ -54,33 +62,77 @@ export default {
       commit(UPDATE_SELECTED_POKEMON, selectedPokemon);
     },
 
-    async [GET_POKEMONS]({ commit }) {
+    [SET_ALL_POKEMONS]({ commit }) {
       return new Promise((resolve, reject) => {
-        getPokemons()
+        getAllPokemons()
           .then((response) => {
-            const pokemons = response.data.results;
+            const payload = {
+              count: response.data.count,
+              results: response.data.results,
+            };
 
-            pokemons.forEach((pokemon) => {
-              getPokemonByName(pokemon.name).then((result) => {
-                const pokemon = result.data;
-
-                const pokemonObject = {
-                  id: pokemon.id,
-                  name: pokemon.name,
-                  types: pokemon.types,
-                  picture:
-                    pokemon.sprites.other["official-artwork"].front_default,
-                };
-
-                commit(ADD_POKEMON, pokemonObject);
-                resolve(pokemonObject);
-              });
-            });
+            commit(SET_ALL_POKEMONS, payload);
+            resolve(payload);
           })
           .catch((error) => {
             reject(error);
           });
       });
+    },
+
+    async [GET_POKEMONS]({ commit, state }) {
+      const FILTERED_POKEMONS_COUNT = state.filteredPokemons.count;
+      const ALL_POKEMONS_COUNT = state.allPokemons.count - 1;
+
+      console.log("ALL POKEMON", state.allPokemons.results);
+
+      let RESULTS_NUMBER = 20;
+
+      const BEGIN = FILTERED_POKEMONS_COUNT;
+      console.log("BEGIN", BEGIN);
+      let END;
+
+      if (ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT > RESULTS_NUMBER) {
+        END = BEGIN + RESULTS_NUMBER;
+        console.log("END", END);
+
+        console.log("We can add 20 Pokemons");
+      }
+
+      if (ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT < RESULTS_NUMBER) {
+        RESULTS_NUMBER = ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT;
+        END = BEGIN + RESULTS_NUMBER;
+
+        console.log("RESULTS_NUMBER", RESULTS_NUMBER);
+        console.log("END", END);
+
+        console.log("We cannot add 20 Pokemons");
+      }
+
+      if (ALL_POKEMONS_COUNT !== FILTERED_POKEMONS_COUNT) {
+        const POKEMON_TO_DISPLAY = state.allPokemons.results.slice(BEGIN, END);
+        // console.log("POKEMON_TO_DISPLAY", POKEMON_TO_DISPLAY);
+
+        POKEMON_TO_DISPLAY.forEach((pokemon) => {
+          getPokemonByName(pokemon.name).then((result) => {
+            const pokemon = result.data;
+
+            const payload = {
+              count: 1,
+              pokemon: {
+                id: pokemon.id,
+                name: pokemon.name,
+                types: pokemon.types,
+                picture:
+                  pokemon.sprites.other["official-artwork"].front_default,
+              },
+            };
+            commit(ADD_POKEMON, payload);
+          });
+        });
+      } else {
+        console.log("There is no Pokemon to add");
+      }
     },
     async [SET_SELECTED_POKEMON]({ commit }, name) {
       console.log("SET_SELECTED_POKEMON");
