@@ -1,5 +1,5 @@
 <template>
-  <footer class="mt-10 py-5 flex flex-col gap-2 font-bold">
+  <footer id="footer" class="mt-10 py-5 flex flex-col gap-2 font-bold border-4">
     <!-- Site description -->
     <div class="flex justify-center flex-wrap gap-y-2">
       <div class="flex whitespace-nowrap">

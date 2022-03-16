@@ -70,19 +70,6 @@ export default {
     ...mapState("pokemon", ["pokemons", "selectedPokemon"]),
     ...mapState("modal", ["showModal"]),
   },
-  mounted() {
-    function InfiniteScroll() {
-      window.pageYOffset || document.documentElement.scrollTop;
-      var scrollY = window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollY >= 50 * multiply) {
-        // console.log(" Scroll Y:" + scrollY);
-        console.log("Need a new request");
-        multiply++;
-      }
-    }
-    let multiply = 1;
-    window.addEventListener("scroll", InfiniteScroll);
-  },
 };
 </script>
 

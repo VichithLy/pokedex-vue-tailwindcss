@@ -81,7 +81,7 @@
 }
 /* ---------- TYPES */
 .dc-profile-types-wrapper {
-  @apply flex items-center flex-row justify-between;
+  @apply flex items-center flex-row justify-between gap-x-2;
 }
 /* ---------- HEIGHT & WEIGHT */
 .dc-profile-hw-container {
