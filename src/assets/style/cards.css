@@ -81,11 +81,11 @@
 }
 /* ---------- TYPES */
 .dc-profile-types-wrapper {
-  @apply flex items-center flex-row justify-between gap-2;
+  @apply flex items-center flex-row justify-between;
 }
 /* ---------- HEIGHT & WEIGHT */
 .dc-profile-hw-container {
-  @apply flex flex-col gap-2 w-52;
+  @apply flex flex-col gap-y-2 w-52 gap-2 px-0 sm:px-4 lg:px-0;
 }
 
 .dc-profile-hw-icon {
@@ -93,7 +93,7 @@
 }
 
 .dc-profile-hw-wrapper {
-  @apply flex justify-between items-center;
+  @apply flex gap-x-4 justify-between items-center;
 }
 
 /* ----- ABOUT */
@@ -167,6 +167,10 @@
 
 .dc-evolution-box-wrapper {
   @apply rounded-full w-24 h-24 p-2 bg-gray-500 bg-opacity-20;
+}
+
+.dc-evolution-box-active {
+  @apply border-4;
 }
 
 .dc-evolution-box-label {

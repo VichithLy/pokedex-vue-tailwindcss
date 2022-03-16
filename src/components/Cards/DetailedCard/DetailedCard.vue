@@ -69,7 +69,11 @@ export default {
       return this.pokemonObject.types.map((object) => object.type.name);
     },
     getEvolutions() {
-      return this.pokemonObject.evolutions;
+      return {
+        currentPokemon: this.pokemonObject.name,
+        types: this.pokemonObject.types,
+        pokemons: this.pokemonObject.evolutions,
+      };
     },
   },
 };

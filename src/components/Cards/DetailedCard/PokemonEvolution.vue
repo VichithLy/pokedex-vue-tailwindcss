@@ -7,12 +7,22 @@
     <!-- Evolutions -->
     <div class="dc-evolution-evolutions-wrapper">
       <div
-        v-for="(pokemon, index) in evolution_pokemons"
+        v-for="(pokemon, index) in evolutionsPokemons"
         :key="index"
         class="dc-evolution-boxes-container"
-        @click="SET_SELECTED_POKEMON(pokemon.name)"
+        :class="evolutions.currentPokemon == pokemon.name && ['cursor-default']"
+        @click="handleOnDcClick(pokemon.name)"
       >
-        <div class="dc-evolution-box-wrapper shadow-inner">
+        <div
+          class="dc-evolution-box-wrapper shadow-inner"
+          :class="
+            evolutions.currentPokemon == pokemon.name && [
+              'bg-gradient-to-b',
+              `back-from-${getType}`,
+              `back-to-${getType}`,
+            ]
+          "
+        >
           <img :src="pokemon.picture" :alt="pokemon.name" />
         </div>
         <div class="dc-evolution-box-label">
@@ -31,32 +41,42 @@ import { SET_SELECTED_POKEMON } from "../../../store/mutation-types";
 export default {
   props: {
     evolutions: {
-      type: Array,
+      type: Object,
       required: true,
-      default: () => [],
+      default: () => {},
     },
   },
   data() {
     return {
-      evolution_pokemons: [],
+      evolutionsPokemons: [],
     };
+  },
+  computed: {
+    getType() {
+      return this.evolutions.types[0].type.name;
+    },
   },
   mounted() {
     if (this.evolutions.length !== 0) {
-      this.evolutions.forEach((name) => {
+      // API calls
+      this.evolutions.pokemons.forEach((name) => {
         getPokemonByName(name).then((response) => {
           const pokemon = {
             name: response.data.name,
             picture:
               response.data.sprites.other["official-artwork"].front_default,
           };
-          this.evolution_pokemons.push(pokemon);
+          this.evolutionsPokemons.push(pokemon);
         });
       });
     }
   },
   methods: {
     ...mapActions("pokemon", [SET_SELECTED_POKEMON]),
+    handleOnDcClick(name) {
+      if (this.evolutions.currentPokemon !== name)
+        this.SET_SELECTED_POKEMON(name);
+    },
   },
 };
 </script>
