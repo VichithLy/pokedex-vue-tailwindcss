@@ -56,27 +56,33 @@ export default {
   },
 
   mounted() {
+    // Detect when scrolled to bottom.
+    window.addEventListener("scroll", () => this.loadMorePokemons());
+  },
+  unmounted() {
+    window.removeEventListener("scroll", () => this.loadMorePokemons());
+  },
+  methods: {
     // Get the height (padding + margin) of the footer
-    function outerHeight(element) {
+    // Source : https://stackoverflow.com/a/54095466
+    outerHeight(element) {
       const height = element.offsetHeight,
         style = window.getComputedStyle(element);
 
       return ["top", "bottom"]
         .map((side) => parseInt(style[`margin-${side}`]))
         .reduce((total, side) => total + side, height);
-    }
-    const footer = document.getElementById("footer");
-
-    // Detect when scrolled to bottom.
-    window.onscroll = () => {
+    },
+    loadMorePokemons() {
+      const footer = document.getElementById("footer");
       let bottomOfWindow =
         document.documentElement.scrollTop + window.innerHeight >=
-        document.documentElement.offsetHeight - outerHeight(footer);
+        document.documentElement.offsetHeight - this.outerHeight(footer);
 
       console.log("bottomOfWindow", bottomOfWindow);
 
       if (bottomOfWindow && this.isInfiniteScroll) this.getPokemons();
-    };
+    },
   },
 };
 </script>

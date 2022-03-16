@@ -25,7 +25,14 @@ export default {
     };
   },
   mounted() {
-    window.onscroll = () => {
+    window.addEventListener("scroll", () => this.updateUserHasScrolled());
+  },
+  unmounted() {
+    window.removeEventListener("scroll", () => this.updateUserHasScrolled());
+  },
+  methods: {
+    smoothScrollTo,
+    updateUserHasScrolled() {
       // When the user scrolls down 20px from the top of the document, show the button
       if (
         document.body.scrollTop > 20 ||
@@ -35,10 +42,7 @@ export default {
       } else {
         this.userHasScrolled = false;
       }
-    };
-  },
-  methods: {
-    smoothScrollTo,
+    },
   },
 };
 </script>
