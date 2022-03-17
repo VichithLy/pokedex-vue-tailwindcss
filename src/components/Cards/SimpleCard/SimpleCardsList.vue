@@ -1,12 +1,5 @@
 <template>
-  <div class="flex flex-col">
-    <button
-      class="border-2 border-black p-5"
-      @click="isInfiniteScroll = !isInfiniteScroll"
-    >
-      Activate infinite scroll : {{ isInfiniteScroll }}
-    </button>
-
+  <div class="flex flex-col mb-16">
     <div class="sc-list-container">
       <SimpleCard
         v-for="(pokemon, index) in pokemons"
@@ -15,9 +8,18 @@
       />
     </div>
 
-    <button class="border-2 border-black p-5" @click="getPokemons()">
-      LOAD MORE
-    </button>
+    <div class="flex justify-center mt-12">
+      <!-- Load More button -->
+      <button
+        class="btn-primary w-1/3"
+        :class="
+          (isInfiniteScroll && ['fixed', 'bottom-5', 'left-5']) || 'btn-primary'
+        "
+        @click="handleOnLoadMoreClick()"
+      >
+        {{ isInfiniteScroll ? "Disable" : "Enable" }} Load More
+      </button>
+    </div>
   </div>
 </template>
 
@@ -63,25 +65,19 @@ export default {
     window.removeEventListener("scroll", () => this.loadMorePokemons());
   },
   methods: {
-    // Get the height (padding + margin) of the footer
-    // Source : https://stackoverflow.com/a/54095466
-    outerHeight(element) {
-      const height = element.offsetHeight,
-        style = window.getComputedStyle(element);
-
-      return ["top", "bottom"]
-        .map((side) => parseInt(style[`margin-${side}`]))
-        .reduce((total, side) => total + side, height);
-    },
     loadMorePokemons() {
-      const footer = document.getElementById("footer");
+      // To trigger the "load more" at the the end of the list
       let bottomOfWindow =
         document.documentElement.scrollTop + window.innerHeight >=
-        document.documentElement.offsetHeight - this.outerHeight(footer);
+        document.documentElement.offsetHeight;
 
       console.log("bottomOfWindow", bottomOfWindow);
 
       if (bottomOfWindow && this.isInfiniteScroll) this.getPokemons();
+    },
+    handleOnLoadMoreClick() {
+      this.isInfiniteScroll = !this.isInfiniteScroll;
+      this.isInfiniteScroll && this.getPokemons();
     },
   },
 };

@@ -86,7 +86,7 @@ export default {
 
       // console.log("ALL POKEMON", state.allPokemons.results);
 
-      let RESULTS_NUMBER = 20;
+      let RESULTS_NUMBER = 10;
 
       const BEGIN = FILTERED_POKEMONS_COUNT;
       // console.log("BEGIN", BEGIN);

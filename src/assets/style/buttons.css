@@ -12,6 +12,10 @@
   @apply mt-1 pb-1 border-transparent border-b-4;
 }
 
+.btn-primary-active {
+  @apply mt-1 pb-1 border-transparent border-b-4 bg-pokemon-blue-400;
+}
+
 .btn-secondary {
   @apply bg-transparent drop-shadow-lg border-b-4 rounded-b-md text-pokemon-blue-500 font-semibold px-4 border-2 border-pokemon-blue-500 rounded-md ease-in-out;
 }

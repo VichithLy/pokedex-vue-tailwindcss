@@ -79,3 +79,18 @@ export const dmToM = (height) => height / 10;
  */
 export const dmToFt = (height) =>
   parseFloat(((height / 10) * 3.281).toFixed(1));
+
+/**
+ * Returns the element height including margins
+ * Credits : https://stackoverflow.com/a/54095466
+ * @param element - element
+ * @returns {number}
+ */
+export const outerHeight = (element) => {
+  const height = element.offsetHeight,
+    style = window.getComputedStyle(element);
+
+  return ["top", "bottom"]
+    .map((side) => parseInt(style[`margin-${side}`]))
+    .reduce((total, side) => total + side, height);
+};
