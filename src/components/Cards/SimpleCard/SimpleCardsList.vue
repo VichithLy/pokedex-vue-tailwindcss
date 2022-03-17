@@ -71,7 +71,7 @@ export default {
         document.documentElement.scrollTop + window.innerHeight >=
         document.documentElement.offsetHeight;
 
-      console.log("bottomOfWindow", bottomOfWindow);
+      // console.log("bottomOfWindow", bottomOfWindow);
 
       if (bottomOfWindow && this.isInfiniteScroll) this.getPokemons();
     },

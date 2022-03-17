@@ -14,8 +14,6 @@ import {
 } from "@/services/PokeAPI";
 import { getRecursiveEvolution } from "../../utils";
 
-const pokemonsArray = require("../../data/pokemons_array.json");
-
 export default {
   namespaced: true,
 
@@ -23,7 +21,6 @@ export default {
     return {
       searchedPokemon: "",
       selectedPokemon: {},
-      pokemons: pokemonsArray,
 
       // All existing Pokemons in the API
       allPokemons: { count: 0, results: [] },
@@ -44,7 +41,6 @@ export default {
       state.allPokemons.results = payload.results;
     },
     [ADD_POKEMON](state, payload) {
-      // state.pokemons.push(pokemon);
       state.filteredPokemons.count += payload.count;
       state.filteredPokemons.results.push(payload.pokemon);
     },

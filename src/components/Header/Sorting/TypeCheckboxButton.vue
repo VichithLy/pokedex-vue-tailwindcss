@@ -5,6 +5,9 @@
       v-model="selectedTypes"
       type="checkbox"
       :value="inputValue"
+      :disabled="
+        selectedTypes.length >= 2 && !selectedTypes.includes(inputValue)
+      "
       class="absolute peer w-full h-full left-0 right-0 appearance-none"
     />
 
@@ -38,7 +41,12 @@ export default {
         return this.$store.state.sorting.selectedTypes;
       },
       set(value) {
-        this.UPDATE_SELECTED_TYPES(value);
+        const MAX_NUMBER = 2;
+        if (this.selectedTypes.length <= MAX_NUMBER) {
+          this.UPDATE_SELECTED_TYPES(value);
+        } else {
+          alert("Cannot check more than " + MAX_NUMBER + " checkboxes.");
+        }
       },
     },
   },
