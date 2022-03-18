@@ -5,6 +5,8 @@ export const UPDATE_IS_OPEN = "UPDATE_IS_OPEN";
 // sorting
 export const UPDATE_SELECTED_TYPES = "UPDATE_SELECTED_TYPES";
 export const UPDATE_SELECTED_REGIONS = "UPDATE_SELECTED_REGIONS";
+export const SET_LAST_TYPE = "SET_LAST_TYPE";
+export const REMOVE_LAST_TYPE = "REMOVE_LAST_TYPE";
 // cursor
 export const UPDATE_IS_OVER_CARD = "UPDATE_IS_OVER_CARD";
 // pokemon
