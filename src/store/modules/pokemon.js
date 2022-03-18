@@ -13,6 +13,7 @@ import {
   getInfoByUrl,
 } from "@/services/PokeAPI";
 import { getRecursiveEvolution } from "../../utils";
+import { getPokemonByNames } from "../../services/PokeAPI";
 
 export default {
   namespaced: true,
@@ -42,7 +43,11 @@ export default {
     },
     [ADD_POKEMON](state, payload) {
       state.filteredPokemons.count += payload.count;
-      state.filteredPokemons.results.push(payload.pokemon);
+      // state.filteredPokemons.results.push(payload.pokemon);
+      state.filteredPokemons.results = [
+        ...state.filteredPokemons.results,
+        ...payload.pokemons,
+      ];
     },
     [UPDATE_FILTERED_POKEMONS](state, payload) {
       state.filteredPokemons.count = payload.count;
@@ -85,46 +90,51 @@ export default {
       let RESULTS_NUMBER = 10;
 
       const BEGIN = FILTERED_POKEMONS_COUNT;
-      // console.log("BEGIN", BEGIN);
+      console.log("BEGIN", BEGIN);
       let END;
 
       if (ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT > RESULTS_NUMBER) {
         END = BEGIN + RESULTS_NUMBER;
-        // console.log("END", END);
+        //console.log("END", END);
 
-        // console.log("We can add 20 Pokemons");
+        //console.log("We can add 10 Pokemons");
       }
 
       if (ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT < RESULTS_NUMBER) {
         RESULTS_NUMBER = ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT;
         END = BEGIN + RESULTS_NUMBER;
 
-        // console.log("RESULTS_NUMBER", RESULTS_NUMBER);
-        // console.log("END", END);
+        console.log("RESULTS_NUMBER", RESULTS_NUMBER);
+        //console.log("END", END);
 
-        // console.log("We cannot add 20 Pokemons");
+        //console.log("We cannot add 10 Pokemons");
       }
 
-      if (ALL_POKEMONS_COUNT !== FILTERED_POKEMONS_COUNT) {
+      if (FILTERED_POKEMONS_COUNT !== ALL_POKEMONS_COUNT) {
         const POKEMON_TO_DISPLAY = state.allPokemons.results.slice(BEGIN, END);
-        // console.log("POKEMON_TO_DISPLAY", POKEMON_TO_DISPLAY);
 
-        POKEMON_TO_DISPLAY.forEach((pokemon) => {
-          getPokemonByName(pokemon.name).then((result) => {
-            const pokemon = result.data;
-
-            const payload = {
-              count: 1,
-              pokemon: {
-                id: pokemon.id,
-                name: pokemon.name,
-                types: pokemon.types,
-                picture:
-                  pokemon.sprites.other["official-artwork"].front_default,
-              },
+        getPokemonByNames(
+          POKEMON_TO_DISPLAY.map((pokemon) => getPokemonByName(pokemon.name)),
+        ).then((response) => {
+          const pokemons = response.map((pokemon) => {
+            return {
+              id: pokemon.data.id,
+              name: pokemon.data.name,
+              types: pokemon.data.types,
+              picture:
+                pokemon.data.sprites.other["official-artwork"].front_default,
             };
-            commit(ADD_POKEMON, payload);
           });
+
+          console.log("pokemons", pokemons);
+
+          const payload = {
+            count: RESULTS_NUMBER,
+            pokemons,
+          };
+
+          // console.log("payload", payload);
+          commit(ADD_POKEMON, payload);
         });
       } else {
         console.log("There is no Pokemon to add");

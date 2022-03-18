@@ -28,7 +28,7 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import SimpleCard from "./SimpleCard.vue";
 import { GET_POKEMONS } from "../../../store/mutation-types";
-import { outerHeight } from "../../../utils";
+// import { outerHeight } from "../../../utils";
 
 export default {
   components: { SimpleCard },
@@ -67,19 +67,23 @@ export default {
   },
   methods: {
     loadMorePokemons() {
-      const footer = document.getElementById("footer");
+      //const footer = document.getElementById("footer");
       // To trigger the "load more" at the the end of the list
-      const bottomOfWindow =
-        document.documentElement.scrollTop + window.innerHeight >=
-        document.documentElement.offsetHeight - outerHeight(footer);
 
-      console.log("bottomOfWindow", bottomOfWindow);
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+
+      const bottomOfWindow = scrollTop + clientHeight >= scrollHeight;
+
+      //console.log("bottomOfWindow", bottomOfWindow);
 
       if (bottomOfWindow && this.isInfiniteScroll) this.getPokemons();
     },
     handleOnLoadMoreClick() {
       this.isInfiniteScroll = !this.isInfiniteScroll;
-      this.isInfiniteScroll && this.getPokemons();
+
+      // ! If we allow this, it can trigger getPokemons() twice
+      // if (this.isInfiniteScroll) this.getPokemons();
     },
   },
 };

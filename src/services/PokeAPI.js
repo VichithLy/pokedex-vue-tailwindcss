@@ -19,6 +19,10 @@ export const getPokemonByName = (name) => {
   return API().get(`/pokemon/${name}`);
 };
 
+export const getPokemonByNames = (names) => {
+  return axios.all(names);
+};
+
 export const getInfoByUrl = (url) => {
   return API(url).get();
 };
