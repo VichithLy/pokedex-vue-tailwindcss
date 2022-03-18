@@ -75,9 +75,6 @@ export default {
       return `back-color-${this.getTypes[0]}-dark`;
     },
   },
-  mounted() {
-    // console.log(this.setDetailedPokemon("butterfree"));
-  },
   methods: {
     ...mapActions("cursor", [UPDATE_IS_OVER_CARD]),
     ...mapActions("pokemon", [SET_SELECTED_POKEMON]),

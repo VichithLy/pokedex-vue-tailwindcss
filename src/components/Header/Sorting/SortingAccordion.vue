@@ -13,7 +13,7 @@
     <!-- Reset & Confirm -->
     <div class="flex justify-between pt-6">
       <button class="btn-secondary" @click="resetSorting()">Reset</button>
-      <button class="btn-primary">Confirm</button>
+      <button class="btn-primary" @click="onConfirmClick()">Confirm</button>
     </div>
   </div>
 </template>
@@ -26,17 +26,26 @@ import {
 } from "@/store/mutation-types";
 import SortByRegion from "./SortByRegion.vue";
 import SortByType from "./SortByType.vue";
+import { SET_POKEMONS_BY_REGION } from "../../../store/mutation-types";
 
 export default {
   components: { SortByRegion, SortByType },
   computed: {
     ...mapState("accordion", ["isOpen"]),
+    ...mapState("sorting", ["selectedRegion"]),
   },
   methods: {
     ...mapActions("sorting", [UPDATE_SELECTED_TYPES, UPDATE_SELECTED_REGION]),
+    ...mapActions("pokemon", [SET_POKEMONS_BY_REGION]),
     resetSorting() {
       this.UPDATE_SELECTED_TYPES([]);
       this.UPDATE_SELECTED_REGION("");
+    },
+    onConfirmClick() {
+      if (this.selectedRegion) {
+        console.log("selectedRegion", this.selectedRegion);
+        this.SET_POKEMONS_BY_REGION(this.selectedRegion);
+      }
     },
   },
 };

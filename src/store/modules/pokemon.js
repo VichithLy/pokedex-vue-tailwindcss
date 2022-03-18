@@ -3,17 +3,19 @@ import { UPDATE_SELECTED_POKEMON } from "@/store/mutation-types";
 import {
   SET_ALL_POKEMONS,
   GET_POKEMONS,
-  ADD_POKEMON,
+  ADD_POKEMONS,
   SET_SELECTED_POKEMON,
   UPDATE_FILTERED_POKEMONS,
+  SET_POKEMONS_BY_REGION,
 } from "../mutation-types";
 import {
   getAllPokemons,
   getPokemonByName,
+  getPokemonByNames,
   getInfoByUrl,
-} from "@/services/PokeAPI";
+  getRegionByName,
+} from "../../services/PokeAPI";
 import { getRecursiveEvolution } from "../../utils";
-import { getPokemonByNames } from "../../services/PokeAPI";
 
 export default {
   namespaced: true,
@@ -41,7 +43,7 @@ export default {
       state.allPokemons.count = payload.count;
       state.allPokemons.results = payload.results;
     },
-    [ADD_POKEMON](state, payload) {
+    [ADD_POKEMONS](state, payload) {
       state.filteredPokemons.count += payload.count;
       // state.filteredPokemons.results.push(payload.pokemon);
       state.filteredPokemons.results = [
@@ -114,7 +116,7 @@ export default {
         const POKEMON_TO_DISPLAY = state.allPokemons.results.slice(BEGIN, END);
 
         getPokemonByNames(
-          POKEMON_TO_DISPLAY.map((pokemon) => getPokemonByName(pokemon.name)),
+          POKEMON_TO_DISPLAY.map((pokemon) => getInfoByUrl(pokemon.url)),
         ).then((response) => {
           const pokemons = response.map((pokemon) => {
             return {
@@ -134,7 +136,8 @@ export default {
           };
 
           // console.log("payload", payload);
-          commit(ADD_POKEMON, payload);
+          commit(ADD_POKEMONS, payload);
+          console.log("ADD_POKEMONS");
         });
       } else {
         console.log("There is no Pokemon to add");
@@ -188,23 +191,54 @@ export default {
           });
       });
     },
-    // async [SET_POKEMONS_BY_REGIONS]({ commit }, ids) {
-    //   ids.forEach((id) => {
-    //     getGenerationById(id).then((response) => {
-    //       const pokemons_species = response.pokemon_species;
+    async [SET_POKEMONS_BY_REGION]({ commit, dispatch }, name) {
+      getRegionByName(name).then((response) => {
+        const region = response.data;
+        const region_url = region.main_generation.url;
+        console.log("region_url", region_url);
 
-    //       const pokemons_by_regions = [];
+        getInfoByUrl(region_url).then((response) => {
+          const pokemons_species = response.data.pokemon_species;
 
-    //       pokemons_species.forEach((specie) => {
-    //         getPokemonByName(specie.name).then((pokemon) =>
-    //           pokemons_by_regions.push(pokemon),
-    //         );
-    //       });
+          console.log("pokemons_species", pokemons_species);
 
-    //       commit(UPDATE_POKEMONS, pokemons_by_regions);
-    //     });
-    //   });
-    // },
+          /**
+           * ! We use getInfoByUrl() instead of getPokemonByName()
+           * ! because some Pokemons need to be searched by their id
+           * ! e.g.: deoxys
+           */
+          getPokemonByNames(
+            pokemons_species.map((pokemon) => getInfoByUrl(pokemon.url)),
+          )
+            .then((response) => {
+              const pokemons_by_region = response.map((pokemon) => {
+                return {
+                  name: pokemon.data.name,
+                  url: `https://pokeapi.co/api/v2/pokemon/${pokemon.data.id}/`,
+                };
+              });
+
+              console.log("pokemons_by_region", pokemons_by_region);
+
+              const payload = {
+                count: pokemons_by_region.length,
+                results: pokemons_by_region,
+              };
+              commit(SET_ALL_POKEMONS, payload);
+            })
+            .then(() => {
+              // Reset filteredPokemon
+              const payload = {
+                count: 0,
+                results: [],
+              };
+              commit(UPDATE_FILTERED_POKEMONS, payload);
+              // Display Pokemons
+              dispatch(GET_POKEMONS);
+            });
+        });
+      });
+    },
   },
 
   getters: {

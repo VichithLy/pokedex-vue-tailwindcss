@@ -27,6 +27,10 @@ export const getInfoByUrl = (url) => {
   return API(url).get();
 };
 
+export const getRegionByName = (name) => {
+  return API().get(`/region/${name}`);
+};
+
 export const getGenerationById = (id) => {
   return API().get(`/generation/${id}`);
 };

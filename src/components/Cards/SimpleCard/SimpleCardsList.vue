@@ -27,7 +27,7 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import SimpleCard from "./SimpleCard.vue";
-import { GET_POKEMONS } from "../../../store/mutation-types";
+import { GET_POKEMONS, SET_ALL_POKEMONS } from "../../../store/mutation-types";
 // import { outerHeight } from "../../../utils";
 
 export default {
@@ -40,8 +40,8 @@ export default {
 
     const pokemons = computed(() => state.pokemon.filteredPokemons.results);
 
+    const setAllPokemons = () => dispatch("pokemon/" + SET_ALL_POKEMONS);
     const getPokemons = () => dispatch("pokemon/" + GET_POKEMONS);
-
     try {
       // For Suspense component
       // await dispatch("pokemon/" + GET_POKEMONS);
@@ -49,7 +49,7 @@ export default {
       console.log(error);
     }
 
-    return { pokemons, getPokemons };
+    return { pokemons, setAllPokemons, getPokemons };
   },
 
   data() {
@@ -59,12 +59,21 @@ export default {
   },
 
   mounted() {
+    // Get all the pokemons from the api,
+    // then display the first 20
+
+    // ! TO COMMENT WHEN DEV
+    this.setAllPokemons().then(() => {
+      this.getPokemons();
+    });
+
     // Detect when scrolled to bottom.
     window.addEventListener("scroll", () => this.loadMorePokemons());
   },
   unmounted() {
     window.removeEventListener("scroll", () => this.loadMorePokemons());
   },
+
   methods: {
     loadMorePokemons() {
       //const footer = document.getElementById("footer");

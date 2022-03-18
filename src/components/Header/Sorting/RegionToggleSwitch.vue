@@ -41,7 +41,6 @@ export default {
       },
       set(value) {
         this.UPDATE_SELECTED_REGION(value);
-        console.log(value);
       },
     },
   },
