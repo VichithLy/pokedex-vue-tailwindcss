@@ -21,7 +21,7 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import {
-  UPDATE_SELECTED_REGIONS,
+  UPDATE_SELECTED_REGION,
   UPDATE_SELECTED_TYPES,
 } from "@/store/mutation-types";
 import SortByRegion from "./SortByRegion.vue";
@@ -33,10 +33,10 @@ export default {
     ...mapState("accordion", ["isOpen"]),
   },
   methods: {
-    ...mapActions("sorting", [UPDATE_SELECTED_TYPES, UPDATE_SELECTED_REGIONS]),
+    ...mapActions("sorting", [UPDATE_SELECTED_TYPES, UPDATE_SELECTED_REGION]),
     resetSorting() {
       this.UPDATE_SELECTED_TYPES([]);
-      this.UPDATE_SELECTED_REGIONS([]);
+      this.UPDATE_SELECTED_REGION("");
     },
   },
 };
