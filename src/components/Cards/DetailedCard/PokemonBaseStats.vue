@@ -12,8 +12,9 @@
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
               class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full"
+              :class="{ 'rounded-full': baseStats.hp >= 100 }"
               :style="{
-                width: baseStats.hp + '%',
+                width: baseStats.hp >= 100 ? '100%' : baseStats.hp + '%',
               }"
             >
               {{ baseStats.hp }}
@@ -28,8 +29,10 @@
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
               class="dc-stats-graph-pct bg-blue-600 rounded-l-full"
+              :class="baseStats.attack >= 100 && 'rounded-full'"
               :style="{
-                width: baseStats.attack + '%',
+                width:
+                  baseStats.attack >= 100 ? '100%' : baseStats.attack + '%',
               }"
             >
               {{ baseStats.attack }}
@@ -44,8 +47,10 @@
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
               class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full"
+              :class="baseStats.defense >= 100 && 'rounded-full'"
               :style="{
-                width: baseStats.defense + '%',
+                width:
+                  baseStats.defense >= 100 ? '100%' : baseStats.defense + '%',
               }"
             >
               {{ baseStats.defense }}
@@ -60,8 +65,9 @@
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
               class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full"
+              :class="baseStats.speed >= 100 && 'rounded-full'"
               :style="{
-                width: baseStats.speed + '%',
+                width: baseStats.speed >= 100 ? '100%' : baseStats.speed + '%',
               }"
             >
               {{ baseStats.speed }}
@@ -76,8 +82,12 @@
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
               class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full"
+              :class="baseStats.specialAttack >= 100 && 'rounded-full'"
               :style="{
-                width: baseStats.specialAttack + '%',
+                width:
+                  baseStats.specialAttack >= 100
+                    ? '100%'
+                    : baseStats.specialAttack + '%',
               }"
             >
               {{ baseStats.specialAttack }}
@@ -92,8 +102,12 @@
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
               class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full"
+              :class="baseStats.specialDefense >= 100 && 'rounded-full'"
               :style="{
-                width: baseStats.specialDefense + '%',
+                width:
+                  baseStats.specialDefense >= 100
+                    ? '100%'
+                    : baseStats.specialDefense + '%',
               }"
             >
               {{ baseStats.specialDefense }}
