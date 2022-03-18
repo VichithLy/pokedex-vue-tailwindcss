@@ -4,6 +4,10 @@
   >
     <h2 class="text-lg font-bold mb-2">Type(s)</h2>
 
+    <span v-if="selectedTypes.length > 0" class="text-pokemon-blue-500 italic"
+      >You can select up to 2 types</span
+    >
+
     <!-- Grid -->
     <form
       id="types"
@@ -22,6 +26,7 @@
 <script>
 import TypeCheckboxButton from "./TypeCheckboxButton.vue";
 import types from "@/data/pokemon_types.json";
+import { mapState } from "vuex";
 
 export default {
   components: { TypeCheckboxButton },
@@ -30,6 +35,9 @@ export default {
       // All Pokémon types
       types: types,
     };
+  },
+  computed: {
+    ...mapState("sorting", ["selectedTypes"]),
   },
 };
 </script>

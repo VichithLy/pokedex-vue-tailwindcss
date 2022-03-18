@@ -11,7 +11,7 @@
     <div class="flex justify-center mt-12">
       <!-- Load More button -->
       <button
-        class="btn-primary w-1/3"
+        class="btn-primary"
         :class="
           (isInfiniteScroll && ['fixed', 'bottom-5', 'left-5']) || 'btn-primary'
         "
@@ -28,6 +28,7 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import SimpleCard from "./SimpleCard.vue";
 import { GET_POKEMONS } from "../../../store/mutation-types";
+import { outerHeight } from "../../../utils";
 
 export default {
   components: { SimpleCard },
@@ -66,12 +67,13 @@ export default {
   },
   methods: {
     loadMorePokemons() {
+      const footer = document.getElementById("footer");
       // To trigger the "load more" at the the end of the list
-      let bottomOfWindow =
+      const bottomOfWindow =
         document.documentElement.scrollTop + window.innerHeight >=
-        document.documentElement.offsetHeight;
+        document.documentElement.offsetHeight - outerHeight(footer);
 
-      // console.log("bottomOfWindow", bottomOfWindow);
+      console.log("bottomOfWindow", bottomOfWindow);
 
       if (bottomOfWindow && this.isInfiniteScroll) this.getPokemons();
     },
