@@ -1,10 +1,5 @@
 <template>
   <main class="container-auto-center">
-    <!-- <div v-for="(pokemon, index) in pokemons2" :key="index">
-      {{ pokemon.name }}
-      <br />
-    </div> -->
-
     <!-- Sort by name or ID -->
     <SortByIdOrName />
 
@@ -19,20 +14,8 @@
       </template>
     </Suspense>
 
-    <!-- <div class="flex flex-col justify-center gap-y-12 mt-10">
-      <DetailedCardSkeleton class="mt-10" />
-
-      <DetailedCard
-        v-for="(pokemon, index) in pokemons"
-        :key="index"
-        :pokemon-object="pokemon"
-      />
-    </div> -->
-
-    <!-- ! TO UNCOMMENT -->
-
-    <ModalDialog v-if="selectedPokemon">
-      <DetailedCard :pokemon-object="selectedPokemon" />
+    <ModalDialog v-if="selectedPokemon && showModal">
+      <DetailedCard class="relative" :pokemon-object="selectedPokemon" />
     </ModalDialog>
 
     <ScrollButton />

@@ -2,7 +2,7 @@
   <img
     :src="isOverCard ? pokeballOpenImg : pokeballImg"
     alt="cursor"
-    class="cursor absolute w-8 duration-200 ease-out z-10 drop-shadow"
+    class="cursor absolute w-8 duration-200 ease-out z-50 drop-shadow"
     :class="isOverCard && !isMobileDevice ? 'animate-bounce' : ''"
   />
 </template>

@@ -1,5 +1,4 @@
 <template>
-  <!-- bg-gradient-to-b back-from-detailed back-to-detailed  -->
   <div
     class="dc-container drop-shadow-lg border-b-4 border-gray-400"
     :class="`bg-gradient-to-b back-from-${getTypes[0]} back-to-${getTypes[0]}`"

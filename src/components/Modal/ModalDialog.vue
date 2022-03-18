@@ -1,25 +1,26 @@
 <template>
-  <!-- Modal -->
-  <teleport to="body">
-    <!-- Page overlay -->
-    <div v-if="showModal" class="modal-overlay">
-      <div class="modal-wrapper">
-        <!-- Close button -->
-        <div class="flex w-full justify-end mb-2 mr-4">
-          <CloseButton @click="closeModal" />
-        </div>
-        <div
-          ref="modal"
-          class="w-11/12"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modal-headline"
-        >
-          <slot></slot>
-        </div>
+  <!-- <teleport to="body"> -->
+  <!-- Page overlay -->
+  <div class="modal-overlay">
+    <!-- Modal -->
+    <div class="modal-wrapper">
+      <!-- Close button -->
+      <div class="flex w-full justify-end pr-2">
+        <CloseButton @click="closeModal" />
+      </div>
+      <div
+        ref="modal"
+        class="w-11/12"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-headline"
+      >
+        <!-- Content -->
+        <slot></slot>
       </div>
     </div>
-  </teleport>
+  </div>
+  <!-- </teleport> -->
 </template>
 
 <script>
