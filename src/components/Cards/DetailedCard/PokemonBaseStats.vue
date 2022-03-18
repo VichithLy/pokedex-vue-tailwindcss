@@ -7,7 +7,11 @@
     <!-- Base stats graph -->
     <div class="dc-stats-list">
       <div class="dc-stats-graph-wrapper">
-        <img :src="heartIcon" class="w-9 icon-heart" />
+        <div class="has-tooltip flex justify-center items-center">
+          <img :src="heartIcon" class="w-9 icon-heart" />
+          <span class="tooltip">HP</span>
+        </div>
+
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
@@ -24,7 +28,11 @@
       </div>
 
       <div class="dc-stats-graph-wrapper">
-        <img :src="swordIcon" class="w-9 icon-sword" />
+        <div class="has-tooltip flex justify-center items-center">
+          <img :src="swordIcon" class="w-9 icon-sword" />
+          <span class="tooltip">Attack</span>
+        </div>
+
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
@@ -42,7 +50,11 @@
       </div>
 
       <div class="dc-stats-graph-wrapper">
-        <img :src="shieldIcon" class="w-9 icon-shield" />
+        <div class="has-tooltip flex justify-center items-center">
+          <img :src="shieldIcon" class="w-9 icon-shield" />
+          <span class="tooltip">Defense</span>
+        </div>
+
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
@@ -60,7 +72,11 @@
       </div>
 
       <div class="dc-stats-graph-wrapper">
-        <img :src="speedIcon" class="w-9 icon-speed" />
+        <div class="has-tooltip flex justify-center items-center">
+          <img :src="speedIcon" class="w-9 icon-speed" />
+          <span class="tooltip">Speed</span>
+        </div>
+
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
@@ -77,7 +93,11 @@
       </div>
 
       <div class="dc-stats-graph-wrapper">
-        <img :src="heartIcon" class="w-9 icon-heart" />
+        <div class="has-tooltip flex justify-center items-center">
+          <img :src="swordIcon" class="w-9 icon-sword" />
+          <span class="tooltip">Special Attack</span>
+        </div>
+
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div
@@ -97,7 +117,11 @@
       </div>
 
       <div class="dc-stats-graph-wrapper">
-        <img :src="heartIcon" class="w-9 icon-shield" />
+        <div class="has-tooltip flex justify-center items-center">
+          <img :src="shieldIcon" class="w-9 icon-shield" />
+          <span class="tooltip">Special Defense</span>
+        </div>
+
         <div class="w-10/12 ml-3">
           <div class="bg-gray-500 bg-opacity-30 rounded-full">
             <div

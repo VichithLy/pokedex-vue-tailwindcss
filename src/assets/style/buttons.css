@@ -25,7 +25,7 @@
 }
 
 .btn-secondary:hover {
-  @apply text-pokemon-blue-400;
+  @apply text-pokemon-blue-400 border-pokemon-blue-400;
 }
 
 .sort-btn {

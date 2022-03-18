@@ -1,10 +1,7 @@
 <template>
   <div class="sc-type-wrapper has-tooltip" :class="'back-color-' + type">
     <img class="sc-type-picture" :src="getImg(type)" :alt="type" />
-    <span
-      class="capitalize tooltip rounded-lg shadow-2xl py-1 px-2 bg-gray-100 -mt-20 border border-black"
-      >{{ type }}</span
-    >
+    <span class="capitalize tooltip">{{ type }}</span>
   </div>
 </template>
 
