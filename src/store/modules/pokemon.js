@@ -16,6 +16,7 @@ import {
   getRegionByName,
 } from "../../services/PokeAPI";
 import { getRecursiveEvolution } from "../../utils";
+import { status, sortedBy } from "../../constants/types";
 
 export default {
   namespaced: true,
@@ -24,11 +25,11 @@ export default {
     return {
       searchedPokemon: "",
       selectedPokemon: {},
-
+      resultsNumber: 10,
       // All existing Pokemons in the API
       allPokemons: { count: 0, results: [] },
       // Pokemons that will be displayed on the screen
-      filteredPokemons: { count: 0, results: [] },
+      filteredPokemons: { status: -1, isSortedBy: -1, count: 0, results: [] },
     };
   },
 
@@ -44,11 +45,12 @@ export default {
       state.allPokemons.results = payload.results;
     },
     [ADD_POKEMONS](state, payload) {
+      state.status = payload.status;
+      state.isSortedBy = payload.isSortedBy;
       state.filteredPokemons.count += payload.count;
-      // state.filteredPokemons.results.push(payload.pokemon);
       state.filteredPokemons.results = [
         ...state.filteredPokemons.results,
-        ...payload.pokemons,
+        ...payload.results,
       ];
     },
     [UPDATE_FILTERED_POKEMONS](state, payload) {
@@ -84,41 +86,29 @@ export default {
     },
 
     async [GET_POKEMONS]({ commit, state }) {
-      const FILTERED_POKEMONS_COUNT = state.filteredPokemons.count;
-      const ALL_POKEMONS_COUNT = state.allPokemons.count - 1;
+      const filtered_pokemons_count = state.filteredPokemons.count;
+      const all_pokemons_count = state.allPokemons.count - 1;
 
-      // console.log("ALL POKEMON", state.allPokemons.results);
+      const results_number = state.resultsNumber;
 
-      let RESULTS_NUMBER = 10;
+      const begin = filtered_pokemons_count;
+      const end = begin + results_number;
 
-      const BEGIN = FILTERED_POKEMONS_COUNT;
-      console.log("BEGIN", BEGIN);
-      let END;
+      const POKEMONS_TO_DISPLAY = state.allPokemons.results.slice(begin, end);
 
-      if (ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT > RESULTS_NUMBER) {
-        END = BEGIN + RESULTS_NUMBER;
-        //console.log("END", END);
+      let results = [];
+      let payload = { status: "", count: 0, result: [] };
 
-        //console.log("We can add 10 Pokemons");
+      // There is no more Pokemons to display
+      if (state.filteredPokemons.status === status.CANNOT_LOAD_MORE) {
+        return;
       }
 
-      if (ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT < RESULTS_NUMBER) {
-        RESULTS_NUMBER = ALL_POKEMONS_COUNT - FILTERED_POKEMONS_COUNT;
-        END = BEGIN + RESULTS_NUMBER;
-
-        console.log("RESULTS_NUMBER", RESULTS_NUMBER);
-        //console.log("END", END);
-
-        //console.log("We cannot add 10 Pokemons");
-      }
-
-      if (FILTERED_POKEMONS_COUNT !== ALL_POKEMONS_COUNT) {
-        const POKEMON_TO_DISPLAY = state.allPokemons.results.slice(BEGIN, END);
-
-        getPokemonByNames(
-          POKEMON_TO_DISPLAY.map((pokemon) => getInfoByUrl(pokemon.url)),
-        ).then((response) => {
-          const pokemons = response.map((pokemon) => {
+      getPokemonByNames(
+        POKEMONS_TO_DISPLAY.map((pokemon) => getInfoByUrl(pokemon.url)),
+      )
+        .then((response) => {
+          results = response.map((pokemon) => {
             return {
               id: pokemon.data.id,
               name: pokemon.data.name,
@@ -127,22 +117,37 @@ export default {
                 pokemon.data.sprites.other["official-artwork"].front_default,
             };
           });
+        })
+        .then(() => {
+          // We can display more Pokemons
+          if (all_pokemons_count - filtered_pokemons_count > results_number) {
+            payload = {
+              status: status.CAN_LOAD_MORE,
+              isSortedBy: sortedBy.REGION,
+              count: results_number,
+              results: results,
+            };
 
-          console.log("pokemons", pokemons);
+            commit(ADD_POKEMONS, payload);
+          }
 
-          const payload = {
-            count: RESULTS_NUMBER,
-            pokemons,
-          };
+          // We can display the last Pokemons
+          if (all_pokemons_count - filtered_pokemons_count < results_number) {
+            const new_results_number =
+              all_pokemons_count - filtered_pokemons_count;
 
-          // console.log("payload", payload);
-          commit(ADD_POKEMONS, payload);
-          console.log("ADD_POKEMONS");
+            payload = {
+              status: status.CANNOT_LOAD_MORE,
+              isSortedBy: sortedBy.REGION,
+              count: new_results_number,
+              results: results,
+            };
+
+            commit(ADD_POKEMONS, payload);
+          }
         });
-      } else {
-        console.log("There is no Pokemon to add");
-      }
     },
+
     async [SET_SELECTED_POKEMON]({ commit }, name) {
       return new Promise((resolve, reject) => {
         getPokemonByName(name)
