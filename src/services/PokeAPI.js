@@ -7,6 +7,10 @@ const API = (url = "https://pokeapi.co/api/v2") => {
 };
 
 /* REQUESTS */
+export const makeConcurrentRequests = (requests) => {
+  return axios.all(requests);
+};
+
 export const getAllPokemons = () => {
   return API().get("/pokemon?limit=-1");
 };
@@ -19,11 +23,7 @@ export const getPokemonByName = (name) => {
   return API().get(`/pokemon/${name}`);
 };
 
-export const getPokemonByNames = (names) => {
-  return axios.all(names);
-};
-
-export const getInfoByUrl = (url) => {
+export const getDataFromUrl = (url) => {
   return API(url).get();
 };
 
@@ -33,4 +33,8 @@ export const getRegionByName = (name) => {
 
 export const getGenerationById = (id) => {
   return API().get(`/generation/${id}`);
+};
+
+export const getTypeByName = (name) => {
+  return API().get(`/type/${name}`);
 };

@@ -44,11 +44,6 @@ export default {
     //DetailedCardSkeleton,
     ModalDialog,
   },
-  data() {
-    return {
-      results: [],
-    };
-  },
   computed: {
     ...mapState("pokemon", ["pokemons", "selectedPokemon"]),
     ...mapState("modal", ["showModal"]),
