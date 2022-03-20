@@ -24,7 +24,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import { UPDATE_IS_OPEN } from "../../../store/mutation-types";
+import { UPDATE_IS_OPEN } from "../../../store/mutation-action-types";
 import { smoothScrollTo } from "../../../utils";
 
 export default {

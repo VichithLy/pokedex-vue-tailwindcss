@@ -29,7 +29,7 @@ import useClickOutside from "../../composables/useClickOutside";
 import CloseButton from "./CloseButton.vue";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import { UPDATE_SHOW_MODAL } from "../../store/mutation-types";
+import { UPDATE_SHOW_MODAL } from "../../store/mutation-action-types";
 
 export default {
   components: {

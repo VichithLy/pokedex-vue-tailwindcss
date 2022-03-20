@@ -35,7 +35,7 @@ import {
   UPDATE_SHOW_MODAL,
   UPDATE_IS_OVER_CARD,
   SET_SELECTED_POKEMON,
-} from "../../../store/mutation-types";
+} from "../../../store/mutation-action-types";
 
 import { hideBodyOverflowY } from "../../../utils";
 

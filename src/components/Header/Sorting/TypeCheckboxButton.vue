@@ -28,7 +28,7 @@ import { mapActions } from "vuex";
 import {
   SET_LAST_TYPE,
   UPDATE_SELECTED_TYPES,
-} from "../../../store/mutation-types";
+} from "../../../store/mutation-action-types";
 
 export default {
   props: {

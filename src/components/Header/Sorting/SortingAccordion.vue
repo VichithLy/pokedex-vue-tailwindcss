@@ -23,13 +23,13 @@ import { mapActions, mapState } from "vuex";
 import {
   UPDATE_SELECTED_REGION,
   UPDATE_SELECTED_TYPES,
-} from "@/store/mutation-types";
+} from "@/store/mutation-action-types";
 import SortByRegion from "./SortByRegion.vue";
 import SortByType from "./SortByType.vue";
 import {
   SET_POKEMONS_BY_REGION,
   SET_POKEMONS_BY_TYPES,
-} from "../../../store/mutation-types";
+} from "../../../store/mutation-action-types";
 
 export default {
   components: { SortByRegion, SortByType },
@@ -49,14 +49,14 @@ export default {
       if (this.selectedRegion && this.selectedTypes.length === 0) {
         console.log("CASE 1 : region");
         console.log("selectedRegion", this.selectedRegion);
-        this.SET_POKEMONS_BY_REGION();
+        // this.SET_POKEMONS_BY_REGION();
       }
       // If types selected and no region
       else if (!this.selectedRegion && this.selectedTypes.length > 0) {
         console.log("CASE 2 : types");
         console.log("selectedRegion", this.selectedRegion);
         console.log("selectedTypes", this.selectedTypes);
-        this.SET_POKEMONS_BY_TYPES();
+        // this.SET_POKEMONS_BY_TYPES();
       }
       // If both selected
       else if (this.selectedRegion && this.selectedTypes.length > 0) {

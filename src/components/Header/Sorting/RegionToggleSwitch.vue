@@ -22,7 +22,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import { UPDATE_SELECTED_REGION } from "@/store/mutation-types";
+import { UPDATE_SELECTED_REGION } from "@/store/mutation-action-types";
 
 export default {
   props: {

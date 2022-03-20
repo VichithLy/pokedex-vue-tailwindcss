@@ -49,7 +49,7 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
-import { UPDATE_SEARCHED_POKEMON } from "../../store/mutation-types";
+import { UPDATE_SEARCHED_POKEMON } from "../../store/mutation-action-types";
 
 export default {
   name: "SearchBar",

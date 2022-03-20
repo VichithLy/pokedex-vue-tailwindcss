@@ -1,4 +1,4 @@
-import { UPDATE_SHOW_MODAL } from "../mutation-types.js";
+import { UPDATE_SHOW_MODAL } from "../mutation-action-types.js";
 
 export default {
   namespaced: true,

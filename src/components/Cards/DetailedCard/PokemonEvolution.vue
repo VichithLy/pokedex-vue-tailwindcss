@@ -36,7 +36,7 @@
 <script>
 import { mapActions } from "vuex";
 import { getPokemonByName } from "../../../services/PokeAPI";
-import { SET_SELECTED_POKEMON } from "../../../store/mutation-types";
+import { SET_SELECTED_POKEMON } from "../../../store/mutation-action-types";
 
 export default {
   props: {

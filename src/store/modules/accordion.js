@@ -1,4 +1,4 @@
-import { UPDATE_IS_OPEN } from "@/store/mutation-types";
+import { UPDATE_IS_OPEN } from "@/store/mutation-action-types";
 
 export default {
   namespaced: true,

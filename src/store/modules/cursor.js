@@ -1,4 +1,4 @@
-import { UPDATE_IS_OVER_CARD } from "@/store/mutation-types";
+import { UPDATE_IS_OVER_CARD } from "@/store/mutation-action-types";
 
 export default {
   namespaced: true,

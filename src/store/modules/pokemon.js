@@ -1,5 +1,5 @@
-import { UPDATE_SEARCHED_POKEMON } from "@/store/mutation-types";
-import { UPDATE_SELECTED_POKEMON } from "@/store/mutation-types";
+import { UPDATE_SEARCHED_POKEMON } from "@/store/mutation-action-types";
+import { UPDATE_SELECTED_POKEMON } from "@/store/mutation-action-types";
 import {
   SET_ALL_POKEMONS,
   GET_POKEMONS,
@@ -9,7 +9,7 @@ import {
   SET_POKEMONS_BY_REGION,
   SET_POKEMONS_BY_TYPES,
   RESET_FILTERED_POKEMONS,
-} from "../mutation-types";
+} from "../mutation-action-types";
 import {
   getAllPokemons,
   getPokemonByName,
@@ -31,8 +31,8 @@ export default {
     return {
       searchedPokemon: "",
       selectedPokemon: {},
-      resultsNumber: 10,
-      // All existing Pokemons in the API
+      resultsNumber: 0,
+      // All existing Pokemons in the API or sorted Pokemons
       allPokemons: { count: 0, results: [] },
       // Pokemons that will be displayed on the screen
       filteredPokemons: {
@@ -215,12 +215,9 @@ export default {
       getRegionByName(rootState.sorting.selectedRegion).then((response) => {
         const region = response.data;
         const region_url = region.main_generation.url;
-        console.log("region_url", region_url);
 
         getDataFromUrl(region_url).then((response) => {
           const pokemons_species = response.data.pokemon_species;
-
-          console.log("pokemons_species", pokemons_species);
 
           /**
            * ! We use getDataFromUrl() instead of getPokemonByName()
@@ -237,8 +234,6 @@ export default {
                   url: `https://pokeapi.co/api/v2/pokemon/${pokemon.data.id}/`,
                 };
               });
-
-              console.log("pokemons_by_region", pokemons_by_region);
 
               const payload = {
                 count: pokemons_by_region.length,
@@ -264,8 +259,6 @@ export default {
         //! If only one type
         if (responses.length == 1) {
           //* Get pokemon array from each response
-          // console.log(responses.map((response) => response.data.pokemon));
-
           const response = responses[0];
           results = response.data.pokemon.map((object) => {
             let p = object.pokemon;
@@ -304,28 +297,22 @@ export default {
           const selectedTypes = rootState.sorting.selectedTypes;
 
           //* (slot_1: first_type; slot_2: second_type)
-          const permutation1 = getPokemonsWithExactlyTwoTypes(
+          const combination1 = getPokemonsWithExactlyTwoTypes(
             pokemons,
             selectedTypes[0],
             selectedTypes[1],
           );
-
-          console.log("permutation1", permutation1);
 
           //* (slot_1: second_type; slot_2: first_type)
-          const permutation2 = getPokemonsWithExactlyTwoTypes(
+          const combination2 = getPokemonsWithExactlyTwoTypes(
             pokemons,
             selectedTypes[1],
             selectedTypes[0],
           );
 
-          console.log("permutation2", permutation2);
-
           //* Concat these 2 arrays
-          results = permutation1.concat(permutation2);
+          results = combination1.concat(combination2);
         }
-
-        console.log("results", results);
 
         //* Create payload to commit
         const payload = {

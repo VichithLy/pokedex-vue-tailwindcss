@@ -27,7 +27,10 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import SimpleCard from "./SimpleCard.vue";
-import { GET_POKEMONS, SET_ALL_POKEMONS } from "../../../store/mutation-types";
+import {
+  GET_POKEMONS,
+  SET_ALL_POKEMONS,
+} from "../../../store/mutation-action-types";
 // import { outerHeight } from "../../../utils";
 
 export default {
