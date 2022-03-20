@@ -39,56 +39,56 @@
 /* TYPE COLORS */
 
 .btn-type-fire {
-  @apply peer-checked:bg-fire border-fire;
+  @apply peer-checked:bg-fire border-fire peer-checked:text-white;
 }
 .btn-type-water {
-  @apply peer-checked:bg-water border-water;
+  @apply peer-checked:bg-water border-water peer-checked:text-white;
 }
 .btn-type-grass {
-  @apply peer-checked:bg-grass border-grass;
+  @apply peer-checked:bg-grass border-grass peer-checked:text-white;
 }
 .btn-type-electric {
-  @apply peer-checked:bg-electric border-electric;
+  @apply peer-checked:bg-electric border-electric peer-checked:text-white;
 }
 .btn-type-psychic {
-  @apply peer-checked:bg-psychic border-psychic;
+  @apply peer-checked:bg-psychic border-psychic peer-checked:text-white;
 }
 .btn-type-ice {
-  @apply peer-checked:bg-ice border-ice;
+  @apply peer-checked:bg-ice border-ice peer-checked:text-white;
 }
 .btn-type-fighting {
-  @apply peer-checked:bg-fighting border-fighting;
+  @apply peer-checked:bg-fighting border-fighting peer-checked:text-white;
 }
 .btn-type-flying {
-  @apply peer-checked:bg-flying border-flying;
+  @apply peer-checked:bg-flying border-flying peer-checked:text-white;
 }
 .btn-type-poison {
-  @apply peer-checked:bg-poison border-poison;
+  @apply peer-checked:bg-poison border-poison peer-checked:text-white;
 }
 .btn-type-ground {
-  @apply peer-checked:bg-ground border-ground;
+  @apply peer-checked:bg-ground border-ground peer-checked:text-white;
 }
 .btn-type-rock {
-  @apply peer-checked:bg-rock border-rock;
+  @apply peer-checked:bg-rock border-rock peer-checked:text-white;
 }
 .btn-type-bug {
-  @apply peer-checked:bg-bug border-bug;
+  @apply peer-checked:bg-bug border-bug peer-checked:text-white;
 }
 .btn-type-dragon {
-  @apply peer-checked:bg-dragon border-dragon;
+  @apply peer-checked:bg-dragon border-dragon peer-checked:text-white;
 }
 .btn-type-ghost {
-  @apply peer-checked:bg-ghost border-ghost;
+  @apply peer-checked:bg-ghost border-ghost peer-checked:text-white;
 }
 .btn-type-dark {
-  @apply peer-checked:bg-dark border-dark;
+  @apply peer-checked:bg-dark border-dark peer-checked:text-white;
 }
 .btn-type-steel {
-  @apply peer-checked:bg-steel border-steel;
+  @apply peer-checked:bg-steel border-steel peer-checked:text-white;
 }
 .btn-type-fairy {
-  @apply peer-checked:bg-fairy border-fairy;
+  @apply peer-checked:bg-fairy border-fairy peer-checked:text-white;
 }
 .btn-type-normal {
-  @apply peer-checked:bg-normal border-normal;
+  @apply peer-checked:bg-normal border-normal peer-checked:text-white;
 }

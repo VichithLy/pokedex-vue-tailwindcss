@@ -94,3 +94,43 @@ export const outerHeight = (element) => {
     .map((side) => parseInt(style[`margin-${side}`]))
     .reduce((total, side) => total + side, height);
 };
+
+/**
+ *
+ * @param { array } array
+ * @returns array without duplicates objects based on name
+ */
+export const removeArrayDuplicatesByName = (array) => {
+  // Credits: https://stackoverflow.com/a/36744732
+  return array.filter(
+    (value, index, self) =>
+      index === self.findIndex((p) => p.name === value.name),
+  );
+};
+
+/**
+ * pokemons array must contains { name: string, type: string, slot: number } object
+ * @param { array } pokemons
+ * @param { string } type1
+ * @param { string} type2
+ * @returns array of Pokemons with type1 and type2 (order matters)
+ */
+export const getPokemonsWithExactlyTwoTypes = (pokemons, type1, type2) => {
+  const pokemonsByTypeSlot1 = pokemons.filter(
+    (p) => p.slot == 1 && p.type == type1,
+  );
+
+  const pokemonsByTypeSlot2 = pokemons.filter(
+    (p) => p.slot == 2 && p.type == type2,
+  );
+
+  const results = pokemonsByTypeSlot1
+    .map((p) => ({
+      name: p.name,
+      url: p.url,
+    }))
+    // Credits: https://stackoverflow.com/a/54763194
+    .filter((a) => pokemonsByTypeSlot2.some((b) => a.name === b.name));
+
+  return results;
+};

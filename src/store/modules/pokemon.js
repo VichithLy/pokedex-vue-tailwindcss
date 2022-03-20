@@ -18,7 +18,10 @@ import {
   getRegionByName,
   getTypeByName,
 } from "../../services/PokeAPI";
-import { getRecursiveEvolution } from "../../utils";
+import {
+  getPokemonsWithExactlyTwoTypes,
+  getRecursiveEvolution,
+} from "../../utils";
 import { status, sortedBy } from "../../constants/types";
 
 export default {
@@ -256,7 +259,7 @@ export default {
       makeConcurrentRequests(
         rootState.sorting.selectedTypes.map((type) => getTypeByName(type)),
       ).then((responses) => {
-        let pokemons = [];
+        let results = [];
 
         //! If only one type
         if (responses.length == 1) {
@@ -264,15 +267,13 @@ export default {
           // console.log(responses.map((response) => response.data.pokemon));
 
           const response = responses[0];
-          pokemons = response.data.pokemon.map((object) => {
+          results = response.data.pokemon.map((object) => {
             let p = object.pokemon;
             return { name: p.name, url: p.url };
           });
-
-          console.log("pokemons", pokemons);
         }
 
-        //! If multiple types
+        //! If multiple types (2)
         if (responses.length > 1) {
           /**
            * We have 2 possibilities :
@@ -280,36 +281,56 @@ export default {
            * - Get Pokemons with types including type1 OR type2
            */
 
-          //* Concat the arrays
+          let pokemons = [];
 
-          // FIRST POSSIBILITY
+          //* Concat the arrays
           responses.forEach((response) => {
-            console.log("response", response.data.pokemon);
+            const type = response.data.name;
+
             pokemons = pokemons.concat(
-              // Remove slot key so we can remove duplicates
               response.data.pokemon.map((object) => {
                 let p = object.pokemon;
-                return { name: p.name, url: p.url };
+                //* format the objects to be able to sort them
+                return {
+                  name: p.name,
+                  url: p.url,
+                  type: type,
+                  slot: object.slot,
+                };
               }),
             );
           });
 
-          //* Remove duplicates
-          // Credits: https://stackoverflow.com/a/36744732
-          pokemons = pokemons.filter(
-            (value, index, self) =>
-              index === self.findIndex((p) => p.name === value.name),
+          const selectedTypes = rootState.sorting.selectedTypes;
+
+          //* (slot_1: first_type; slot_2: second_type)
+          const permutation1 = getPokemonsWithExactlyTwoTypes(
+            pokemons,
+            selectedTypes[0],
+            selectedTypes[1],
           );
 
-          // SECOND POSSIBILITY
-          // type1 AND type2
-          // type2 AND type1
+          console.log("permutation1", permutation1);
+
+          //* (slot_1: second_type; slot_2: first_type)
+          const permutation2 = getPokemonsWithExactlyTwoTypes(
+            pokemons,
+            selectedTypes[1],
+            selectedTypes[0],
+          );
+
+          console.log("permutation2", permutation2);
+
+          //* Concat these 2 arrays
+          results = permutation1.concat(permutation2);
         }
 
-        //* Create payload for SET_ALL_POKEMONS
+        console.log("results", results);
+
+        //* Create payload to commit
         const payload = {
-          count: pokemons.length,
-          results: pokemons,
+          count: results.length,
+          results,
         };
 
         commit(RESET_FILTERED_POKEMONS);
