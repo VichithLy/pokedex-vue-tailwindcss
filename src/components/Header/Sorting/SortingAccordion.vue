@@ -23,6 +23,7 @@ import { mapActions, mapState } from "vuex";
 import {
   UPDATE_SELECTED_REGION,
   UPDATE_SELECTED_TYPES,
+  SET_POKEMONS_BY_REGION_AND_TYPES,
 } from "@/store/mutation-action-types";
 import SortByRegion from "./SortByRegion.vue";
 import SortByType from "./SortByType.vue";
@@ -39,7 +40,11 @@ export default {
   },
   methods: {
     ...mapActions("sorting", [UPDATE_SELECTED_TYPES, UPDATE_SELECTED_REGION]),
-    ...mapActions("pokemon", [SET_POKEMONS_BY_REGION, SET_POKEMONS_BY_TYPES]),
+    ...mapActions("pokemon", [
+      SET_POKEMONS_BY_REGION,
+      SET_POKEMONS_BY_TYPES,
+      SET_POKEMONS_BY_REGION_AND_TYPES,
+    ]),
     resetSorting() {
       this.UPDATE_SELECTED_TYPES([]);
       this.UPDATE_SELECTED_REGION("");
@@ -48,23 +53,26 @@ export default {
       // If region selected and no types
       if (this.selectedRegion && this.selectedTypes.length === 0) {
         console.log("CASE 1 : region");
-        console.log("selectedRegion", this.selectedRegion);
+        // console.log("selectedRegion", this.selectedRegion);
+
         // this.SET_POKEMONS_BY_REGION();
       }
       // If types selected and no region
       else if (!this.selectedRegion && this.selectedTypes.length > 0) {
         console.log("CASE 2 : types");
-        console.log("selectedRegion", this.selectedRegion);
-        console.log("selectedTypes", this.selectedTypes);
-        // this.SET_POKEMONS_BY_TYPES();
+        // console.log("selectedRegion", this.selectedRegion);
+        // console.log("selectedTypes", this.selectedTypes);
+
+        //this.SET_POKEMONS_BY_TYPES();
       }
       // If both selected
       else if (this.selectedRegion && this.selectedTypes.length > 0) {
         console.log("CASE 3 : region && types");
-        console.log("selectedRegion", this.selectedRegion);
-        console.log("selectedTypes", this.selectedTypes);
+        // console.log("selectedRegion", this.selectedRegion);
+        // console.log("selectedTypes", this.selectedTypes);
 
         // setPokemonsByRegionAndTypes(region:string, types:array)
+        this.SET_POKEMONS_BY_REGION_AND_TYPES();
       }
       // If none selected
       else {

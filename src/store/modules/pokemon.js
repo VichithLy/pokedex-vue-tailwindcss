@@ -9,6 +9,7 @@ import {
   SET_POKEMONS_BY_REGION,
   SET_POKEMONS_BY_TYPES,
   RESET_FILTERED_POKEMONS,
+  SET_POKEMONS_BY_REGION_AND_TYPES,
 } from "../mutation-action-types";
 import {
   getAllPokemons,
@@ -16,11 +17,14 @@ import {
   makeConcurrentRequests,
   getDataFromUrl,
   getRegionByName,
-  getTypeByName,
 } from "../../services/PokeAPI";
 import {
-  getPokemonsWithExactlyTwoTypes,
   getRecursiveEvolution,
+  createPokemonForDetailedCard,
+  createPokemonForSimpleCard,
+  getPokemonByRegion,
+  getPokemonsByTypes,
+  arraysIntersectionOnPokemonName,
 } from "../../utils";
 import { status, sortedBy } from "../../constants/types";
 
@@ -31,7 +35,7 @@ export default {
     return {
       searchedPokemon: "",
       selectedPokemon: {},
-      resultsNumber: 0,
+      resultsNumber: 10,
       // All existing Pokemons in the API or sorted Pokemons
       allPokemons: { count: 0, results: [] },
       // Pokemons that will be displayed on the screen
@@ -102,7 +106,7 @@ export default {
 
     async [GET_POKEMONS]({ commit, state }, sortedBy) {
       const filtered_pokemons_count = state.filteredPokemons.count;
-      const all_pokemons_count = state.allPokemons.count - 1;
+      const all_pokemons_count = state.allPokemons.count;
 
       const results_number = state.resultsNumber;
 
@@ -123,43 +127,34 @@ export default {
         POKEMONS_TO_DISPLAY.map((pokemon) => getDataFromUrl(pokemon.url)),
       )
         .then((response) => {
-          results = response.map((pokemon) => {
-            return {
-              id: pokemon.data.id,
-              name: pokemon.data.name,
-              types: pokemon.data.types,
-              picture:
-                pokemon.data.sprites.other["official-artwork"].front_default,
-            };
-          });
+          results = response.map((pokemon) =>
+            createPokemonForSimpleCard(pokemon),
+          );
         })
         .then(() => {
+          let payload_status = status.NONE;
+          let payload_results_number = results_number;
+
           // We can display more Pokemons
           if (all_pokemons_count - filtered_pokemons_count > results_number) {
-            payload = {
-              status: status.CAN_LOAD_MORE,
-              isSortedBy: sortedBy,
-              count: results_number,
-              results: results,
-            };
-
-            commit(ADD_POKEMONS, payload);
+            status = status.CAN_LOAD_MORE;
           }
 
           // We can display the last Pokemons
           if (all_pokemons_count - filtered_pokemons_count < results_number) {
-            const new_results_number =
+            status = status.CANNOT_LOAD_MORE;
+            payload_results_number =
               all_pokemons_count - filtered_pokemons_count;
-
-            payload = {
-              status: status.CANNOT_LOAD_MORE,
-              isSortedBy: sortedBy,
-              count: new_results_number,
-              results: results,
-            };
-
-            commit(ADD_POKEMONS, payload);
           }
+
+          payload = {
+            status: payload_status,
+            isSortedBy: sortedBy,
+            count: payload_results_number,
+            results: results,
+          };
+
+          commit(ADD_POKEMONS, payload);
         });
     },
 
@@ -186,19 +181,11 @@ export default {
                 getRecursiveEvolution(response.data.chain, evolution_chain);
 
                 // Create the Pokemon object used in the DetailedCard component
-                const pokemonObject = {
-                  id: pokemon.id,
-                  name: pokemon.name,
-                  about: about,
-                  types: pokemon.types,
-                  picture:
-                    pokemon.sprites.other["official-artwork"].front_default,
-                  weight: pokemon.weight,
-                  height: pokemon.height,
-                  stats: pokemon.stats,
-                  abilities: pokemon.abilities,
-                  evolutions: evolution_chain,
-                };
+                const pokemonObject = createPokemonForDetailedCard(
+                  pokemon,
+                  about,
+                  evolution_chain,
+                );
 
                 commit(UPDATE_SELECTED_POKEMON, pokemonObject);
 
@@ -251,82 +238,48 @@ export default {
     },
 
     async [SET_POKEMONS_BY_TYPES]({ commit, dispatch, rootState }) {
-      makeConcurrentRequests(
-        rootState.sorting.selectedTypes.map((type) => getTypeByName(type)),
-      ).then((responses) => {
-        let results = [];
+      const selectedTypes = rootState.sorting.selectedTypes;
 
-        //! If only one type
-        if (responses.length == 1) {
-          //* Get pokemon array from each response
-          const response = responses[0];
-          results = response.data.pokemon.map((object) => {
-            let p = object.pokemon;
-            return { name: p.name, url: p.url };
-          });
-        }
-
-        //! If multiple types (2)
-        if (responses.length > 1) {
-          /**
-           * We have 2 possibilities :
-           * TODO - Get Pokemons with types including type1 AND type2 (vice versa)
-           * - Get Pokemons with types including type1 OR type2
-           */
-
-          let pokemons = [];
-
-          //* Concat the arrays
-          responses.forEach((response) => {
-            const type = response.data.name;
-
-            pokemons = pokemons.concat(
-              response.data.pokemon.map((object) => {
-                let p = object.pokemon;
-                //* format the objects to be able to sort them
-                return {
-                  name: p.name,
-                  url: p.url,
-                  type: type,
-                  slot: object.slot,
-                };
-              }),
-            );
-          });
-
-          const selectedTypes = rootState.sorting.selectedTypes;
-
-          //* (slot_1: first_type; slot_2: second_type)
-          const combination1 = getPokemonsWithExactlyTwoTypes(
-            pokemons,
-            selectedTypes[0],
-            selectedTypes[1],
-          );
-
-          //* (slot_1: second_type; slot_2: first_type)
-          const combination2 = getPokemonsWithExactlyTwoTypes(
-            pokemons,
-            selectedTypes[1],
-            selectedTypes[0],
-          );
-
-          //* Concat these 2 arrays
-          results = combination1.concat(combination2);
-        }
-
-        //* Create payload to commit
+      getPokemonsByTypes(selectedTypes).then((results) => {
         const payload = {
           count: results.length,
           results,
         };
-
         commit(RESET_FILTERED_POKEMONS);
         commit(SET_ALL_POKEMONS, payload);
         dispatch(GET_POKEMONS, sortedBy.TYPES);
       });
     },
-  },
+    async [SET_POKEMONS_BY_REGION_AND_TYPES]({ commit, dispatch, rootState }) {
+      console.log("SET_POKEMONS_BY_REGION_AND_TYPES");
 
+      getPokemonByRegion(rootState.sorting.selectedRegion).then(
+        (pokemons_by_region) => {
+          const selectedTypes = rootState.sorting.selectedTypes;
+
+          getPokemonsByTypes(selectedTypes).then((pokemons_by_types) => {
+            console.log("pokemons_by_region", pokemons_by_region);
+            console.log("pokemons_by_types", pokemons_by_types);
+
+            const results = arraysIntersectionOnPokemonName(
+              pokemons_by_region,
+              pokemons_by_types,
+            );
+
+            const payload = {
+              count: results.length,
+              results,
+            };
+
+            console.log("results", results);
+            commit(RESET_FILTERED_POKEMONS);
+            commit(SET_ALL_POKEMONS, payload);
+            dispatch(GET_POKEMONS, [sortedBy.REGION, sortedBy.TYPES]);
+          });
+        },
+      );
+    },
+  },
   getters: {
     /**
      *
