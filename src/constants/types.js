@@ -4,7 +4,7 @@ export const status = {
   CAN_LOAD_MORE: 1,
 };
 
-export const sortedBy = {
+export const sort = {
   NONE: -1,
   TYPES: 0,
   REGION: 1,

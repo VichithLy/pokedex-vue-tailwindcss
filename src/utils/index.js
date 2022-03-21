@@ -160,8 +160,8 @@ export const pokemonsByNameAndUrl = (array) => {
 
 /**
  *
- * @param {*} array
- * @param {*} type
+ * @param { array } array
+ * @param { string } type
  * @returns
  */
 export const pokemonsByNameUrlTypeAndSlot = (array, type) => {
@@ -179,9 +179,9 @@ export const pokemonsByNameUrlTypeAndSlot = (array, type) => {
 
 /**
  *
- * @param {*} pokemon
- * @param {*} about
- * @param {*} evolution_chain
+ * @param { object } pokemon
+ * @param { string } about
+ * @param { array } evolution_chain
  * @returns
  */
 export const createPokemonForDetailedCard = (
@@ -194,7 +194,7 @@ export const createPokemonForDetailedCard = (
     name: pokemon.name,
     about: about,
     types: pokemon.types,
-    picture: pokemon.sprites.other["official-artwork"].front_default,
+    picture: getExistingSprite(pokemon.sprites),
     weight: pokemon.weight,
     height: pokemon.height,
     stats: pokemon.stats,
@@ -205,7 +205,7 @@ export const createPokemonForDetailedCard = (
 
 /**
  *
- * @param {*} pokemon
+ * @param { object } pokemon
  * @returns
  */
 export const createPokemonForSimpleCard = (pokemon) => {
@@ -213,13 +213,37 @@ export const createPokemonForSimpleCard = (pokemon) => {
     id: pokemon.data.id,
     name: pokemon.data.name,
     types: pokemon.data.types,
-    picture: pokemon.data.sprites.other["official-artwork"].front_default,
+    picture: getExistingSprite(pokemon.data.sprites),
   };
 };
 
 /**
  *
- * @param {*} name
+ * @param {*} sprites
+ * @returns
+ */
+export const getExistingSprite = (sprites) => {
+  return (
+    sprites.other["official-artwork"].front_default ||
+    sprites["back_default"] ||
+    sprites["back_female"] ||
+    sprites["back_shiny"] ||
+    sprites["back_shiny_female"] ||
+    sprites["front_default"] ||
+    sprites["front_female"] ||
+    sprites["front_shiny"] ||
+    sprites.other["dream_world"].front_default ||
+    sprites.other["dream_world"].front_female ||
+    sprites.other["home"].front_default ||
+    sprites.other["home"].front_female ||
+    sprites.other["home"].front_shiny ||
+    sprites.other["home"].front_shiny_female
+  );
+};
+
+/**
+ *
+ * @param { string } name
  * @returns
  */
 export const getPokemonByRegion = (name) => {
@@ -249,6 +273,11 @@ export const getPokemonByRegion = (name) => {
   });
 };
 
+/**
+ *
+ * @param { array } types
+ * @returns
+ */
 export const getPokemonsByTypes = (types) => {
   //! If only one type
   if (types.length == 1) {
@@ -309,4 +338,26 @@ export const getPokemonsByTypes = (types) => {
         .catch((error) => reject(error));
     });
   }
+};
+
+/**
+ *
+ * @param { array } pokemons
+ * @param { string } value
+ * @returns
+ */
+export const filterPokemonsByNameOrId = (pokemons, value) => {
+  return pokemons.filter((pokemon) => {
+    // We have to verify the user input before returning
+    // Input needs to be in lower case & trimmed
+
+    const url = pokemon.url;
+    const splitUrl = url.split("/");
+    const id = splitUrl[splitUrl.length - 2];
+
+    return (
+      pokemon.name.toLowerCase().includes(value.toLowerCase()) ||
+      id.split(pokemon.url.length - 1).includes(value)
+    );
+  });
 };

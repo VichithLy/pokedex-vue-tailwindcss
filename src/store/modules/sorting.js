@@ -2,7 +2,11 @@ import {
   UPDATE_SELECTED_TYPES,
   UPDATE_SELECTED_REGION,
 } from "@/store/mutation-action-types";
-import { REMOVE_LAST_TYPE, SET_LAST_TYPE } from "../mutation-action-types";
+import {
+  REMOVE_LAST_TYPE,
+  RESET_SORTING,
+  SET_LAST_TYPE,
+} from "../mutation-action-types";
 
 export default {
   namespaced: true,
@@ -25,6 +29,10 @@ export default {
     [REMOVE_LAST_TYPE](state) {
       state.selectedTypes.pop();
     },
+    [RESET_SORTING](state) {
+      state.selectedTypes = [];
+      state.selectedRegion = "";
+    },
   },
 
   actions: {
@@ -40,6 +48,9 @@ export default {
       }
 
       commit(SET_LAST_TYPE, type);
+    },
+    [RESET_SORTING]({ commit }) {
+      commit(RESET_SORTING);
     },
   },
 

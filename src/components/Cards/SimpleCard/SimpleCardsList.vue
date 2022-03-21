@@ -31,7 +31,6 @@ import {
   GET_POKEMONS,
   SET_ALL_POKEMONS,
 } from "../../../store/mutation-action-types";
-// import { outerHeight } from "../../../utils";
 
 export default {
   components: { SimpleCard },
@@ -63,9 +62,7 @@ export default {
 
   mounted() {
     // Get all the pokemons from the api,
-    // then display the first 20
-
-    // ! TO COMMENT WHEN DEV
+    // then display x results
     this.setAllPokemons().then(() => {
       this.getPokemons();
     });

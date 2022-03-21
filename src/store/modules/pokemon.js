@@ -10,6 +10,8 @@ import {
   SET_POKEMONS_BY_TYPES,
   RESET_FILTERED_POKEMONS,
   SET_POKEMONS_BY_REGION_AND_TYPES,
+  SET_MATCHED_POKEMONS,
+  RESET_SORTING,
 } from "../mutation-action-types";
 import {
   getAllPokemons,
@@ -25,8 +27,9 @@ import {
   getPokemonByRegion,
   getPokemonsByTypes,
   arraysIntersectionOnPokemonName,
+  filterPokemonsByNameOrId,
 } from "../../utils";
-import { status, sortedBy } from "../../constants/types";
+import { sort, status } from "../../constants/types";
 
 export default {
   namespaced: true,
@@ -41,7 +44,7 @@ export default {
       // Pokemons that will be displayed on the screen
       filteredPokemons: {
         status: status.NONE,
-        isSortedBy: sortedBy.NONE,
+        isSortedBy: sort.NONE,
         count: 0,
         results: [],
       },
@@ -69,10 +72,18 @@ export default {
       ];
     },
     [UPDATE_FILTERED_POKEMONS](state, payload) {
+      state.filteredPokemons.status = payload.status;
+      state.filteredPokemons.isSortedBy = payload.isSortedBy;
       state.filteredPokemons.count = payload.count;
-      state.filteredPokemons.results = payload.results;
+
+      const results = state.filteredPokemons.results;
+      console.log("results", results);
+      console.log("payload.results", payload.results);
+      results.splice(0, results.length, ...payload.results);
     },
     [RESET_FILTERED_POKEMONS](state) {
+      state.filteredPokemons.status = status.NONE;
+      state.filteredPokemons.isSortedBy = sort.NONE;
       state.filteredPokemons.count = 0;
       state.filteredPokemons.results = [];
     },
@@ -104,7 +115,7 @@ export default {
       });
     },
 
-    async [GET_POKEMONS]({ commit, state }, sortedBy) {
+    async [GET_POKEMONS]({ commit, state }, sortedBy = sort.NONE) {
       const filtered_pokemons_count = state.filteredPokemons.count;
       const all_pokemons_count = state.allPokemons.count;
 
@@ -113,7 +124,7 @@ export default {
       const begin = filtered_pokemons_count;
       const end = begin + results_number;
 
-      const POKEMONS_TO_DISPLAY = state.allPokemons.results.slice(begin, end);
+      const pokemons_to_display = state.allPokemons.results.slice(begin, end);
 
       let results = [];
       let payload = { status: "", count: 0, result: [] };
@@ -124,10 +135,10 @@ export default {
       }
 
       makeConcurrentRequests(
-        POKEMONS_TO_DISPLAY.map((pokemon) => getDataFromUrl(pokemon.url)),
+        pokemons_to_display.map((pokemon) => getDataFromUrl(pokemon.url)),
       )
-        .then((response) => {
-          results = response.map((pokemon) =>
+        .then((responses) => {
+          results = responses.map((pokemon) =>
             createPokemonForSimpleCard(pokemon),
           );
         })
@@ -137,12 +148,12 @@ export default {
 
           // We can display more Pokemons
           if (all_pokemons_count - filtered_pokemons_count > results_number) {
-            status = status.CAN_LOAD_MORE;
+            payload_status = status.CAN_LOAD_MORE;
           }
 
           // We can display the last Pokemons
           if (all_pokemons_count - filtered_pokemons_count < results_number) {
-            status = status.CANNOT_LOAD_MORE;
+            payload_status = status.CANNOT_LOAD_MORE;
             payload_results_number =
               all_pokemons_count - filtered_pokemons_count;
           }
@@ -231,7 +242,7 @@ export default {
             .then(() => {
               commit(RESET_FILTERED_POKEMONS);
               // Display Pokemons
-              dispatch(GET_POKEMONS, sortedBy.TYPES);
+              dispatch(GET_POKEMONS, sort.TYPES);
             });
         });
       });
@@ -247,7 +258,7 @@ export default {
         };
         commit(RESET_FILTERED_POKEMONS);
         commit(SET_ALL_POKEMONS, payload);
-        dispatch(GET_POKEMONS, sortedBy.TYPES);
+        dispatch(GET_POKEMONS, sort.TYPES);
       });
     },
     async [SET_POKEMONS_BY_REGION_AND_TYPES]({ commit, dispatch, rootState }) {
@@ -271,13 +282,37 @@ export default {
               results,
             };
 
-            console.log("results", results);
             commit(RESET_FILTERED_POKEMONS);
             commit(SET_ALL_POKEMONS, payload);
-            dispatch(GET_POKEMONS, [sortedBy.REGION, sortedBy.TYPES]);
+            dispatch(GET_POKEMONS, [sort.REGION, sort.TYPES]);
           });
         },
       );
+    },
+    async [SET_MATCHED_POKEMONS]({ state, commit, dispatch }) {
+      dispatch("sorting/" + RESET_SORTING, null, { root: true });
+
+      dispatch(SET_ALL_POKEMONS).then(() => {
+        if (state.searchedPokemon.length == 0) {
+          commit(RESET_FILTERED_POKEMONS);
+
+          dispatch(GET_POKEMONS);
+        } else {
+          const results = filterPokemonsByNameOrId(
+            state.allPokemons.results,
+            state.searchedPokemon,
+          );
+
+          const payload = {
+            count: results.length,
+            results,
+          };
+
+          commit(RESET_FILTERED_POKEMONS);
+          commit(SET_ALL_POKEMONS, payload);
+          dispatch(GET_POKEMONS);
+        }
+      });
     },
   },
   getters: {
@@ -286,17 +321,11 @@ export default {
      * @param {*} state
      * @returns a filtered array of Pokemons by name or id
      */
-    filteredPokemons(state) {
-      return state.pokemons.filter((pokemon) => {
-        // We have to verify the user input before returning
-        // Input needs to be in lower case & trimmed
-        return (
-          pokemon.name
-            .toLowerCase()
-            .includes(state.searchedPokemon.toLowerCase()) ||
-          pokemon.id.toString().includes(state.searchedPokemon)
-        );
-      });
+    matchingPokemons(state) {
+      return filterPokemonsByNameOrId(
+        state.allPokemons.results,
+        state.searchedPokemon,
+      );
     },
   },
 };

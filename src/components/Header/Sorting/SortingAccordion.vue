@@ -12,7 +12,7 @@
 
     <!-- Reset & Confirm -->
     <div class="flex justify-between pt-6">
-      <button class="btn-secondary" @click="resetSorting()">Reset</button>
+      <button class="btn-secondary" @click="RESET_SORTING()">Reset</button>
       <button class="btn-primary" @click="onConfirmClick()">Confirm</button>
     </div>
   </div>
@@ -20,14 +20,11 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import {
-  UPDATE_SELECTED_REGION,
-  UPDATE_SELECTED_TYPES,
-  SET_POKEMONS_BY_REGION_AND_TYPES,
-} from "@/store/mutation-action-types";
+import { SET_POKEMONS_BY_REGION_AND_TYPES } from "@/store/mutation-action-types";
 import SortByRegion from "./SortByRegion.vue";
 import SortByType from "./SortByType.vue";
 import {
+  RESET_SORTING,
   SET_POKEMONS_BY_REGION,
   SET_POKEMONS_BY_TYPES,
 } from "../../../store/mutation-action-types";
@@ -39,23 +36,19 @@ export default {
     ...mapState("sorting", ["selectedRegion", "selectedTypes"]),
   },
   methods: {
-    ...mapActions("sorting", [UPDATE_SELECTED_TYPES, UPDATE_SELECTED_REGION]),
+    ...mapActions("sorting", [RESET_SORTING]),
     ...mapActions("pokemon", [
       SET_POKEMONS_BY_REGION,
       SET_POKEMONS_BY_TYPES,
       SET_POKEMONS_BY_REGION_AND_TYPES,
     ]),
-    resetSorting() {
-      this.UPDATE_SELECTED_TYPES([]);
-      this.UPDATE_SELECTED_REGION("");
-    },
     onConfirmClick() {
       // If region selected and no types
       if (this.selectedRegion && this.selectedTypes.length === 0) {
         console.log("CASE 1 : region");
         // console.log("selectedRegion", this.selectedRegion);
 
-        // this.SET_POKEMONS_BY_REGION();
+        this.SET_POKEMONS_BY_REGION();
       }
       // If types selected and no region
       else if (!this.selectedRegion && this.selectedTypes.length > 0) {
@@ -63,7 +56,7 @@ export default {
         // console.log("selectedRegion", this.selectedRegion);
         // console.log("selectedTypes", this.selectedTypes);
 
-        //this.SET_POKEMONS_BY_TYPES();
+        this.SET_POKEMONS_BY_TYPES();
       }
       // If both selected
       else if (this.selectedRegion && this.selectedTypes.length > 0) {
@@ -77,7 +70,7 @@ export default {
       // If none selected
       else {
         console.log("CASE 4 : none");
-        // getPokemons()
+        // TODO getPokemons()
       }
     },
   },
