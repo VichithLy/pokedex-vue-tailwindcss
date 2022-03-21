@@ -30,7 +30,6 @@ import SortByIdOrName from "./SortByIdOrName.vue";
 import ScrollButton from "./ScrollButton.vue";
 //import DetailedCardSkeleton from "./Cards/DetailedCard/DetailedCardSkeleton.vue";
 import { mapState } from "vuex";
-
 import ModalDialog from "./Modal/ModalDialog.vue";
 
 export default {
@@ -44,6 +43,7 @@ export default {
     //DetailedCardSkeleton,
     ModalDialog,
   },
+
   computed: {
     ...mapState("pokemon", ["pokemons", "selectedPokemon"]),
     ...mapState("modal", ["showModal"]),
