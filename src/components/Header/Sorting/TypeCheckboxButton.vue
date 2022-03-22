@@ -6,6 +6,7 @@
       type="checkbox"
       :value="inputValue"
       class="absolute peer w-full h-full left-0 right-0 appearance-none"
+      @change="$emit('sorting-change')"
     />
 
     <!-- :disabled="

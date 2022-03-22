@@ -6,8 +6,8 @@
   >
     <!-- Sorting section -->
     <div class="flex flex-wrap gap-y-5 gap-x-5 mt-6 items-start">
-      <SortByRegion />
-      <SortByType />
+      <SortByRegion @sorting-change="onSortingChange" />
+      <SortByType @sorting-change="onSortingChange" />
     </div>
 
     <!-- Reset & Confirm -->
@@ -72,6 +72,9 @@ export default {
         console.log("CASE 4 : none");
         // TODO getPokemons()
       }
+    },
+    onSortingChange() {
+      console.log("onSortingChange");
     },
   },
 };

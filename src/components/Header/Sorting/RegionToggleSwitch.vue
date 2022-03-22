@@ -10,13 +10,10 @@
       type="radio"
       class="absolute left-0 right-0 w-full h-full peer cursor-pointer appearance-none"
       :value="inputValue"
+      @change="$emit('sorting-change')"
+      @click="onCheck(inputValue)"
     />
-    <!-- v-model="selectedRegion" -->
-    <!-- class="absolute left-0 right-0 w-full h-full peer cursor-pointer appearance-none" -->
-    <!-- Switch appearance -->
-    <span
-      class="bg-gray-400 w-11 h-7 rounded-full flex flex-shrink-0 items-center after:bg-white after:h-5 after:w-5 after:rounded-full p-1 peer-checked:bg-pokemon-blue-500 peer-checked:after:translate-x-4 ease-in-out duration-75 after:duration-75"
-    ></span>
+    <span class="radio-btn"></span>
   </label>
 </template>
 
@@ -46,8 +43,20 @@ export default {
   },
   methods: {
     ...mapActions("sorting", [UPDATE_SELECTED_REGION]),
+    onCheck(inputValue) {
+      if (inputValue === this.selectedRegion) {
+        this.UPDATE_SELECTED_REGION("");
+      }
+    },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.radio-btn {
+  @apply bg-gray-400 w-11 h-7 rounded-full flex flex-shrink-0 items-center p-1;
+  @apply after:w-5 after:rounded-full after:bg-white after:h-5;
+  @apply peer-checked:bg-pokemon-blue-500 peer-checked:after:translate-x-4;
+  @apply ease-in-out duration-75 after:duration-75 cursor-pointer;
+}
+</style>

@@ -18,6 +18,7 @@
         v-for="type in types"
         :key="type.id"
         :input-value="type.name"
+        v-bind="$attrs"
       />
     </form>
   </div>

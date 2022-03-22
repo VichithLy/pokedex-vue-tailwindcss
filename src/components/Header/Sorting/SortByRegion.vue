@@ -10,6 +10,7 @@
         v-for="region in regions"
         :key="region.id"
         :input-value="region.name"
+        v-bind="$attrs"
       />
     </form>
   </div>
