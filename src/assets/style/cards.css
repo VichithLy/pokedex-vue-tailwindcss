@@ -295,58 +295,58 @@
 /* BACKGROUND GRADIENTS FROM */
 
 .back-from-fire {
-  @apply from-fire;
+  @apply from-fire-dark;
 }
 .back-from-water {
-  @apply from-water;
+  @apply from-water-dark;
 }
 .back-from-grass {
-  @apply from-grass;
+  @apply from-grass-dark;
 }
 .back-from-electric {
-  @apply from-electric;
+  @apply from-electric-dark;
 }
 .back-from-psychic {
-  @apply from-psychic;
+  @apply from-psychic-dark;
 }
 .back-from-ice {
-  @apply from-ice;
+  @apply from-ice-dark;
 }
 .back-from-fighting {
-  @apply from-fighting;
+  @apply from-fighting-dark;
 }
 .back-from-flying {
-  @apply from-flying;
+  @apply from-flying-dark;
 }
 .back-from-poison {
-  @apply from-poison;
+  @apply from-poison-dark;
 }
 .back-from-ground {
-  @apply from-ground;
+  @apply from-ground-dark;
 }
 .back-from-rock {
-  @apply from-rock;
+  @apply from-rock-dark;
 }
 .back-from-bug {
-  @apply from-bug;
+  @apply from-bug-dark;
 }
 .back-from-dragon {
-  @apply from-dragon;
+  @apply from-dragon-dark;
 }
 .back-from-ghost {
-  @apply from-ghost;
+  @apply from-ghost-dark;
 }
 .back-from-dark {
-  @apply from-dark;
+  @apply from-dark-dark;
 }
 .back-from-steel {
-  @apply from-steel;
+  @apply from-steel-dark;
 }
 .back-from-fairy {
-  @apply from-fairy;
+  @apply from-fairy-dark;
 }
 .back-from-normal {
-  @apply from-normal;
+  @apply from-normal-dark;
 }
 
 /* BACKGROUND GRADIENTS TO */
