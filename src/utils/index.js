@@ -243,6 +243,35 @@ export const getExistingSprite = (sprites) => {
 
 /**
  *
+ * @param { string } url
+ * @returns
+ */
+export const getPokemonIdFromUrl = (url) => {
+  const splitUrl = url.split("/");
+  const id = splitUrl[splitUrl.length - 2];
+
+  return id;
+};
+
+/**
+ *
+ * @param { object } specie
+ */
+export const formatPokemonSpecie = (specie) => {
+  const id = getPokemonIdFromUrl(specie.url);
+
+  return {
+    name: specie.name,
+    url: `https://pokeapi.co/api/v2/pokemon/${id}/`,
+  };
+};
+
+//! ==================================
+//! ======== Sorting section =========
+//! ==================================
+
+/**
+ *
  * @param { string } region
  * @returns
  */
@@ -252,28 +281,22 @@ export const getPokemonByRegion = (region) => {
       const region = response.data;
       const region_url = region.main_generation.url;
 
-      getDataFromUrl(region_url).then((response) => {
-        const pokemons_species = response.data.pokemon_species;
+      /**
+       * ! We use getDataFromUrl() instead of getPokemonByName()
+       * ! because some Pokemons need to be searched by their id
+       * ! e.g.: deoxys
+       */
+      getDataFromUrl(region_url)
+        .then((response) => {
+          const pokemons_species = response.data.pokemon_species;
 
-        /**
-         * ! We use getDataFromUrl() instead of getPokemonByName()
-         * ! because some Pokemons need to be searched by their id
-         * ! e.g.: deoxys
-         */
-        makeConcurrentRequests(
-          pokemons_species.map((pokemon) => getDataFromUrl(pokemon.url)),
-        )
-          .then((response) => {
-            const results = response.map((pokemon) => {
-              return {
-                name: pokemon.data.name,
-                url: `https://pokeapi.co/api/v2/pokemon/${pokemon.data.id}/`,
-              };
-            });
-            resolve(results);
-          })
-          .catch((error) => reject(error));
-      });
+          const results = pokemons_species.map((specie) =>
+            formatPokemonSpecie(specie),
+          );
+
+          resolve(results);
+        })
+        .catch((error) => reject(error));
     });
   });
 };
@@ -308,7 +331,6 @@ export const getPokemonsByTypes = (types) => {
            * - Get Pokemons with types including type1 AND type2 (vice versa)
            * - Get Pokemons with types including type1 OR (inclusive) type2
            */
-
           let pokemons = [];
 
           //* Concat the arrays
@@ -414,9 +436,7 @@ export const filterPokemonsByNameOrId = (pokemons, value) => {
     // We have to verify the user input before returning
     // Input needs to be in lower case & trimmed
 
-    const url = pokemon.url;
-    const splitUrl = url.split("/");
-    const id = splitUrl[splitUrl.length - 2];
+    const id = getPokemonIdFromUrl(pokemon.url);
 
     return (
       pokemon.name.toLowerCase().includes(value.toLowerCase()) ||
