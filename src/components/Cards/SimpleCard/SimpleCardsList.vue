@@ -31,6 +31,7 @@ import {
   GET_POKEMONS,
   SET_ALL_POKEMONS,
 } from "../../../store/mutation-action-types";
+import { outerHeight } from "../../../utils";
 
 export default {
   components: { SimpleCard },
@@ -45,6 +46,7 @@ export default {
     const setAllPokemons = () => dispatch("pokemon/" + SET_ALL_POKEMONS);
     const getPokemons = () => dispatch("pokemon/" + GET_POKEMONS);
     try {
+      // TODO
       // For Suspense component
       // await dispatch("pokemon/" + GET_POKEMONS);
     } catch (error) {
@@ -76,13 +78,14 @@ export default {
 
   methods: {
     loadMorePokemons() {
-      //const footer = document.getElementById("footer");
+      const footer = document.getElementById("footer");
       // To trigger the "load more" at the the end of the list
 
       const { scrollTop, scrollHeight, clientHeight } =
         document.documentElement;
 
-      const bottomOfWindow = scrollTop + clientHeight >= scrollHeight;
+      const bottomOfWindow =
+        scrollTop + clientHeight >= scrollHeight - outerHeight(footer);
 
       //console.log("bottomOfWindow", bottomOfWindow);
 
