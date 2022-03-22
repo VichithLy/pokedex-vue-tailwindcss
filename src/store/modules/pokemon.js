@@ -10,15 +10,15 @@ import {
   SET_POKEMONS_BY_TYPES,
   RESET_FILTERED_POKEMONS,
   SET_POKEMONS_BY_REGION_AND_TYPES,
-  SET_MATCHED_POKEMONS,
+  SET_POKEMONS_BY_NAME_OR_ID,
   RESET_SORTING,
+  SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
 } from "../mutation-action-types";
 import {
   getAllPokemons,
   getPokemonByName,
   makeConcurrentRequests,
   getDataFromUrl,
-  getRegionByName,
 } from "../../services/PokeAPI";
 import {
   getRecursiveEvolution,
@@ -26,8 +26,11 @@ import {
   createPokemonForSimpleCard,
   getPokemonByRegion,
   getPokemonsByTypes,
-  arraysIntersectionOnPokemonName,
   filterPokemonsByNameOrId,
+  getPokemonsByRegionAndTypes,
+  getPokemonsByRegionAndNameOrId,
+  getPokemonsByTypesAndNameOrId,
+  getPokemonsByRegionAndTypesAndNameOrId,
 } from "../../utils";
 import { sort, status } from "../../constants/types";
 
@@ -209,43 +212,44 @@ export default {
           });
       });
     },
-    async [SET_POKEMONS_BY_REGION]({ commit, dispatch, rootState }) {
-      getRegionByName(rootState.sorting.selectedRegion).then((response) => {
-        const region = response.data;
-        const region_url = region.main_generation.url;
 
-        getDataFromUrl(region_url).then((response) => {
-          const pokemons_species = response.data.pokemon_species;
+    /**
+     * ! ==================================
+     * ! ======== Sorting section =========
+     * ! ==================================
+     * */
+    async [SET_POKEMONS_BY_NAME_OR_ID]({ state, commit, dispatch }) {
+      dispatch("sorting/" + RESET_SORTING, null, { root: true });
 
-          /**
-           * ! We use getDataFromUrl() instead of getPokemonByName()
-           * ! because some Pokemons need to be searched by their id
-           * ! e.g.: deoxys
-           */
-          makeConcurrentRequests(
-            pokemons_species.map((pokemon) => getDataFromUrl(pokemon.url)),
-          )
-            .then((response) => {
-              const pokemons_by_region = response.map((pokemon) => {
-                return {
-                  name: pokemon.data.name,
-                  url: `https://pokeapi.co/api/v2/pokemon/${pokemon.data.id}/`,
-                };
-              });
+      dispatch(SET_ALL_POKEMONS).then(() => {
+        const results = filterPokemonsByNameOrId(
+          state.allPokemons.results,
+          state.searchedPokemon,
+        );
 
-              const payload = {
-                count: pokemons_by_region.length,
-                results: pokemons_by_region,
-              };
-              commit(SET_ALL_POKEMONS, payload);
-            })
-            .then(() => {
-              commit(RESET_FILTERED_POKEMONS);
-              // Display Pokemons
-              dispatch(GET_POKEMONS, sort.TYPES);
-            });
-        });
+        const payload = {
+          count: results.length,
+          results,
+        };
+
+        commit(RESET_FILTERED_POKEMONS);
+        commit(SET_ALL_POKEMONS, payload);
+        dispatch(GET_POKEMONS);
       });
+    },
+
+    async [SET_POKEMONS_BY_REGION]({ commit, dispatch, rootState }) {
+      getPokemonByRegion(rootState.sorting.selectedRegion).then(
+        (pokemons_by_region) => {
+          const payload = {
+            count: pokemons_by_region.length,
+            results: pokemons_by_region,
+          };
+          commit(SET_ALL_POKEMONS, payload);
+          commit(RESET_FILTERED_POKEMONS);
+          dispatch(GET_POKEMONS, sort.REGION);
+        },
+      );
     },
 
     async [SET_POKEMONS_BY_TYPES]({ commit, dispatch, rootState }) {
@@ -261,58 +265,143 @@ export default {
         dispatch(GET_POKEMONS, sort.TYPES);
       });
     },
+
     async [SET_POKEMONS_BY_REGION_AND_TYPES]({ commit, dispatch, rootState }) {
       console.log("SET_POKEMONS_BY_REGION_AND_TYPES");
+      const selectedRegion = rootState.sorting.selectedRegion;
+      const selectedTypes = rootState.sorting.selectedTypes;
 
-      getPokemonByRegion(rootState.sorting.selectedRegion).then(
-        (pokemons_by_region) => {
-          const selectedTypes = rootState.sorting.selectedTypes;
+      //! 1 selectedRegion && 0 selectedTypes
+      if (selectedRegion && selectedTypes.length === 0) {
+        dispatch(SET_POKEMONS_BY_REGION);
+        console.log("1 selectedRegion && 0 selectedTypes");
+      }
 
-          getPokemonsByTypes(selectedTypes).then((pokemons_by_types) => {
-            console.log("pokemons_by_region", pokemons_by_region);
-            console.log("pokemons_by_types", pokemons_by_types);
+      //!  0 selectedRegion && 1 or 2 selectedTypes
+      else if (!selectedRegion && selectedTypes.length > 0) {
+        console.log("0 selectedRegion && 1 or 2 selectedTypes");
+        dispatch(SET_POKEMONS_BY_TYPES);
+      }
 
-            const results = arraysIntersectionOnPokemonName(
-              pokemons_by_region,
-              pokemons_by_types,
-            );
+      //! 1 selectedRegion && 1 or 2 selectedTypes
+      else if (selectedRegion && selectedTypes.length > 0) {
+        console.log("1 selectedRegion && 1 or 2 selectedTypes");
 
+        getPokemonsByRegionAndTypes(selectedRegion, selectedTypes).then(
+          (pokemons_by_region_and_types) => {
             const payload = {
-              count: results.length,
-              results,
+              count: pokemons_by_region_and_types.length,
+              results: pokemons_by_region_and_types,
             };
 
             commit(RESET_FILTERED_POKEMONS);
             commit(SET_ALL_POKEMONS, payload);
             dispatch(GET_POKEMONS, [sort.REGION, sort.TYPES]);
-          });
-        },
-      );
+          },
+        );
+      }
     },
-    async [SET_MATCHED_POKEMONS]({ state, commit, dispatch }) {
-      dispatch("sorting/" + RESET_SORTING, null, { root: true });
 
-      dispatch(SET_ALL_POKEMONS).then(() => {
-        if (state.searchedPokemon.length == 0) {
-          commit(RESET_FILTERED_POKEMONS);
+    async [SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID]({
+      state,
+      rootState,
+      dispatch,
+      commit,
+    }) {
+      const searchedPokemon = state.searchedPokemon;
+      const selectedRegion = rootState.sorting.selectedRegion;
+      const selectedTypes = rootState.sorting.selectedTypes;
 
-          dispatch(GET_POKEMONS);
-        } else {
-          const results = filterPokemonsByNameOrId(
-            state.allPokemons.results,
-            state.searchedPokemon,
-          );
+      //! Case 1 : searchedPokemon
+      if (searchedPokemon) {
+        console.log("CASE 1");
+        //! Case 1.1 : !selectedRegion &&
+        if (!selectedRegion) {
+          console.log("CASE 1.1");
+          //! Case 1.1.1 : 0 selectedTypes
+          if (selectedTypes.length == 0) {
+            console.log("CASE 1.1.1");
+            dispatch(SET_POKEMONS_BY_NAME_OR_ID);
+          }
+          //! Case 1.1.2 : 1 or 2 selectedTypes
+          if (selectedTypes.length > 0) {
+            console.log("CASE 1.1.2");
+            getPokemonsByTypesAndNameOrId(selectedTypes, searchedPokemon).then(
+              (results) => {
+                console.log(results);
 
-          const payload = {
-            count: results.length,
-            results,
-          };
+                const payload = {
+                  count: results.length,
+                  results: results,
+                };
 
-          commit(RESET_FILTERED_POKEMONS);
-          commit(SET_ALL_POKEMONS, payload);
-          dispatch(GET_POKEMONS);
+                commit(RESET_FILTERED_POKEMONS);
+                commit(SET_ALL_POKEMONS, payload);
+                dispatch(GET_POKEMONS, [sort.REGION]);
+              },
+            );
+          }
         }
-      });
+        //! Case 1.2 : selectedRegion && 1 or 2 selectedTypes
+        if (selectedRegion) {
+          console.log("CASE 1.2");
+          //! Case 1.2.1 : 0 selectedTypes
+          if (selectedTypes.length == 0) {
+            console.log("CASE 1.2.1");
+            getPokemonsByRegionAndNameOrId(
+              selectedRegion,
+              searchedPokemon,
+            ).then((results) => {
+              console.log(results);
+
+              const payload = {
+                count: results.length,
+                results: results,
+              };
+
+              commit(RESET_FILTERED_POKEMONS);
+              commit(SET_ALL_POKEMONS, payload);
+              dispatch(GET_POKEMONS, [sort.REGION]);
+            });
+          }
+          //! Case 1.2.2 : 1 or 2 selectedTypes
+          if (selectedTypes.length > 0) {
+            console.log("CASE 1.2.2");
+            getPokemonsByRegionAndTypesAndNameOrId(
+              selectedRegion,
+              selectedTypes,
+              searchedPokemon,
+            ).then((results) => {
+              console.log(results);
+
+              const payload = {
+                count: results.length,
+                results: results,
+              };
+
+              commit(RESET_FILTERED_POKEMONS);
+              commit(SET_ALL_POKEMONS, payload);
+              dispatch(GET_POKEMONS, [sort.REGION, sort.TYPES]);
+            });
+          }
+        }
+      }
+
+      //! Case 2 : !searchedPokemon
+      if (!searchedPokemon) {
+        console.log("CASE 2");
+
+        if (!selectedRegion && selectedTypes.length == 0) {
+          console.log("CASE 2.1");
+
+          dispatch(SET_ALL_POKEMONS).then(() => {
+            commit(RESET_FILTERED_POKEMONS);
+            dispatch(GET_POKEMONS);
+          });
+        } else {
+          dispatch(SET_POKEMONS_BY_REGION_AND_TYPES);
+        }
+      }
     },
   },
   getters: {

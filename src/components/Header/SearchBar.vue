@@ -25,19 +25,14 @@
       class="h-full w-full outline-none text-gray-700 pr-2 text-lg"
       type="text"
       placeholder="Search name or id"
-      @input="filterPokemon()"
       @click="onClick"
     />
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import {
-  UPDATE_SEARCHED_POKEMON,
-  SET_MATCHED_POKEMONS,
-} from "../../store/mutation-action-types";
-import debounce from "lodash.debounce";
+import { mapActions } from "vuex";
+import { UPDATE_SEARCHED_POKEMON } from "../../store/mutation-action-types";
 
 export default {
   name: "SearchBar",
@@ -50,14 +45,9 @@ export default {
         this.UPDATE_SEARCHED_POKEMON(value);
       },
     },
-    ...mapGetters("pokemon", ["matchingPokemons"]),
   },
   methods: {
-    ...mapActions("pokemon", [UPDATE_SEARCHED_POKEMON, SET_MATCHED_POKEMONS]),
-    // Prevent firing too much events
-    filterPokemon: debounce(function () {
-      this.SET_MATCHED_POKEMONS();
-    }, 1000),
+    ...mapActions("pokemon", [UPDATE_SEARCHED_POKEMON]),
   },
 };
 </script>

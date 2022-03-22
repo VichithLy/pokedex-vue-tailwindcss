@@ -61,7 +61,7 @@ export const getRecursiveEvolution = (data, resultArray) => {
 /**
  * Converts hg to kg
  * @param { number } weight
- * @returns hg weihgt in kg
+ * @returns hg weight in kg
  */
 export const hgToKg = (weight) => weight / 10;
 /**
@@ -243,18 +243,23 @@ export const getExistingSprite = (sprites) => {
 
 /**
  *
- * @param { string } name
+ * @param { string } region
  * @returns
  */
-export const getPokemonByRegion = (name) => {
+export const getPokemonByRegion = (region) => {
   return new Promise((resolve, reject) => {
-    getRegionByName(name).then((response) => {
+    getRegionByName(region).then((response) => {
       const region = response.data;
       const region_url = region.main_generation.url;
 
       getDataFromUrl(region_url).then((response) => {
         const pokemons_species = response.data.pokemon_species;
 
+        /**
+         * ! We use getDataFromUrl() instead of getPokemonByName()
+         * ! because some Pokemons need to be searched by their id
+         * ! e.g.: deoxys
+         */
         makeConcurrentRequests(
           pokemons_species.map((pokemon) => getDataFromUrl(pokemon.url)),
         )
@@ -338,6 +343,64 @@ export const getPokemonsByTypes = (types) => {
         .catch((error) => reject(error));
     });
   }
+};
+
+/**
+ *
+ * @param { string } region
+ * @param { array } types
+ * @returns
+ */
+export const getPokemonsByRegionAndTypes = (region, types) => {
+  return new Promise((resolve, reject) => {
+    getPokemonByRegion(region).then((pokemons_by_region) => {
+      getPokemonsByTypes(types)
+        .then((pokemons_by_types) => {
+          const results = arraysIntersectionOnPokemonName(
+            pokemons_by_region,
+            pokemons_by_types,
+          );
+          resolve(results);
+        })
+        .catch((error) => reject(error));
+    });
+  });
+};
+
+export const getPokemonsByRegionAndNameOrId = (region, nameOrId) => {
+  return new Promise((resolve, reject) => {
+    getPokemonByRegion(region)
+      .then((pokemons_by_region) => {
+        resolve(filterPokemonsByNameOrId(pokemons_by_region, nameOrId));
+      })
+      .catch((error) => reject(error));
+  });
+};
+
+export const getPokemonsByTypesAndNameOrId = (types, nameOrId) => {
+  return new Promise((resolve, reject) => {
+    getPokemonsByTypes(types)
+      .then((pokemons_by_types) => {
+        resolve(filterPokemonsByNameOrId(pokemons_by_types, nameOrId));
+      })
+      .catch((error) => reject(error));
+  });
+};
+
+export const getPokemonsByRegionAndTypesAndNameOrId = (
+  region,
+  types,
+  nameOrId,
+) => {
+  return new Promise((resolve, reject) => {
+    getPokemonsByRegionAndTypes(region, types)
+      .then((pokemons_by_region_and_types) => {
+        resolve(
+          filterPokemonsByNameOrId(pokemons_by_region_and_types, nameOrId),
+        );
+      })
+      .catch((error) => reject(error));
+  });
 };
 
 /**
