@@ -32,6 +32,7 @@ import {
   SET_ALL_POKEMONS,
 } from "../../../store/mutation-action-types";
 import { outerHeight } from "../../../utils";
+import debounce from "lodash.debounce";
 
 export default {
   components: { SimpleCard },
@@ -77,7 +78,7 @@ export default {
   },
 
   methods: {
-    loadMorePokemons() {
+    loadMorePokemons: debounce(function () {
       const footer = document.getElementById("footer");
       // To trigger the "load more" at the the end of the list
 
@@ -90,7 +91,7 @@ export default {
       //console.log("bottomOfWindow", bottomOfWindow);
 
       if (bottomOfWindow && this.isInfiniteScroll) this.getPokemons();
-    },
+    }, 100),
     handleOnLoadMoreClick() {
       this.isInfiniteScroll = !this.isInfiniteScroll;
 
