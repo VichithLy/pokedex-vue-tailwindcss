@@ -10,7 +10,6 @@
       type="radio"
       class="absolute left-0 right-0 w-full h-full peer cursor-pointer appearance-none"
       :value="inputValue"
-      @change="$emit('sorting-change')"
       @click="onCheck(inputValue)"
     />
     <span class="radio-btn"></span>

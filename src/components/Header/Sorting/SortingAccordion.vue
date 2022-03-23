@@ -6,8 +6,8 @@
   >
     <!-- Sorting section -->
     <div class="flex flex-wrap gap-y-5 gap-x-5 mt-6 items-start">
-      <SortByRegion @sorting-change="onSortingChange" />
-      <SortByType @sorting-change="onSortingChange" />
+      <SortByRegion />
+      <SortByType />
     </div>
 
     <!-- Reset & Confirm -->
@@ -31,9 +31,6 @@ export default {
   },
   methods: {
     ...mapActions("sorting", [RESET_SORTING]),
-    onSortingChange() {
-      // console.log("onSortingChange");
-    },
   },
 };
 </script>
