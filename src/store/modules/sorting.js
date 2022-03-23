@@ -6,6 +6,7 @@ import {
   REMOVE_LAST_TYPE,
   RESET_SORTING,
   SET_LAST_TYPE,
+  UPDATE_SEARCHED_POKEMON,
 } from "../mutation-action-types";
 
 export default {
@@ -49,7 +50,9 @@ export default {
 
       commit(SET_LAST_TYPE, type);
     },
-    [RESET_SORTING]({ commit }) {
+    [RESET_SORTING]({ commit, dispatch }) {
+      dispatch("pokemon/" + UPDATE_SEARCHED_POKEMON, "", { root: true });
+
       commit(RESET_SORTING);
     },
   },

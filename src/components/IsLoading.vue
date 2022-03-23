@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isLoading"
+    v-show="isLoading"
     class="z-20 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
   >
     <div
@@ -13,14 +13,18 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import pokeballImg from "../assets/images/cursor/pokeball.png";
 
 export default {
   data() {
     return {
-      isLoading: false, // TODO store
+      // TODO store
       pokeballImg,
     };
+  },
+  computed: {
+    ...mapState("pokemon", ["isLoading"]),
   },
 };
 </script>

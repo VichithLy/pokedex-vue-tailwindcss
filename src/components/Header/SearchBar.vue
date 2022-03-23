@@ -7,7 +7,7 @@
       placeholder="Search name or id"
     />
 
-    <div @click="searchPokemon()" class="search-icon-wrapper">
+    <div class="search-icon-wrapper" @click="searchPokemon()">
       <!-- Icon -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -31,6 +31,8 @@
 import { mapActions } from "vuex";
 import {
   SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
+  UPDATE_IS_LOADING,
+  UPDATE_IS_OPEN,
   UPDATE_SEARCHED_POKEMON,
 } from "../../store/mutation-action-types";
 import debounce from "lodash.debounce";
@@ -47,14 +49,24 @@ export default {
       },
     },
   },
+  mounted() {
+    this.setPokemons = debounce(function () {
+      this.SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID().then(() => {
+        this.UPDATE_IS_OPEN(false);
+      });
+    }, 1000);
+  },
   methods: {
     ...mapActions("pokemon", [
       UPDATE_SEARCHED_POKEMON,
       SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
+      UPDATE_IS_LOADING,
     ]),
-    searchPokemon: debounce(function () {
-      this.SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID();
-    }, 1000),
+    ...mapActions("accordion", [UPDATE_IS_OPEN]),
+    searchPokemon() {
+      this.UPDATE_IS_LOADING(true);
+      this.setPokemons();
+    },
   },
 };
 </script>

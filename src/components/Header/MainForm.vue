@@ -18,12 +18,21 @@ import {
   SET_POKEMONS_BY_REGION_AND_TYPES,
   SET_POKEMONS_BY_TYPES,
   SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
+  UPDATE_IS_LOADING,
+  UPDATE_IS_OPEN,
 } from "../../store/mutation-action-types";
 
 export default {
   components: { SortingAccordion, SearchBar },
   computed: {
     ...mapState("sorting", ["selectedRegion", "selectedTypes"]),
+  },
+  mounted() {
+    this.setPokemons = debounce(function () {
+      this.SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID().then(() => {
+        this.UPDATE_IS_OPEN(false);
+      });
+    }, 1000);
   },
   methods: {
     ...mapActions("pokemon", [
@@ -32,10 +41,13 @@ export default {
       SET_POKEMONS_BY_TYPES,
       SET_POKEMONS_BY_REGION_AND_TYPES,
       SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
+      UPDATE_IS_LOADING,
     ]),
-    checkForm: debounce(function () {
-      this.SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID();
-    }, 1000),
+    ...mapActions("accordion", [UPDATE_IS_OPEN]),
+    checkForm() {
+      this.UPDATE_IS_LOADING(true);
+      this.setPokemons();
+    },
   },
 };
 </script>

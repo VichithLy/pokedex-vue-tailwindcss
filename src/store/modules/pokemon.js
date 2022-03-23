@@ -14,6 +14,7 @@ import {
   RESET_SORTING,
   SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
   SET_SELECTED_POKEMON_NAME,
+  UPDATE_IS_LOADING,
 } from "../mutation-action-types";
 import {
   getAllPokemons,
@@ -43,6 +44,7 @@ export default {
       searchedPokemon: "",
       selectedPokemonName: "",
       selectedPokemon: {},
+      // ! Set to 0 when dev
       resultsNumber: 10,
       // All existing Pokemons in the API or sorted Pokemons
       allPokemons: { count: 0, results: [] },
@@ -53,10 +55,14 @@ export default {
         count: 0,
         results: [],
       },
+      isLoading: false,
     };
   },
 
   mutations: {
+    [UPDATE_IS_LOADING](state, value) {
+      state.isLoading = value;
+    },
     [UPDATE_SEARCHED_POKEMON](state, searchedPokemon) {
       state.searchedPokemon = searchedPokemon;
     },
@@ -107,8 +113,13 @@ export default {
     [SET_SELECTED_POKEMON_NAME]({ commit }, name) {
       commit(SET_SELECTED_POKEMON_NAME, name);
     },
+    [UPDATE_IS_LOADING]({ commit }, value) {
+      commit(UPDATE_IS_LOADING, value);
+    },
 
     [SET_ALL_POKEMONS]({ commit }) {
+      commit(UPDATE_IS_LOADING, true);
+
       return new Promise((resolve, reject) => {
         getAllPokemons()
           .then((response) => {
@@ -118,6 +129,7 @@ export default {
             };
 
             commit(SET_ALL_POKEMONS, payload);
+            commit(UPDATE_IS_LOADING, false);
             resolve(payload);
           })
           .catch((error) => {
@@ -177,6 +189,7 @@ export default {
           };
 
           commit(ADD_POKEMONS, payload);
+          commit(UPDATE_IS_LOADING, false);
         });
     },
 
@@ -247,6 +260,8 @@ export default {
     },
 
     async [SET_POKEMONS_BY_REGION]({ commit, dispatch, rootState }) {
+      commit(UPDATE_IS_LOADING, true);
+
       getPokemonByRegion(rootState.sorting.selectedRegion).then(
         (pokemons_by_region) => {
           const payload = {
@@ -275,7 +290,6 @@ export default {
     },
 
     async [SET_POKEMONS_BY_REGION_AND_TYPES]({ commit, dispatch, rootState }) {
-      console.log("SET_POKEMONS_BY_REGION_AND_TYPES");
       const selectedRegion = rootState.sorting.selectedRegion;
       const selectedTypes = rootState.sorting.selectedTypes;
 

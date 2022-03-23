@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col mb-16">
+  <div id="cards-list" class="flex flex-col mb-16">
     <div class="sc-list-container">
       <SimpleCard
         v-for="(pokemon, index) in pokemons"
