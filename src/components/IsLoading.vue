@@ -18,7 +18,7 @@ import pokeballImg from "../assets/images/cursor/pokeball.png";
 export default {
   data() {
     return {
-      isLoading: false,
+      isLoading: false, // TODO store
       pokeballImg,
     };
   },

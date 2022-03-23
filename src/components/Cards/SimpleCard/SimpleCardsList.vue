@@ -44,17 +44,10 @@ export default {
 
     const pokemons = computed(() => state.pokemon.filteredPokemons.results);
 
-    const setAllPokemons = () => dispatch("pokemon/" + SET_ALL_POKEMONS);
-    const getPokemons = () => dispatch("pokemon/" + GET_POKEMONS);
-    try {
-      // TODO
-      // For Suspense component
-      // await dispatch("pokemon/" + GET_POKEMONS);
-    } catch (error) {
-      console.log(error);
-    }
+    await dispatch("pokemon/" + SET_ALL_POKEMONS);
+    await dispatch("pokemon/" + GET_POKEMONS);
 
-    return { pokemons, setAllPokemons, getPokemons };
+    return { pokemons, getPokemons: () => dispatch("pokemon/" + GET_POKEMONS) };
   },
 
   data() {
@@ -66,9 +59,9 @@ export default {
   mounted() {
     // Get all the pokemons from the api,
     // then display x results
-    this.setAllPokemons().then(() => {
-      this.getPokemons();
-    });
+    // this.setAllPokemons().then(() => {
+    //   this.getPokemons();
+    // });
 
     // Detect when scrolled to bottom.
     window.addEventListener("scroll", () => this.loadMorePokemons());

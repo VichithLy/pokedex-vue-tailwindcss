@@ -35,9 +35,11 @@ import {
   UPDATE_SHOW_MODAL,
   UPDATE_IS_OVER_CARD,
   SET_SELECTED_POKEMON,
+  SET_SELECTED_POKEMON_NAME,
 } from "../../../store/mutation-action-types";
-
 import { hideBodyOverflowY } from "../../../utils";
+
+//import { hideBodyOverflowY } from "../../../utils";
 
 export default {
   components: {
@@ -77,14 +79,20 @@ export default {
   },
   methods: {
     ...mapActions("cursor", [UPDATE_IS_OVER_CARD]),
-    ...mapActions("pokemon", [SET_SELECTED_POKEMON]),
+    ...mapActions("pokemon", [SET_SELECTED_POKEMON, SET_SELECTED_POKEMON_NAME]),
     ...mapActions("modal", [UPDATE_SHOW_MODAL]),
 
     handleOnCardClick() {
       // 1) Set selected pokemon state
       // 2) Set Show modal state to true
       // 3) Hide body overflow y
-      this.SET_SELECTED_POKEMON(this.name).then(() => {
+      // this.SET_SELECTED_POKEMON(this.name).then(() => {
+      //   this.UPDATE_SHOW_MODAL(true).then(() => {
+      //     hideBodyOverflowY(true);
+      //   });
+      // });
+
+      this.SET_SELECTED_POKEMON_NAME(this.name).then(() => {
         this.UPDATE_SHOW_MODAL(true).then(() => {
           hideBodyOverflowY(true);
         });

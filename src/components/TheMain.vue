@@ -4,18 +4,35 @@
     <SortByIdOrName />
 
     <!-- For async component -->
-    <Suspense>
-      <template #default>
-        <SimpleCardsList />
-      </template>
+    <Transition name="fade">
+      <KeepAlive>
+        <Suspense>
+          <template #default>
+            <SimpleCardsList />
+          </template>
 
-      <template #fallback>
-        <SimpleCardsSkeletonList />
-      </template>
-    </Suspense>
+          <template #fallback>
+            <SimpleCardsSkeletonList />
+          </template>
+        </Suspense>
+      </KeepAlive>
+    </Transition>
 
-    <ModalDialog v-if="selectedPokemon && showModal">
-      <DetailedCard class="relative" :pokemon-object="selectedPokemon" />
+    <ModalDialog v-if="showModal && selectedPokemonName">
+      <KeepAlive>
+        <Suspense>
+          <template #default>
+            <DetailedCard
+              class="relative"
+              :pokemon-name="selectedPokemonName"
+            />
+          </template>
+
+          <template #fallback>
+            <DetailedCardSkeleton />
+          </template>
+        </Suspense>
+      </KeepAlive>
     </ModalDialog>
 
     <ScrollButton />
@@ -28,7 +45,7 @@ import SimpleCardsSkeletonList from "./Cards/SimpleCard/SimpleCardsSkeletonList.
 import DetailedCard from "./Cards/DetailedCard/DetailedCard.vue";
 import SortByIdOrName from "./SortByIdOrName.vue";
 import ScrollButton from "./ScrollButton.vue";
-//import DetailedCardSkeleton from "./Cards/DetailedCard/DetailedCardSkeleton.vue";
+import DetailedCardSkeleton from "./Cards/DetailedCard/DetailedCardSkeleton.vue";
 import { mapState } from "vuex";
 import ModalDialog from "./Modal/ModalDialog.vue";
 
@@ -40,15 +57,25 @@ export default {
     SimpleCardsSkeletonList,
     SortByIdOrName,
     ScrollButton,
-    //DetailedCardSkeleton,
+    DetailedCardSkeleton,
     ModalDialog,
   },
 
   computed: {
-    ...mapState("pokemon", ["pokemons", "selectedPokemon"]),
+    ...mapState("pokemon", ["pokemons", "selectedPokemonName"]),
     ...mapState("modal", ["showModal"]),
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

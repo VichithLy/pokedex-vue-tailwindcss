@@ -13,6 +13,7 @@ import {
   SET_POKEMONS_BY_NAME_OR_ID,
   RESET_SORTING,
   SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
+  SET_SELECTED_POKEMON_NAME,
 } from "../mutation-action-types";
 import {
   getAllPokemons,
@@ -40,6 +41,7 @@ export default {
   state() {
     return {
       searchedPokemon: "",
+      selectedPokemonName: "",
       selectedPokemon: {},
       resultsNumber: 10,
       // All existing Pokemons in the API or sorted Pokemons
@@ -60,6 +62,9 @@ export default {
     },
     [UPDATE_SELECTED_POKEMON](state, pokemon) {
       state.selectedPokemon = pokemon;
+    },
+    [SET_SELECTED_POKEMON_NAME](state, name) {
+      state.selectedPokemonName = name;
     },
     [SET_ALL_POKEMONS](state, payload) {
       state.allPokemons.count = payload.count;
@@ -98,6 +103,9 @@ export default {
     },
     [UPDATE_SELECTED_POKEMON]({ commit }, pokemon) {
       commit(UPDATE_SELECTED_POKEMON, pokemon);
+    },
+    [SET_SELECTED_POKEMON_NAME]({ commit }, name) {
+      commit(SET_SELECTED_POKEMON_NAME, name);
     },
 
     [SET_ALL_POKEMONS]({ commit }) {
