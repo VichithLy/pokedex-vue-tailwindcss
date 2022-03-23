@@ -139,6 +139,8 @@ export default {
     },
 
     async [GET_POKEMONS]({ commit, state }, sortedBy = sort.NONE) {
+      commit(UPDATE_IS_LOADING, true);
+
       const filtered_pokemons_count = state.filteredPokemons.count;
       const all_pokemons_count = state.allPokemons.count;
 
