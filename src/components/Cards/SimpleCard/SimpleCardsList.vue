@@ -11,7 +11,7 @@
     <div class="flex justify-center mt-12">
       <!-- Load More button -->
       <button
-        class="btn-primary"
+        class="btn-primary px-3 w-auto"
         :class="
           (isInfiniteScroll && ['fixed', 'bottom-5', 'left-5']) || 'btn-primary'
         "
