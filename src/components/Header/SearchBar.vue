@@ -1,12 +1,17 @@
 <template>
-  <div
-    class="relative flex items-center w-full h-12 rounded-xl focus-within:border-black bg-white border-2 overflow-hidden border-b-4 drop-shadow-lg"
-  >
-    <div class="grid place-items-center h-full w-12 text-gray-300">
+  <div class="searchbar">
+    <input
+      v-model.trim="searchedPokemon"
+      class="search-input"
+      type="text"
+      placeholder="Search name or id"
+    />
+
+    <div @click="searchPokemon()" class="search-icon-wrapper">
       <!-- Icon -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
+        class="search-icon"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -19,20 +24,16 @@
         />
       </svg>
     </div>
-
-    <input
-      v-model.trim="searchedPokemon"
-      class="h-full w-full outline-none text-gray-700 pr-2 text-lg"
-      type="text"
-      placeholder="Search name or id"
-      @click="onClick"
-    />
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import { UPDATE_SEARCHED_POKEMON } from "../../store/mutation-action-types";
+import {
+  SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
+  UPDATE_SEARCHED_POKEMON,
+} from "../../store/mutation-action-types";
+import debounce from "lodash.debounce";
 
 export default {
   name: "SearchBar",
@@ -47,9 +48,33 @@ export default {
     },
   },
   methods: {
-    ...mapActions("pokemon", [UPDATE_SEARCHED_POKEMON]),
+    ...mapActions("pokemon", [
+      UPDATE_SEARCHED_POKEMON,
+      SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
+    ]),
+    searchPokemon: debounce(function () {
+      this.SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID();
+    }, 1000),
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.searchbar {
+  @apply relative flex items-center w-full h-12 rounded-xl;
+  @apply focus-within:border-black bg-white border-2 overflow-hidden border-b-4 drop-shadow-lg;
+}
+.search-input {
+  @apply h-full w-full outline-none text-gray-700 pr-2 text-lg;
+  @apply pl-4;
+}
+
+.search-icon-wrapper {
+  @apply grid place-items-center h-full w-12 text-gray-300;
+  @apply cursor-pointer bg-pokemon-blue-500 hover:bg-pokemon-blue-600;
+}
+
+.search-icon {
+  @apply h-6 w-6 text-white ease-in-out duration-100;
+}
+</style>
