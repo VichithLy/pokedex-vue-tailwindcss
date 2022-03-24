@@ -1,7 +1,7 @@
 <template>
   <div class="searchbar">
     <input
-      v-model.trim.lazy="searchedPokemon"
+      v-model.trim="searchedPokemon"
       class="search-input"
       type="text"
       placeholder="Search name or id"
@@ -63,11 +63,9 @@ export default {
       UPDATE_IS_LOADING,
     ]),
     ...mapActions("accordion", [UPDATE_IS_OPEN]),
-    searchPokemon(e) {
+    searchPokemon() {
       this.UPDATE_IS_LOADING(true);
       this.setPokemons();
-
-      e.preventDefault();
     },
   },
 };

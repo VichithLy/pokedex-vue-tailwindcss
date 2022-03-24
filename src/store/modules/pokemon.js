@@ -256,7 +256,10 @@ export default {
 
         commit(RESET_FILTERED_POKEMONS);
         commit(SET_ALL_POKEMONS, payload);
-        dispatch(GET_POKEMONS);
+
+        results.length == 0
+          ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
+          : dispatch(GET_POKEMONS);
       });
     },
 
@@ -271,7 +274,10 @@ export default {
           };
           commit(SET_ALL_POKEMONS, payload);
           commit(RESET_FILTERED_POKEMONS);
-          dispatch(GET_POKEMONS, sort.REGION);
+
+          pokemons_by_region.length == 0
+            ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
+            : dispatch(GET_POKEMONS, sort.REGION);
         },
       );
     },
@@ -279,14 +285,17 @@ export default {
     async [SET_POKEMONS_BY_TYPES]({ commit, dispatch, rootState }) {
       const selectedTypes = rootState.sorting.selectedTypes;
 
-      getPokemonsByTypes(selectedTypes).then((results) => {
+      getPokemonsByTypes(selectedTypes).then((pokemons_by_types) => {
         const payload = {
-          count: results.length,
-          results,
+          count: pokemons_by_types.length,
+          results: pokemons_by_types,
         };
         commit(RESET_FILTERED_POKEMONS);
         commit(SET_ALL_POKEMONS, payload);
-        dispatch(GET_POKEMONS, sort.TYPES);
+
+        pokemons_by_types.length == 0
+          ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
+          : dispatch(GET_POKEMONS, sort.TYPES);
       });
     },
 
@@ -319,7 +328,10 @@ export default {
 
             commit(RESET_FILTERED_POKEMONS);
             commit(SET_ALL_POKEMONS, payload);
-            dispatch(GET_POKEMONS, [sort.REGION, sort.TYPES]);
+
+            pokemons_by_region_and_types.length == 0
+              ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
+              : dispatch(GET_POKEMONS, [sort.REGION, sort.TYPES]);
           },
         );
       }
@@ -360,7 +372,10 @@ export default {
 
                 commit(RESET_FILTERED_POKEMONS);
                 commit(SET_ALL_POKEMONS, payload);
-                dispatch(GET_POKEMONS, [sort.REGION]);
+
+                results.length == 0
+                  ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
+                  : dispatch(GET_POKEMONS, [sort.REGION]);
               },
             );
           }
@@ -384,7 +399,10 @@ export default {
 
               commit(RESET_FILTERED_POKEMONS);
               commit(SET_ALL_POKEMONS, payload);
-              dispatch(GET_POKEMONS, [sort.REGION]);
+
+              results.length == 0
+                ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
+                : dispatch(GET_POKEMONS, [sort.REGION]);
             });
           }
           //! Case 1.2.2 : 1 or 2 selectedTypes
@@ -404,7 +422,10 @@ export default {
 
               commit(RESET_FILTERED_POKEMONS);
               commit(SET_ALL_POKEMONS, payload);
-              dispatch(GET_POKEMONS, [sort.REGION, sort.TYPES]);
+
+              results.length == 0
+                ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
+                : dispatch(GET_POKEMONS, [sort.REGION, sort.TYPES]);
             });
           }
         }

@@ -9,4 +9,5 @@ export const sort = {
   TYPES: 0,
   REGION: 1,
   REGION_AND_TYPES: 2,
+  NO_RESULTS: 3,
 };
