@@ -5,7 +5,7 @@
 }
 
 .btn-primary:hover {
-  @apply bg-pokemon-blue-400;
+  @apply bg-pokemon-blue-600;
 }
 
 .btn-primary:active {
@@ -25,7 +25,7 @@
 }
 
 .btn-secondary:hover {
-  @apply text-pokemon-blue-400 border-pokemon-blue-400;
+  @apply text-pokemon-blue-600 border-pokemon-blue-600;
 }
 
 .sort-btn {
