@@ -45,7 +45,7 @@ import {
   GET_POKEMONS,
   SET_ALL_POKEMONS,
 } from "../../../store/mutation-action-types";
-import { outerHeight } from "../../../utils";
+// import { outerHeight } from "../../../utils";
 import debounce from "lodash.debounce";
 import { status, sort } from "../../../constants/types";
 // https://www.pngitem.com/middle/iTbmmRw_surprised-pikachu-meme-hd-png-download/
@@ -95,16 +95,15 @@ export default {
 
   methods: {
     loadMorePokemons: debounce(function () {
-      const footer = document.getElementById("footer");
-      // To trigger the "load more" at the the end of the list
+      // If footer outer height needed
+      // const footer = document.getElementById("footer");
 
+      // To trigger the "load more" at the the end of the list
       const { scrollTop, scrollHeight, clientHeight } =
         document.documentElement;
 
-      const bottomOfWindow =
-        scrollTop + clientHeight >= scrollHeight - outerHeight(footer);
-
-      //console.log("bottomOfWindow", bottomOfWindow);
+      // We remove 100px more for some mobile devices
+      const bottomOfWindow = scrollTop + clientHeight >= scrollHeight - 100;
 
       if (bottomOfWindow && this.isInfiniteScroll) this.getPokemons();
     }, 100),

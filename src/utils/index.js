@@ -453,3 +453,12 @@ export const filterPokemonsByNameOrId = (pokemons, value) => {
 export const findEnglishFlavorText = (array) => {
   return array.find((object) => object.language.name == "en").flavor_text;
 };
+
+/**
+ *
+ * @param { string } str
+ * @returns
+ */
+export const escapeSpecialChars = (str) => {
+  return str.replace(/\f/, " ").replace("POKéMON", "Pokémon");
+};

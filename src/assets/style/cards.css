@@ -106,7 +106,7 @@
 }
 /* ---------- CONTENT */
 .dc-about-content-wrapper {
-  @apply mt-1 p-2 lg:sm:mt-4 text-lg text-justify font-semibold;
+  @apply mt-1 p-2 lg:sm:mt-4 text-lg text-left font-semibold;
 }
 
 /* ----- STATS */
