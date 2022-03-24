@@ -436,11 +436,11 @@ export const filterPokemonsByNameOrId = (pokemons, value) => {
     // We have to verify the user input before returning
     // Input needs to be in lower case & trimmed
 
-    const id = getPokemonIdFromUrl(pokemon.url);
+    const id = getPokemonIdFromUrl(pokemon.url).split(pokemon.url.length - 1);
 
     return (
       pokemon.name.toLowerCase().includes(value.toLowerCase()) ||
-      id.split(pokemon.url.length - 1).includes(value)
+      containsNumber(id, value)
     );
   });
 };
@@ -461,4 +461,15 @@ export const findEnglishFlavorText = (array) => {
  */
 export const escapeSpecialChars = (str) => {
   return str.replace(/\f/, " ").replace("POKéMON", "Pokémon");
+};
+
+/**
+ *
+ * @param {*} str
+ * @param {*} number
+ * @returns
+ */
+export const containsNumber = (str, number) => {
+  const regex = new RegExp(`${number}`);
+  return regex.test(str);
 };

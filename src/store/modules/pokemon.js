@@ -245,8 +245,6 @@ export default {
      * ! ==================================
      * */
     async [SET_POKEMONS_BY_NAME_OR_ID]({ state, commit, dispatch }) {
-      //dispatch("sorting/" + RESET_SORTING, null, { root: true });
-
       dispatch(SET_ALL_POKEMONS).then(() => {
         const results = filterPokemonsByNameOrId(
           state.allPokemons.results,
@@ -450,19 +448,6 @@ export default {
           dispatch(SET_POKEMONS_BY_REGION_AND_TYPES);
         }
       }
-    },
-  },
-  getters: {
-    /**
-     *
-     * @param {*} state
-     * @returns a filtered array of Pokemons by name or id
-     */
-    matchingPokemons(state) {
-      return filterPokemonsByNameOrId(
-        state.allPokemons.results,
-        state.searchedPokemon,
-      );
     },
   },
 };
