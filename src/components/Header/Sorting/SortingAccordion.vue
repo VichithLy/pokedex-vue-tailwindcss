@@ -12,7 +12,9 @@
 
     <!-- Reset & Confirm -->
     <div class="flex justify-between pt-6">
-      <button class="btn-secondary" @click="RESET_SORTING()">Reset</button>
+      <button type="button" class="btn-secondary" @click="RESET_SORTING()">
+        Reset
+      </button>
       <button type="submit" class="btn-primary">Confirm</button>
     </div>
   </div>
