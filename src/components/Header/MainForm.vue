@@ -1,6 +1,6 @@
 <template>
   <div class="w-5/6 mt-8 h-auto">
-    <form @submit.prevent="checkForm()">
+    <form @submit.prevent="checkForm()" @keyup.enter="checkForm">
       <SearchBar />
       <SortingAccordion />
     </form>

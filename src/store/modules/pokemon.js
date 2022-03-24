@@ -11,7 +11,6 @@ import {
   RESET_FILTERED_POKEMONS,
   SET_POKEMONS_BY_REGION_AND_TYPES,
   SET_POKEMONS_BY_NAME_OR_ID,
-  RESET_SORTING,
   SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
   SET_SELECTED_POKEMON_NAME,
   UPDATE_IS_LOADING,
@@ -118,8 +117,6 @@ export default {
     },
 
     [SET_ALL_POKEMONS]({ commit }) {
-      commit(UPDATE_IS_LOADING, true);
-
       return new Promise((resolve, reject) => {
         getAllPokemons()
           .then((response) => {
@@ -196,6 +193,8 @@ export default {
     },
 
     async [SET_SELECTED_POKEMON]({ commit }, name) {
+      commit(UPDATE_IS_LOADING, true);
+
       return new Promise((resolve, reject) => {
         getPokemonByName(name)
           .then((response) => {
@@ -225,7 +224,7 @@ export default {
                 );
 
                 commit(UPDATE_SELECTED_POKEMON, pokemonObject);
-
+                commit(UPDATE_IS_LOADING, false);
                 resolve(pokemonObject);
               });
             });
@@ -242,7 +241,7 @@ export default {
      * ! ==================================
      * */
     async [SET_POKEMONS_BY_NAME_OR_ID]({ state, commit, dispatch }) {
-      dispatch("sorting/" + RESET_SORTING, null, { root: true });
+      //dispatch("sorting/" + RESET_SORTING, null, { root: true });
 
       dispatch(SET_ALL_POKEMONS).then(() => {
         const results = filterPokemonsByNameOrId(
