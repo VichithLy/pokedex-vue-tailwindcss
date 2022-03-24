@@ -93,9 +93,12 @@
       </div>
 
       <div class="dc-stats-graph-wrapper">
-        <div class="has-tooltip flex justify-center items-center">
+        <div class="has-tooltip flex justify-center items-center relative">
           <img :src="swordIcon" class="w-9 icon-sword" />
           <span class="tooltip">Special Attack</span>
+          <span class="absolute right-0 bottom-0 text-xs font-extrabold">
+            Sp
+          </span>
         </div>
 
         <div class="w-10/12 ml-3">
@@ -117,9 +120,12 @@
       </div>
 
       <div class="dc-stats-graph-wrapper">
-        <div class="has-tooltip flex justify-center items-center">
+        <div class="has-tooltip flex justify-center items-center relative">
           <img :src="shieldIcon" class="w-9 icon-shield" />
           <span class="tooltip">Special Defense</span>
+          <span class="absolute right-0 bottom-0 text-xs font-extrabold">
+            Sp
+          </span>
         </div>
 
         <div class="w-10/12 ml-3">

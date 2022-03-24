@@ -74,7 +74,8 @@ export default {
 <style scoped>
 .searchbar {
   @apply relative flex items-center w-full h-12 rounded-xl;
-  @apply focus-within:border-black bg-white border-2 overflow-hidden border-b-4 drop-shadow-lg;
+  @apply focus-within:border-black bg-white overflow-hidden;
+  @apply border-b-4 drop-shadow-lg border-gray-400;
 }
 .search-input {
   @apply h-full w-full outline-none text-gray-700 pr-2 text-lg;
