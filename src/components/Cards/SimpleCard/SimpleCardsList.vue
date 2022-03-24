@@ -1,6 +1,6 @@
 <template>
-  <div id="cards-list" class="flex flex-col mb-16">
-    <div class="sc-list-container">
+  <div id="cards-list" class="flex flex-col mb-16 justify-center items-center">
+    <div v-if="pokemons.length !== 0" class="sc-list-container">
       <SimpleCard
         v-for="(pokemon, index) in pokemons"
         :key="index"
@@ -8,8 +8,13 @@
       />
     </div>
 
+    <div v-else class="w-2/6 flex flex-col items-center gap-4">
+      <img :src="pikaSurprised" alt="pika-surprised" />
+      <div class="text-center font-bold text-xl">No results found !</div>
+    </div>
+
     <div
-      v-show="listStatus !== status.CANNOT_LOAD_MORE"
+      v-show="listStatus !== status.CANNOT_LOAD_MORE && pokemons.length !== 0"
       class="flex justify-center mt-12"
     >
       <!-- Load More button -->
@@ -37,6 +42,8 @@ import {
 import { outerHeight } from "../../../utils";
 import debounce from "lodash.debounce";
 import { status } from "../../../constants/types";
+// https://www.pngitem.com/middle/iTbmmRw_surprised-pikachu-meme-hd-png-download/
+import pikaSurprised from "../../../assets/images/pika_surprised.png";
 
 export default {
   components: { SimpleCard },
@@ -62,6 +69,7 @@ export default {
     return {
       isInfiniteScroll: false,
       status,
+      pikaSurprised,
     };
   },
 
