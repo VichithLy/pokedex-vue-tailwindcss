@@ -8,7 +8,10 @@
       />
     </div>
 
-    <div class="flex justify-center mt-12">
+    <div
+      v-show="listStatus !== status.CANNOT_LOAD_MORE"
+      class="flex justify-center mt-12"
+    >
       <!-- Load More button -->
       <button
         class="btn-primary px-3 w-auto"
@@ -33,38 +36,40 @@ import {
 } from "../../../store/mutation-action-types";
 import { outerHeight } from "../../../utils";
 import debounce from "lodash.debounce";
+import { status } from "../../../constants/types";
 
 export default {
   components: { SimpleCard },
-
   //Composition API
   async setup() {
     // Access states and actions in store
     const { state, dispatch } = useStore();
 
     const pokemons = computed(() => state.pokemon.filteredPokemons.results);
+    const listStatus = computed(() => state.pokemon.filteredPokemons.status);
 
     await dispatch("pokemon/" + SET_ALL_POKEMONS);
     await dispatch("pokemon/" + GET_POKEMONS);
 
-    return { pokemons, getPokemons: () => dispatch("pokemon/" + GET_POKEMONS) };
+    return {
+      pokemons,
+      listStatus,
+      getPokemons: () => dispatch("pokemon/" + GET_POKEMONS),
+    };
   },
 
   data() {
     return {
       isInfiniteScroll: false,
+      status,
     };
   },
 
   mounted() {
-    // Get all the pokemons from the api,
-    // then display x results
-    // this.setAllPokemons().then(() => {
-    //   this.getPokemons();
-    // });
-
     // Detect when scrolled to bottom.
-    window.addEventListener("scroll", () => this.loadMorePokemons());
+    window.addEventListener("scroll", () => {
+      if (this.listStatus !== status.CANNOT_LOAD_MORE) this.loadMorePokemons();
+    });
   },
   unmounted() {
     window.removeEventListener("scroll", () => this.loadMorePokemons());
