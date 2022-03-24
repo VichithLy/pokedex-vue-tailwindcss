@@ -32,6 +32,7 @@ import {
   getPokemonsByRegionAndNameOrId,
   getPokemonsByTypesAndNameOrId,
   getPokemonsByRegionAndTypesAndNameOrId,
+  findEnglishFlavorText,
 } from "../../utils";
 import { sort, status } from "../../constants/types";
 
@@ -206,7 +207,7 @@ export default {
               const species = response.data;
 
               // About
-              const about = species.flavor_text_entries[0].flavor_text;
+              const about = findEnglishFlavorText(species.flavor_text_entries);
 
               // Evolution
               const evolution_chain_url = species.evolution_chain.url;

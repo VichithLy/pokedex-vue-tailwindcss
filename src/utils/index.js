@@ -444,3 +444,12 @@ export const filterPokemonsByNameOrId = (pokemons, value) => {
     );
   });
 };
+
+/**
+ *
+ * @param { array } array
+ * @returns
+ */
+export const findEnglishFlavorText = (array) => {
+  return array.find((object) => object.language.name == "en").flavor_text;
+};
