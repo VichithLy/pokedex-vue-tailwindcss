@@ -1,5 +1,12 @@
 <template>
   <div class="dc-container skeleton-0">
+    <div class="dc-header">
+      <div class="dc-name text-transparent">
+        <div class="rounded-lg w-2/5 skeleton-1">text</div>
+      </div>
+      <CloseButton />
+    </div>
+
     <!-- profile -->
     <div class="dc-profile-container skeleton-1 text-transparent">
       <!-- ID -->
@@ -90,7 +97,8 @@
 </template>
 
 <script>
-export default {};
+import CloseButton from "../../Modal/CloseButton.vue";
+export default { components: { CloseButton } };
 </script>
 
 <style scoped></style>

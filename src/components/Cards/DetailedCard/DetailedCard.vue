@@ -3,6 +3,13 @@
     class="dc-container drop-shadow-lg border-b-4 border-gray-400"
     :class="`bg-gradient-to-b back-from-${getTypes[0]} back-to-${getTypes[0]}`"
   >
+    <div class="dc-header">
+      <div class="dc-name">
+        {{ getProfile.name }}
+      </div>
+      <CloseButton @click="closeModal" />
+    </div>
+
     <PokemonProfile :profile="getProfile" />
 
     <PokemonAbout :about="getAbout" />
@@ -23,7 +30,12 @@ import PokemonBaseStats from "./PokemonBaseStats.vue";
 import PokemonEvolution from "./PokemonEvolution.vue";
 import { computed, toRefs } from "vue";
 import { useStore } from "vuex";
-import { SET_SELECTED_POKEMON } from "../../../store/mutation-action-types";
+import {
+  SET_SELECTED_POKEMON,
+  UPDATE_SHOW_MODAL,
+} from "../../../store/mutation-action-types";
+import CloseButton from "../../Modal/CloseButton.vue";
+import { hideBodyOverflowY } from "../../../utils";
 
 export default {
   components: {
@@ -32,6 +44,7 @@ export default {
     PokemonAbout,
     PokemonBaseStats,
     PokemonEvolution,
+    CloseButton,
   },
   props: {
     pokemonName: {
@@ -48,10 +61,17 @@ export default {
     // Store
     const { state, dispatch } = useStore();
 
-    //await new Promise((resolve) => setTimeout(resolve, 500));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
     await dispatch("pokemon/" + SET_SELECTED_POKEMON, pokemonName.value);
 
     const selectedPokemon = computed(() => state.pokemon.selectedPokemon);
+
+    // Method
+    function closeModal() {
+      dispatch("modal/" + UPDATE_SHOW_MODAL, false).then(
+        hideBodyOverflowY(false),
+      );
+    }
 
     // Computed
     const getTypes = computed(() => {
@@ -99,6 +119,7 @@ export default {
     });
 
     return {
+      closeModal,
       getProfile,
       getAbilities,
       getTypes,
@@ -107,54 +128,7 @@ export default {
       getStats,
     };
   },
-
-  computed: {
-    // getProfile() {
-    //   return {
-    //     id: this.pokemonObject.id,
-    //     name: this.pokemonObject.name,
-    //     picture: this.pokemonObject.picture || "",
-    //     types: this.getTypes,
-    //     height: this.pokemonObject.height,
-    //     weight: this.pokemonObject.weight,
-    //   };
-    // },
-    // getAbout() {
-    //   return this.pokemonObject.about;
-    // },
-    // getStats() {
-    //   return {
-    //     hp: this.pokemonObject.stats[0].base_stat,
-    //     attack: this.pokemonObject.stats[1].base_stat,
-    //     defense: this.pokemonObject.stats[2].base_stat,
-    //     specialAttack: this.pokemonObject.stats[3].base_stat,
-    //     specialDefense: this.pokemonObject.stats[4].base_stat,
-    //     speed: this.pokemonObject.stats[5].base_stat,
-    //   };
-    // },
-    // getAbilities() {
-    //   return this.pokemonObject.abilities.map((object) => object.ability.name);
-    // },
-    // getTypes() {
-    //   return this.pokemonObject.types.map((object) => object.type.name);
-    // },
-    // getEvolutions() {
-    //   return {
-    //     currentPokemon: this.pokemonObject.name,
-    //     types: this.pokemonObject.types,
-    //     pokemons: this.pokemonObject.evolutions,
-    //   };
-    // },
-  },
 };
 </script>
 
-<style>
-.card-general {
-  height: 600px;
-  background-color: #f8d326;
-}
-.detail-bg-title {
-  background-color: #fff9c9;
-}
-</style>
+<style scoped></style>

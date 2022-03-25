@@ -61,6 +61,19 @@
 
 .dc-container {
   @apply rounded-2xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5;
+  @apply my-4;
+}
+
+/* ----- HEADER */
+
+.dc-header {
+  @apply col-span-1 sm:col-span-2;
+  @apply md:col-span-3 flex flex-row justify-between;
+}
+
+.dc-name {
+  @apply flex flex-row gap-5 flex-1 justify-start items-center;
+  @apply capitalize font-bold text-4xl;
 }
 
 /* ----- PROFILE */
@@ -69,7 +82,7 @@
 }
 /* ---------- ID */
 .dc-profile-id-wrapper {
-  @apply flex justify-center font-extrabold text-2xl;
+  @apply flex justify-center font-bold text-2xl;
 }
 /* ---------- NAME */
 .dc-profile-name-wrapper {
@@ -115,7 +128,7 @@
 }
 
 .dc-stats-list {
-  @apply flex flex-col mt-4 gap-y-2;
+  @apply flex flex-col mt-4 h-full justify-evenly;
 }
 
 /* ---------- TITLE */

@@ -5,9 +5,9 @@
     <!-- Modal -->
     <div class="modal-wrapper">
       <!-- Close button -->
-      <div class="flex w-full justify-end pr-2">
+      <!-- <div class="flex w-full justify-end pr-2">
         <CloseButton @click="closeModal" />
-      </div>
+      </div> -->
       <div
         ref="modal"
         class="w-11/12"
@@ -26,14 +26,13 @@
 <script>
 import { hideBodyOverflowY } from "../../utils";
 import useClickOutside from "../../composables/useClickOutside";
-import CloseButton from "./CloseButton.vue";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { UPDATE_SHOW_MODAL } from "../../store/mutation-action-types";
 
 export default {
   components: {
-    CloseButton,
+    //CloseButton,
   },
   setup() {
     // Store

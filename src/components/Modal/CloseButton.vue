@@ -1,8 +1,8 @@
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    class="h-14 w-14 text-white cursor-pointer"
-    viewBox="0 0 20 20"
+    class="close-btn"
+    viewBox="0 1 18 18"
     fill="currentColor"
   >
     <path
@@ -17,4 +17,9 @@
 export default {};
 </script>
 
-<style scoped></style>
+<style scoped>
+.close-btn {
+  @apply w-12 text-gray-50 text-opacity-60 cursor-pointer;
+  @apply hover:text-opacity-100 ease-linear duration-100;
+}
+</style>

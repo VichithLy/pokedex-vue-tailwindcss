@@ -3,11 +3,6 @@
     <!-- Pokemon ID -->
     <div class="dc-profile-id-wrapper">#{{ profile.id }}</div>
 
-    <!-- Pokemon name -->
-    <div class="dc-profile-name-wrapper">
-      {{ profile.name }}
-    </div>
-
     <!-- Pokemon picture -->
     <img
       v-if="profile.picture"
