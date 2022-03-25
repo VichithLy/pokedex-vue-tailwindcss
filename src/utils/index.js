@@ -445,6 +445,26 @@ export const filterPokemonsByNameOrId = (pokemons, value) => {
   });
 };
 
+export const sortPokemonsByNameAsc = (pokemons) => {
+  return pokemons.sort((a, b) => (a.name > b.name ? 1 : -1));
+};
+
+export const sortPokemonsByNameDesc = (pokemons) => {
+  return pokemons.sort((a, b) => (a.name < b.name ? 1 : -1));
+};
+
+export const sortPokemonsByIdAsc = (pokemons) => {
+  return pokemons.sort(
+    (a, b) => getPokemonIdFromUrl(a.url) - getPokemonIdFromUrl(b.url),
+  );
+};
+
+export const sortPokemonsByIdDesc = (pokemons) => {
+  return pokemons.sort(
+    (a, b) => getPokemonIdFromUrl(b.url) - getPokemonIdFromUrl(a.url),
+  );
+};
+
 /**
  *
  * @param { array } array

@@ -29,10 +29,15 @@
 }
 
 .sort-btn {
-  @apply bg-transparent drop-shadow-lg border-b-4 rounded-b-md text-pokemon-blue-500 font-semibold  px-4 border-2 border-pokemon-blue-500 rounded-md ease-in-out;
+  @apply bg-transparent drop-shadow-lg border-b-4 rounded-b-md text-pokemon-blue-500 px-3 font-semibold border-2 border-pokemon-blue-500 rounded-md ease-in-out;
+  @apply flex flex-row justify-between items-center w-20;
 }
 
 .sort-btn:active {
+  @apply mt-0.5 border-b-2 bg-pokemon-blue-500 text-white;
+}
+
+.sort-btn-active {
   @apply mt-0.5 border-b-2 bg-pokemon-blue-500 text-white;
 }
 

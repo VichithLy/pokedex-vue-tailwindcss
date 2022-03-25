@@ -14,6 +14,11 @@ import {
   SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
   SET_SELECTED_POKEMON_NAME,
   UPDATE_IS_LOADING,
+  UPDATE_IS_SORTED_BY_2,
+  SET_POKEMONS_BY_NAME_DESC,
+  SET_POKEMONS_BY_NAME_ASC,
+  SET_POKEMONS_BY_ID_ASC,
+  SET_POKEMONS_BY_ID_DESC,
 } from "../mutation-action-types";
 import {
   getAllPokemons,
@@ -34,6 +39,10 @@ import {
   getPokemonsByRegionAndTypesAndNameOrId,
   findEnglishFlavorText,
   escapeSpecialChars,
+  sortPokemonsByNameDesc,
+  sortPokemonsByNameAsc,
+  sortPokemonsByIdAsc,
+  sortPokemonsByIdDesc,
 } from "../../utils";
 import { sort, status } from "../../constants/types";
 
@@ -53,6 +62,7 @@ export default {
       filteredPokemons: {
         status: status.NONE,
         isSortedBy: sort.NONE,
+        isSortedBy2: sort.ID_ASC,
         count: 0,
         results: [],
       },
@@ -69,6 +79,9 @@ export default {
     },
     [UPDATE_SELECTED_POKEMON](state, pokemon) {
       state.selectedPokemon = pokemon;
+    },
+    [UPDATE_IS_SORTED_BY_2](state, value) {
+      state.filteredPokemons.isSortedBy2 = value;
     },
     [SET_SELECTED_POKEMON_NAME](state, name) {
       state.selectedPokemonName = name;
@@ -92,8 +105,6 @@ export default {
       state.filteredPokemons.count = payload.count;
 
       const results = state.filteredPokemons.results;
-      console.log("results", results);
-      console.log("payload.results", payload.results);
       results.splice(0, results.length, ...payload.results);
     },
     [RESET_FILTERED_POKEMONS](state) {
@@ -117,16 +128,16 @@ export default {
     [UPDATE_IS_LOADING]({ commit }, value) {
       commit(UPDATE_IS_LOADING, value);
     },
-
     [SET_ALL_POKEMONS]({ commit }) {
       return new Promise((resolve, reject) => {
         getAllPokemons()
           .then((response) => {
             const payload = {
-              count: response.data.count,
+              count: response.data.count - 1, // There are actually 1126 - 1 Pokemons
               results: response.data.results,
             };
 
+            // TODO Check isSortedBy2
             commit(SET_ALL_POKEMONS, payload);
             commit(UPDATE_IS_LOADING, false);
             resolve(payload);
@@ -244,6 +255,69 @@ export default {
      * ! ======== Sorting section =========
      * ! ==================================
      * */
+    [SET_POKEMONS_BY_NAME_DESC]({ state, commit, dispatch }) {
+      const allPokemons = state.allPokemons.results;
+      const currentIsSortedBy = state.filteredPokemons.isSortedBy;
+      const sortedPokemons = sortPokemonsByNameDesc(allPokemons);
+
+      const payload = {
+        count: sortedPokemons.length,
+        results: sortedPokemons,
+      };
+      // TODO Check isSortedBy2
+      commit(SET_ALL_POKEMONS, payload);
+
+      commit(RESET_FILTERED_POKEMONS);
+      // Display sorted Pokemons
+      dispatch(GET_POKEMONS, currentIsSortedBy);
+      // Update isSortedBy2
+      commit(UPDATE_IS_SORTED_BY_2, sort.NAME_DESC);
+    },
+    [SET_POKEMONS_BY_NAME_ASC]({ state, commit, dispatch }) {
+      const allPokemons = state.allPokemons.results;
+      const currentIsSortedBy = state.filteredPokemons.isSortedBy;
+      const sortedPokemons = sortPokemonsByNameAsc(allPokemons);
+
+      const payload = {
+        count: sortedPokemons.length,
+        results: sortedPokemons,
+      };
+      // TODO Check isSortedBy2
+      commit(SET_ALL_POKEMONS, payload);
+      commit(RESET_FILTERED_POKEMONS);
+      dispatch(GET_POKEMONS, currentIsSortedBy);
+      commit(UPDATE_IS_SORTED_BY_2, sort.NAME_ASC);
+    },
+    [SET_POKEMONS_BY_ID_ASC]({ state, commit, dispatch }) {
+      const allPokemons = state.allPokemons.results;
+      const currentIsSortedBy = state.filteredPokemons.isSortedBy;
+      const sortedPokemons = sortPokemonsByIdAsc(allPokemons);
+
+      const payload = {
+        count: sortedPokemons.length,
+        results: sortedPokemons,
+      };
+      // TODO Check isSortedBy2
+      commit(SET_ALL_POKEMONS, payload);
+      commit(RESET_FILTERED_POKEMONS);
+      dispatch(GET_POKEMONS, currentIsSortedBy);
+      commit(UPDATE_IS_SORTED_BY_2, sort.NAME_ASC);
+    },
+    [SET_POKEMONS_BY_ID_DESC]({ state, commit, dispatch }) {
+      const allPokemons = state.allPokemons.results;
+      const currentIsSortedBy = state.filteredPokemons.isSortedBy;
+      const sortedPokemons = sortPokemonsByIdDesc(allPokemons);
+
+      const payload = {
+        count: sortedPokemons.length,
+        results: sortedPokemons,
+      };
+      // TODO Check isSortedBy2
+      commit(SET_ALL_POKEMONS, payload);
+      commit(RESET_FILTERED_POKEMONS);
+      dispatch(GET_POKEMONS, currentIsSortedBy);
+      commit(UPDATE_IS_SORTED_BY_2, sort.NAME_ASC);
+    },
     async [SET_POKEMONS_BY_NAME_OR_ID]({ state, commit, dispatch }) {
       dispatch(SET_ALL_POKEMONS).then(() => {
         const results = filterPokemonsByNameOrId(
@@ -257,6 +331,7 @@ export default {
         };
 
         commit(RESET_FILTERED_POKEMONS);
+        // TODO Check isSortedBy2
         commit(SET_ALL_POKEMONS, payload);
 
         results.length == 0
@@ -274,6 +349,7 @@ export default {
             count: pokemons_by_region.length,
             results: pokemons_by_region,
           };
+          // TODO Check isSortedBy2
           commit(SET_ALL_POKEMONS, payload);
           commit(RESET_FILTERED_POKEMONS);
 
@@ -293,6 +369,7 @@ export default {
           results: pokemons_by_types,
         };
         commit(RESET_FILTERED_POKEMONS);
+        // TODO Check isSortedBy2
         commit(SET_ALL_POKEMONS, payload);
 
         pokemons_by_types.length == 0
@@ -329,6 +406,7 @@ export default {
             };
 
             commit(RESET_FILTERED_POKEMONS);
+            // TODO Check isSortedBy2
             commit(SET_ALL_POKEMONS, payload);
 
             pokemons_by_region_and_types.length == 0
@@ -373,6 +451,7 @@ export default {
                 };
 
                 commit(RESET_FILTERED_POKEMONS);
+                // TODO Check isSortedBy2
                 commit(SET_ALL_POKEMONS, payload);
 
                 results.length == 0
@@ -400,6 +479,7 @@ export default {
               };
 
               commit(RESET_FILTERED_POKEMONS);
+              // TODO Check isSortedBy2
               commit(SET_ALL_POKEMONS, payload);
 
               results.length == 0
@@ -423,6 +503,7 @@ export default {
               };
 
               commit(RESET_FILTERED_POKEMONS);
+              // TODO Check isSortedBy2
               commit(SET_ALL_POKEMONS, payload);
 
               results.length == 0
