@@ -9,12 +9,12 @@
         <span class="text-indigo-600"> M</span>entions
       </p>
     </div>
-    <div class="container mx-auto px-4 text-justify">
+    <div class="container mx-auto px-4">
       <p class="text-3xl py-8 ml-3">
         <span class="text-indigo-600">D</span>efinitions
       </p>
       <p>
-        The website : https://pokedex-vue-vlyjm.netlify.app/<br />
+        Website : https://pokedex-vue-vlyjm.netlify.app/<br />
         User : Internet user connecting, using the aforementioned site.<br />
         Benefits and Services: the site provides Users with.<br />
         Content : All the constituent elements of the information present on the
@@ -50,7 +50,7 @@
         United States
       </p>
       <p class="text-3xl py-8 ml-3">
-        <span class="text-indigo-600">2</span>. General conditions of use of the
+        <span class="text-indigo-600">2</span>.General conditions of use of the
         site and the services offered.
       </p>
       <p>
@@ -71,15 +71,14 @@
         acquainted with them.
       </p>
       <p class="text-3xl py-8 ml-3">
-        <span class="text-indigo-600">3</span>. Description of services
-        provided.
+        <span class="text-indigo-600">3</span>.Description of services provided.
       </p>
       <p>
         The purpose of the website is to provide infomation of pokémons and
         materialize a Pokédex.
       </p>
       <p class="text-3xl py-8 ml-3">
-        <span class="text-indigo-600">4</span>. Contractual Limitations on
+        <span class="text-indigo-600">4</span>.Contractual Limitations on
         Technical Data.
       </p>
       <p>
@@ -103,7 +102,7 @@
         preventing access to the server.
       </p>
       <p class="text-3xl py-8 ml-3">
-        <span class="text-indigo-600">5</span>. Intellectual Property and
+        <span class="text-indigo-600">5</span>.Intellectual Property and
         Infringements.
       </p>
       <p>
@@ -113,7 +112,7 @@
         respective owners.
       </p>
       <p class="text-3xl py-8 ml-3">
-        <span class="text-indigo-600">6</span>. Limitation of Liability.
+        <span class="text-indigo-600">6</span>.Limitation of Liability.
       </p>
       <p>
         All of the information on this website was provided by
@@ -124,7 +123,7 @@
         do not guarantee the veracity of the information.
       </p>
       <p class="text-3xl py-8 ml-3">
-        <span class="text-indigo-600">7</span>. Governing Law and Jurisdiction.
+        <span class="text-indigo-600">7</span>.Governing Law and Jurisdiction.
       </p>
       <p>
         Any dispute in connection with the use of the site is subject to French
