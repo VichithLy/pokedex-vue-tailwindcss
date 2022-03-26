@@ -8,6 +8,7 @@
         placeholder="Search name or id"
         @input="onInputChange()"
         @keypress.enter="() => (showAutoComplete = false)"
+        @click="onInputChange()"
       />
 
       <div class="search-icon-wrapper" @click="searchPokemon()">

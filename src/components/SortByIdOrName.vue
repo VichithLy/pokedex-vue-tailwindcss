@@ -25,7 +25,7 @@
       <span>Name</span>
     </button>
 
-    <div class="flex flex-row gap-2 items-center">
+    <div class="flex flex-row gap-2 items-center cursor-pointer">
       <div class="font-bold whitespace-nowrap">Order by</div>
       <div class="sort-btn" @click="orderBy()">
         <svg
