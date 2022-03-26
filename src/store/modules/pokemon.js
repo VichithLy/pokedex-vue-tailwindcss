@@ -19,6 +19,7 @@ import {
   SET_POKEMONS_BY_NAME_ASC,
   SET_POKEMONS_BY_ID_ASC,
   SET_POKEMONS_BY_ID_DESC,
+  SORT_POKEMONS,
 } from "../mutation-action-types";
 import {
   getAllPokemons,
@@ -137,8 +138,8 @@ export default {
               results: response.data.results,
             };
 
-            // TODO Check isSortedBy2
             commit(SET_ALL_POKEMONS, payload);
+
             commit(UPDATE_IS_LOADING, false);
             resolve(payload);
           })
@@ -255,6 +256,44 @@ export default {
      * ! ======== Sorting section =========
      * ! ==================================
      * */
+    [SORT_POKEMONS]({ commit, state }) {
+      const isSortedBy2 = state.filteredPokemons.isSortedBy2;
+      const results = state.allPokemons.results;
+      const count = state.allPokemons.count;
+      const payload = { count, results };
+
+      switch (isSortedBy2) {
+        case sort.NAME_ASC:
+          commit(SET_ALL_POKEMONS, {
+            count,
+            results: sortPokemonsByNameAsc(results),
+          });
+          break;
+        case sort.NAME_DESC:
+          commit(SET_ALL_POKEMONS, {
+            count,
+            results: sortPokemonsByNameDesc(results),
+          });
+          break;
+        case sort.ID_ASC:
+          commit(SET_ALL_POKEMONS, {
+            count,
+            results: sortPokemonsByIdAsc(results),
+          });
+          break;
+        case sort.ID_DESC:
+          console.log("ID_DESC");
+          commit(SET_ALL_POKEMONS, {
+            count,
+            results: sortPokemonsByIdDesc(results),
+          });
+          break;
+
+        default:
+          commit(SET_ALL_POKEMONS, payload);
+          break;
+      }
+    },
     [SET_POKEMONS_BY_NAME_DESC]({ state, commit, dispatch }) {
       const allPokemons = state.allPokemons.results;
       const currentIsSortedBy = state.filteredPokemons.isSortedBy;
@@ -264,7 +303,6 @@ export default {
         count: sortedPokemons.length,
         results: sortedPokemons,
       };
-      // TODO Check isSortedBy2
       commit(SET_ALL_POKEMONS, payload);
 
       commit(RESET_FILTERED_POKEMONS);
@@ -282,7 +320,7 @@ export default {
         count: sortedPokemons.length,
         results: sortedPokemons,
       };
-      // TODO Check isSortedBy2
+
       commit(SET_ALL_POKEMONS, payload);
       commit(RESET_FILTERED_POKEMONS);
       dispatch(GET_POKEMONS, currentIsSortedBy);
@@ -297,11 +335,11 @@ export default {
         count: sortedPokemons.length,
         results: sortedPokemons,
       };
-      // TODO Check isSortedBy2
+
       commit(SET_ALL_POKEMONS, payload);
       commit(RESET_FILTERED_POKEMONS);
       dispatch(GET_POKEMONS, currentIsSortedBy);
-      commit(UPDATE_IS_SORTED_BY_2, sort.NAME_ASC);
+      commit(UPDATE_IS_SORTED_BY_2, sort.ID_ASC);
     },
     [SET_POKEMONS_BY_ID_DESC]({ state, commit, dispatch }) {
       const allPokemons = state.allPokemons.results;
@@ -312,11 +350,11 @@ export default {
         count: sortedPokemons.length,
         results: sortedPokemons,
       };
-      // TODO Check isSortedBy2
+
       commit(SET_ALL_POKEMONS, payload);
       commit(RESET_FILTERED_POKEMONS);
       dispatch(GET_POKEMONS, currentIsSortedBy);
-      commit(UPDATE_IS_SORTED_BY_2, sort.NAME_ASC);
+      commit(UPDATE_IS_SORTED_BY_2, sort.ID_DESC);
     },
     async [SET_POKEMONS_BY_NAME_OR_ID]({ state, commit, dispatch }) {
       dispatch(SET_ALL_POKEMONS).then(() => {
@@ -331,8 +369,9 @@ export default {
         };
 
         commit(RESET_FILTERED_POKEMONS);
-        // TODO Check isSortedBy2
+
         commit(SET_ALL_POKEMONS, payload);
+        dispatch(SORT_POKEMONS);
 
         results.length == 0
           ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
@@ -349,8 +388,10 @@ export default {
             count: pokemons_by_region.length,
             results: pokemons_by_region,
           };
-          // TODO Check isSortedBy2
+
           commit(SET_ALL_POKEMONS, payload);
+          dispatch(SORT_POKEMONS);
+
           commit(RESET_FILTERED_POKEMONS);
 
           pokemons_by_region.length == 0
@@ -369,8 +410,9 @@ export default {
           results: pokemons_by_types,
         };
         commit(RESET_FILTERED_POKEMONS);
-        // TODO Check isSortedBy2
+
         commit(SET_ALL_POKEMONS, payload);
+        dispatch(SORT_POKEMONS);
 
         pokemons_by_types.length == 0
           ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
@@ -406,8 +448,9 @@ export default {
             };
 
             commit(RESET_FILTERED_POKEMONS);
-            // TODO Check isSortedBy2
+
             commit(SET_ALL_POKEMONS, payload);
+            dispatch(SORT_POKEMONS);
 
             pokemons_by_region_and_types.length == 0
               ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
@@ -453,6 +496,7 @@ export default {
                 commit(RESET_FILTERED_POKEMONS);
                 // TODO Check isSortedBy2
                 commit(SET_ALL_POKEMONS, payload);
+                dispatch(SORT_POKEMONS);
 
                 results.length == 0
                   ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
@@ -479,8 +523,9 @@ export default {
               };
 
               commit(RESET_FILTERED_POKEMONS);
-              // TODO Check isSortedBy2
+
               commit(SET_ALL_POKEMONS, payload);
+              dispatch(SORT_POKEMONS);
 
               results.length == 0
                 ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
@@ -503,8 +548,9 @@ export default {
               };
 
               commit(RESET_FILTERED_POKEMONS);
-              // TODO Check isSortedBy2
+
               commit(SET_ALL_POKEMONS, payload);
+              dispatch(SORT_POKEMONS);
 
               results.length == 0
                 ? dispatch(GET_POKEMONS, sort.NO_RESULTS)

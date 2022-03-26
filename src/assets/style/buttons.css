@@ -30,7 +30,7 @@
 
 .sort-btn {
   @apply bg-transparent drop-shadow-lg border-b-4 rounded-b-md text-pokemon-blue-500 px-3 font-semibold border-2 border-pokemon-blue-500 rounded-md ease-in-out;
-  @apply flex flex-row justify-between items-center w-20;
+  @apply flex flex-row justify-center items-center;
 }
 
 .sort-btn:active {

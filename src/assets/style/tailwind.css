@@ -30,7 +30,7 @@
 /* TOOLTIP */
 
 .tooltip {
-  @apply invisible absolute rounded-lg py-0.5 px-2 bg-gray-100 -mt-20 border-2 font-semibold border-black;
+  @apply invisible absolute rounded-lg py-0.5 px-2 bg-gray-100 -mt-20 border-2 font-semibold border-black whitespace-nowrap;
 }
 
 .has-tooltip:hover .tooltip {
