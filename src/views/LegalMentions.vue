@@ -14,7 +14,7 @@
         <span class="text-indigo-600">D</span>efinitions
       </p>
       <p>
-        The website : https://pokedex-vue-sacojilvo.netlify.app/<br />
+        The website : https://pokedex-vue-vlyjm.netlify.app/<br />
         User : Internet user connecting, using the aforementioned site.<br />
         Benefits and Services: the site provides Users with.<br />
         Content : All the constituent elements of the information present on the
@@ -37,9 +37,10 @@
       </p>
       <p>
         Under Article 6 of Law No. 2004-575 of June 21, 2004 on confidence in
-        the digital economy, users of the website https://sw2022.fr are informed
-        of the identity of the various stakeholders in the framework of its
-        implementation and monitoring:<br />
+        the digital economy, users of the website
+        https://pokedex-vue-vlyjm.netlify.app/ are informed of the identity of
+        the various stakeholders in the framework of its implementation and
+        monitoring:<br />
         Owner :
         <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss"
           >Vichith LY and Julien MILLOT</a
