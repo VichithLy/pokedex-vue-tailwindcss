@@ -14,7 +14,7 @@
         <span class="text-indigo-600">D</span>efinitions
       </p>
       <p>
-        The website : http://localhost:8080/<br />
+        The website : https://pokedex-vue-sacojilvo.netlify.app/<br />
         User : Internet user connecting, using the aforementioned site.<br />
         Benefits and Services: the site provides Users with.<br />
         Content : All the constituent elements of the information present on the
@@ -44,18 +44,9 @@
         <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss"
           >Vichith LY and Julien MILLOT</a
         ><br />
-
-        Publication manager:
-        <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss"
-          >Vichith LY and Julien MILLOT</a
-        ><br />
-        Co-responsible for publication : Graphic design / Web design /
-        Development :
-        <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss"
-          >Vichith LY and Julien MILLOT</a
-        ><br />
-        Host :<br />
-        Hebergeur – et ses coordoonées
+        Host : Netlify <br />
+        610 22nd Street Suite 315 <br />San Francisco CA 94107 <br />
+        United States
       </p>
       <p class="text-3xl py-8 ml-3">
         <span class="text-indigo-600">2</span>. General conditions of use of the
