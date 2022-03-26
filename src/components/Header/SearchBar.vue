@@ -1,34 +1,55 @@
 <template>
-  <div class="searchbar">
-    <input
-      v-model.trim="searchedPokemon"
-      class="search-input"
-      type="text"
-      placeholder="Search name or id"
-    />
+  <div class="relative">
+    <div class="searchbar">
+      <input
+        v-model.trim="searchedPokemon"
+        class="search-input"
+        type="text"
+        placeholder="Search name or id"
+        @input="onInputChange()"
+        @keypress.enter="() => (showAutoComplete = false)"
+      />
 
-    <div class="search-icon-wrapper" @click="searchPokemon()">
-      <!-- Icon -->
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="search-icon"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-        />
-      </svg>
+      <div class="search-icon-wrapper" @click="searchPokemon()">
+        <!-- Icon -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="search-icon"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <div v-show="showAutoComplete" ref="box" class="autocomplete-box">
+      <div class="box-content">
+        <div class="results-message">
+          {{ suggestions.length }} results found for
+          <span class="font-bold">"{{ searchedPokemon }}"</span>
+        </div>
+        <li
+          v-for="(pokemon, index) in suggestions"
+          :key="index"
+          class="capitalize"
+          @click="onSuggestionClick(pokemon.name)"
+        >
+          #{{ getPokemonIdFromUrl(pokemon.url) }} - {{ pokemon.name }}
+        </li>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import {
   SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
   UPDATE_IS_LOADING,
@@ -36,10 +57,28 @@ import {
   UPDATE_SEARCHED_POKEMON,
 } from "../../store/mutation-action-types";
 import debounce from "lodash.debounce";
+import { ref } from "vue";
+import useClickOutside from "../../composables/useClickOutside";
+import { filterPokemonsByNameOrId, getPokemonIdFromUrl } from "../../utils";
 
 export default {
   name: "SearchBar",
+
+  setup() {
+    // Refs
+    const showAutoComplete = ref(false);
+    const box = ref(null);
+
+    // Composable
+    const { onClickOutside } = useClickOutside();
+    onClickOutside(box, () => (showAutoComplete.value = false));
+
+    // Methods
+    return { showAutoComplete, box };
+  },
+
   computed: {
+    ...mapState("pokemon", ["allPokemons"]),
     searchedPokemon: {
       get() {
         return this.$store.state.pokemon.searchedPokemon;
@@ -48,7 +87,14 @@ export default {
         this.UPDATE_SEARCHED_POKEMON(value);
       },
     },
+    suggestions() {
+      return filterPokemonsByNameOrId(
+        this.allPokemons.results,
+        this.searchedPokemon,
+      );
+    },
   },
+
   mounted() {
     this.setPokemons = debounce(function () {
       this.SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID().then(() => {
@@ -56,6 +102,7 @@ export default {
       });
     }, 1000);
   },
+
   methods: {
     ...mapActions("pokemon", [
       UPDATE_SEARCHED_POKEMON,
@@ -67,6 +114,16 @@ export default {
       this.UPDATE_IS_LOADING(true);
       this.setPokemons();
     },
+    onInputChange() {
+      this.searchedPokemon == ""
+        ? (this.showAutoComplete = false)
+        : (this.showAutoComplete = true);
+    },
+    onSuggestionClick(name) {
+      this.UPDATE_SEARCHED_POKEMON(name);
+      this.showAutoComplete = false;
+    },
+    getPokemonIdFromUrl,
   },
 };
 </script>
@@ -89,5 +146,24 @@ export default {
 
 .search-icon {
   @apply h-6 w-6 text-white ease-in-out duration-100;
+}
+
+.autocomplete-box {
+  @apply border-2 border-black rounded-xl shadow-2xl mt-2 bg-white;
+  @apply p-2 select-none absolute z-10 w-full;
+}
+
+.box-content {
+  @apply overflow-x-auto max-h-60 pr-1;
+}
+
+.autocomplete-box li {
+  @apply list-none w-full px-2 py-2;
+  @apply rounded-lg;
+  @apply hover:bg-gray-200;
+}
+
+.results-message {
+  @apply p-2 mb-2 border-b-2 text-gray-500;
 }
 </style>
