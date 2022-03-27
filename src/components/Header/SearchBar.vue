@@ -33,7 +33,7 @@
     <div v-show="showAutoComplete" ref="box" class="autocomplete-box">
       <div class="box-content">
         <div class="results-message">
-          {{ suggestions.length }} results found for
+          {{ suggestions.length }} suggestions for
           <span class="font-bold">"{{ searchedPokemon }}"</span>
         </div>
         <li
@@ -61,6 +61,7 @@ import debounce from "lodash.debounce";
 import { ref } from "vue";
 import useClickOutside from "../../composables/useClickOutside";
 import { filterPokemonsByNameOrId, getPokemonIdFromUrl } from "../../utils";
+import staticAllPokemons from "../../data/all_pokemons.json";
 
 export default {
   name: "SearchBar",
@@ -78,8 +79,14 @@ export default {
     return { showAutoComplete, box };
   },
 
+  data() {
+    return {
+      staticAllPokemons,
+    };
+  },
+
   computed: {
-    ...mapState("pokemon", ["allPokemons"]),
+    ...mapState("pokemon", ["filteredPokemons"]),
     searchedPokemon: {
       get() {
         return this.$store.state.pokemon.searchedPokemon;
@@ -89,10 +96,7 @@ export default {
       },
     },
     suggestions() {
-      return filterPokemonsByNameOrId(
-        this.allPokemons.results,
-        this.searchedPokemon,
-      );
+      return filterPokemonsByNameOrId(staticAllPokemons, this.searchedPokemon);
     },
   },
 
