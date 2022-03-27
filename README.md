@@ -58,3 +58,5 @@ The Footer.vue
 Home.vue
 
 LegaMentions.vue
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d8217616-27f3-43a8-944f-5bf640e81dae/deploy-status)](https://app.netlify.com/sites/pokedex-vue-vlyjm/deploys)
