@@ -14,12 +14,12 @@ import {
   SET_POKEMONS_BY_REGION_TYPES_AND_NAME_OR_ID,
   SET_SELECTED_POKEMON_NAME,
   UPDATE_IS_LOADING,
-  UPDATE_IS_SORTED_BY_2,
   SET_POKEMONS_BY_NAME_DESC,
   SET_POKEMONS_BY_NAME_ASC,
   SET_POKEMONS_BY_ID_ASC,
   SET_POKEMONS_BY_ID_DESC,
   SORT_POKEMONS,
+  UPDATE_FILTERED_POKEMONS_ORDER,
 } from "../mutation-action-types";
 import {
   getAllPokemons,
@@ -45,7 +45,16 @@ import {
   sortPokemonsByIdAsc,
   sortPokemonsByIdDesc,
 } from "../../utils";
-import { sort, status } from "../../constants/types";
+import {
+  enum_sort,
+  enum_status,
+  enum_key,
+  enum_order,
+  enum_type,
+  enum_region,
+} from "../../constants/enums";
+
+import merge from "lodash.merge";
 
 export default {
   namespaced: true,
@@ -61,9 +70,14 @@ export default {
       allPokemons: { count: 0, results: [] },
       // Pokemons that will be displayed on the screen
       filteredPokemons: {
-        status: status.NONE,
-        isSortedBy: sort.NONE,
-        isSortedBy2: sort.ID_ASC,
+        sorting: {
+          key: enum_key.ID,
+          key_value: "",
+          region: enum_region.NONE,
+          types: enum_type.NONE,
+          order: enum_order.ASC,
+        },
+        status: enum_status.NONE,
         count: 0,
         results: [],
       },
@@ -81,8 +95,8 @@ export default {
     [UPDATE_SELECTED_POKEMON](state, pokemon) {
       state.selectedPokemon = pokemon;
     },
-    [UPDATE_IS_SORTED_BY_2](state, value) {
-      state.filteredPokemons.isSortedBy2 = value;
+    [UPDATE_FILTERED_POKEMONS_ORDER](state, value) {
+      state.filteredPokemons.sorting.order = value;
     },
     [SET_SELECTED_POKEMON_NAME](state, name) {
       state.selectedPokemonName = name;
@@ -92,8 +106,17 @@ export default {
       state.allPokemons.results = payload.results;
     },
     [ADD_POKEMONS](state, payload) {
+      state.filteredPokemons.sorting.key_value = "";
+      state.filteredPokemons.sorting.types = [];
+      state.filteredPokemons.sorting.region = enum_region.NONE;
+
+      state.filteredPokemons.sorting.types = [];
+      state.filteredPokemons.sorting = merge(
+        state.filteredPokemons.sorting,
+        payload.sorting,
+      );
+
       state.filteredPokemons.status = payload.status;
-      state.filteredPokemons.isSortedBy = payload.isSortedBy;
       state.filteredPokemons.count += payload.count;
       state.filteredPokemons.results = [
         ...state.filteredPokemons.results,
@@ -102,15 +125,13 @@ export default {
     },
     [UPDATE_FILTERED_POKEMONS](state, payload) {
       state.filteredPokemons.status = payload.status;
-      state.filteredPokemons.isSortedBy = payload.isSortedBy;
       state.filteredPokemons.count = payload.count;
 
       const results = state.filteredPokemons.results;
       results.splice(0, results.length, ...payload.results);
     },
     [RESET_FILTERED_POKEMONS](state) {
-      state.filteredPokemons.status = status.NONE;
-      state.filteredPokemons.isSortedBy = sort.NONE;
+      state.filteredPokemons.status = enum_status.NONE;
       state.filteredPokemons.count = 0;
       state.filteredPokemons.results = [];
     },
@@ -129,16 +150,17 @@ export default {
     [UPDATE_IS_LOADING]({ commit }, value) {
       commit(UPDATE_IS_LOADING, value);
     },
-    [SET_ALL_POKEMONS]({ commit }) {
+    [SET_ALL_POKEMONS]({ commit, dispatch }) {
       return new Promise((resolve, reject) => {
         getAllPokemons()
           .then((response) => {
             const payload = {
-              count: response.data.count - 1, // There are actually 1126 - 1 Pokemons
+              count: response.data.count - 1, // There are actually 1126-1 Pokemons
               results: response.data.results,
             };
 
             commit(SET_ALL_POKEMONS, payload);
+            dispatch(SORT_POKEMONS);
 
             commit(UPDATE_IS_LOADING, false);
             resolve(payload);
@@ -149,7 +171,17 @@ export default {
       });
     },
 
-    async [GET_POKEMONS]({ commit, state }, sortedBy = sort.NONE) {
+    async [GET_POKEMONS](
+      { commit, state },
+
+      sorting = {
+        key: enum_key.ID,
+        key_value: "",
+        region: enum_region.NONE,
+        types: enum_type.NONE,
+        order: enum_sort.ASC,
+      },
+    ) {
       commit(UPDATE_IS_LOADING, true);
 
       const filtered_pokemons_count = state.filteredPokemons.count;
@@ -166,7 +198,7 @@ export default {
       let payload = { status: "", count: 0, result: [] };
 
       // There is no more Pokemons to display
-      if (state.filteredPokemons.status === status.CANNOT_LOAD_MORE) {
+      if (state.filteredPokemons.status === enum_status.CANNOT_LOAD_MORE) {
         return;
       }
 
@@ -179,24 +211,29 @@ export default {
           );
         })
         .then(() => {
-          let payload_status = status.NONE;
+          let payload_status = enum_status.NONE;
           let payload_results_number = results_number;
 
           // We can display more Pokemons
           if (all_pokemons_count - filtered_pokemons_count > results_number) {
-            payload_status = status.CAN_LOAD_MORE;
+            payload_status = enum_status.CAN_LOAD_MORE;
           }
 
           // We can display the last Pokemons
           if (all_pokemons_count - filtered_pokemons_count < results_number) {
-            payload_status = status.CANNOT_LOAD_MORE;
+            payload_status = enum_status.CANNOT_LOAD_MORE;
             payload_results_number =
               all_pokemons_count - filtered_pokemons_count;
           }
 
+          // If no results to display
+          if (all_pokemons_count === 0) {
+            payload_status = enum_status.NO_RESULTS;
+          }
+
           payload = {
+            sorting: sorting,
             status: payload_status,
-            isSortedBy: sortedBy,
             count: payload_results_number,
             results: results,
           };
@@ -257,36 +294,54 @@ export default {
      * ! ==================================
      * */
     [SORT_POKEMONS]({ commit, state }) {
-      const isSortedBy2 = state.filteredPokemons.isSortedBy2;
       const results = state.allPokemons.results;
       const count = state.allPokemons.count;
       const payload = { count, results };
 
-      switch (isSortedBy2) {
-        case sort.NAME_ASC:
-          commit(SET_ALL_POKEMONS, {
-            count,
-            results: sortPokemonsByNameAsc(results),
-          });
+      const sortingKey = state.filteredPokemons.sorting.key;
+      const sortingOrder = state.filteredPokemons.sorting.order;
+
+      switch (sortingKey) {
+        case enum_key.NAME:
+          switch (sortingOrder) {
+            case enum_order.ASC:
+              commit(SET_ALL_POKEMONS, {
+                count,
+                results: sortPokemonsByNameAsc(results),
+              });
+              break;
+
+            case enum_order.DESC:
+              commit(SET_ALL_POKEMONS, {
+                count,
+                results: sortPokemonsByNameDesc(results),
+              });
+              break;
+
+            default:
+              break;
+          }
           break;
-        case sort.NAME_DESC:
-          commit(SET_ALL_POKEMONS, {
-            count,
-            results: sortPokemonsByNameDesc(results),
-          });
-          break;
-        case sort.ID_ASC:
-          commit(SET_ALL_POKEMONS, {
-            count,
-            results: sortPokemonsByIdAsc(results),
-          });
-          break;
-        case sort.ID_DESC:
-          console.log("ID_DESC");
-          commit(SET_ALL_POKEMONS, {
-            count,
-            results: sortPokemonsByIdDesc(results),
-          });
+
+        case enum_key.ID:
+          switch (sortingOrder) {
+            case enum_order.ASC:
+              commit(SET_ALL_POKEMONS, {
+                count,
+                results: sortPokemonsByIdAsc(results),
+              });
+              break;
+
+            case enum_order.DESC:
+              commit(SET_ALL_POKEMONS, {
+                count,
+                results: sortPokemonsByIdDesc(results),
+              });
+              break;
+
+            default:
+              break;
+          }
           break;
 
         default:
@@ -296,24 +351,27 @@ export default {
     },
     [SET_POKEMONS_BY_NAME_DESC]({ state, commit, dispatch }) {
       const allPokemons = state.allPokemons.results;
-      const currentIsSortedBy = state.filteredPokemons.isSortedBy;
       const sortedPokemons = sortPokemonsByNameDesc(allPokemons);
 
       const payload = {
         count: sortedPokemons.length,
         results: sortedPokemons,
       };
+
       commit(SET_ALL_POKEMONS, payload);
 
       commit(RESET_FILTERED_POKEMONS);
       // Display sorted Pokemons
-      dispatch(GET_POKEMONS, currentIsSortedBy);
-      // Update isSortedBy2
-      commit(UPDATE_IS_SORTED_BY_2, sort.NAME_DESC);
+      dispatch(GET_POKEMONS, {
+        ...state.filteredPokemons.sorting,
+        key: enum_key.NAME,
+        order: enum_order.DESC,
+      });
+
+      commit(UPDATE_FILTERED_POKEMONS_ORDER, enum_order.DESC);
     },
     [SET_POKEMONS_BY_NAME_ASC]({ state, commit, dispatch }) {
       const allPokemons = state.allPokemons.results;
-      const currentIsSortedBy = state.filteredPokemons.isSortedBy;
       const sortedPokemons = sortPokemonsByNameAsc(allPokemons);
 
       const payload = {
@@ -321,14 +379,20 @@ export default {
         results: sortedPokemons,
       };
 
+      const sorting = {
+        ...state.filteredPokemons.sorting,
+        key: enum_key.NAME,
+        order: enum_order.ASC,
+      };
+
       commit(SET_ALL_POKEMONS, payload);
       commit(RESET_FILTERED_POKEMONS);
-      dispatch(GET_POKEMONS, currentIsSortedBy);
-      commit(UPDATE_IS_SORTED_BY_2, sort.NAME_ASC);
+      dispatch(GET_POKEMONS, sorting);
+
+      commit(UPDATE_FILTERED_POKEMONS_ORDER, enum_order.ASC);
     },
     [SET_POKEMONS_BY_ID_ASC]({ state, commit, dispatch }) {
       const allPokemons = state.allPokemons.results;
-      const currentIsSortedBy = state.filteredPokemons.isSortedBy;
       const sortedPokemons = sortPokemonsByIdAsc(allPokemons);
 
       const payload = {
@@ -336,14 +400,19 @@ export default {
         results: sortedPokemons,
       };
 
+      const sorting = {
+        ...state.filteredPokemons.sorting,
+        key: enum_key.ID,
+      };
+
       commit(SET_ALL_POKEMONS, payload);
       commit(RESET_FILTERED_POKEMONS);
-      dispatch(GET_POKEMONS, currentIsSortedBy);
-      commit(UPDATE_IS_SORTED_BY_2, sort.ID_ASC);
+      dispatch(GET_POKEMONS, sorting);
+
+      commit(UPDATE_FILTERED_POKEMONS_ORDER, enum_order.ASC);
     },
     [SET_POKEMONS_BY_ID_DESC]({ state, commit, dispatch }) {
       const allPokemons = state.allPokemons.results;
-      const currentIsSortedBy = state.filteredPokemons.isSortedBy;
       const sortedPokemons = sortPokemonsByIdDesc(allPokemons);
 
       const payload = {
@@ -351,10 +420,14 @@ export default {
         results: sortedPokemons,
       };
 
+      const sorting = {
+        ...state.filteredPokemons.sorting,
+        key: enum_key.ID,
+      };
+
       commit(SET_ALL_POKEMONS, payload);
       commit(RESET_FILTERED_POKEMONS);
-      dispatch(GET_POKEMONS, currentIsSortedBy);
-      commit(UPDATE_IS_SORTED_BY_2, sort.ID_DESC);
+      dispatch(GET_POKEMONS, sorting);
     },
     async [SET_POKEMONS_BY_NAME_OR_ID]({ state, commit, dispatch }) {
       dispatch(SET_ALL_POKEMONS).then(() => {
@@ -368,37 +441,38 @@ export default {
           results,
         };
 
+        const sorting = {
+          key_value: state.searchedPokemon,
+        };
+
         commit(RESET_FILTERED_POKEMONS);
 
         commit(SET_ALL_POKEMONS, payload);
         dispatch(SORT_POKEMONS);
 
-        results.length == 0
-          ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
-          : dispatch(GET_POKEMONS);
+        dispatch(GET_POKEMONS, sorting);
       });
     },
 
     async [SET_POKEMONS_BY_REGION]({ commit, dispatch, rootState }) {
-      commit(UPDATE_IS_LOADING, true);
+      const selectedRegion = rootState.sorting.selectedRegion;
 
-      getPokemonByRegion(rootState.sorting.selectedRegion).then(
-        (pokemons_by_region) => {
-          const payload = {
-            count: pokemons_by_region.length,
-            results: pokemons_by_region,
-          };
+      getPokemonByRegion(selectedRegion).then((pokemons_by_region) => {
+        const payload = {
+          count: pokemons_by_region.length,
+          results: pokemons_by_region,
+        };
 
-          commit(SET_ALL_POKEMONS, payload);
-          dispatch(SORT_POKEMONS);
+        const sorting = {
+          region: enum_region[selectedRegion.toUpperCase()],
+        };
 
-          commit(RESET_FILTERED_POKEMONS);
+        commit(SET_ALL_POKEMONS, payload);
+        dispatch(SORT_POKEMONS);
+        commit(RESET_FILTERED_POKEMONS);
 
-          pokemons_by_region.length == 0
-            ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
-            : dispatch(GET_POKEMONS, sort.REGION);
-        },
-      );
+        dispatch(GET_POKEMONS, sorting);
+      });
     },
 
     async [SET_POKEMONS_BY_TYPES]({ commit, dispatch, rootState }) {
@@ -409,14 +483,20 @@ export default {
           count: pokemons_by_types.length,
           results: pokemons_by_types,
         };
+
+        const typesEnum = selectedTypes.map((type) => {
+          return enum_type[type.toUpperCase()];
+        });
+
+        const sorting = {
+          types: typesEnum,
+        };
+
         commit(RESET_FILTERED_POKEMONS);
 
         commit(SET_ALL_POKEMONS, payload);
         dispatch(SORT_POKEMONS);
-
-        pokemons_by_types.length == 0
-          ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
-          : dispatch(GET_POKEMONS, sort.TYPES);
+        dispatch(GET_POKEMONS, sorting);
       });
     },
 
@@ -447,14 +527,20 @@ export default {
               results: pokemons_by_region_and_types,
             };
 
+            const typesEnum = selectedTypes.map((type) => {
+              return enum_type[type.toUpperCase()];
+            });
+
+            const sorting = {
+              region: enum_region[selectedRegion.toUpperCase()],
+              types: typesEnum,
+            };
+
             commit(RESET_FILTERED_POKEMONS);
 
             commit(SET_ALL_POKEMONS, payload);
             dispatch(SORT_POKEMONS);
-
-            pokemons_by_region_and_types.length == 0
-              ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
-              : dispatch(GET_POKEMONS, [sort.REGION, sort.TYPES]);
+            dispatch(GET_POKEMONS, sorting);
           },
         );
       }
@@ -493,14 +579,17 @@ export default {
                   results: results,
                 };
 
+                const sorting = {
+                  key_value: searchedPokemon,
+                  types: selectedTypes.map(
+                    (type) => enum_type[type.toUpperCase()],
+                  ),
+                };
+
                 commit(RESET_FILTERED_POKEMONS);
-                // TODO Check isSortedBy2
                 commit(SET_ALL_POKEMONS, payload);
                 dispatch(SORT_POKEMONS);
-
-                results.length == 0
-                  ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
-                  : dispatch(GET_POKEMONS, [sort.REGION]);
+                dispatch(GET_POKEMONS, sorting);
               },
             );
           }
@@ -515,21 +604,22 @@ export default {
               selectedRegion,
               searchedPokemon,
             ).then((results) => {
-              console.log(results);
+              console.log("I M HERE");
 
               const payload = {
                 count: results.length,
                 results: results,
               };
 
-              commit(RESET_FILTERED_POKEMONS);
+              const sorting = {
+                key_value: searchedPokemon,
+                region: enum_region[selectedRegion.toUpperCase()],
+              };
 
+              commit(RESET_FILTERED_POKEMONS);
               commit(SET_ALL_POKEMONS, payload);
               dispatch(SORT_POKEMONS);
-
-              results.length == 0
-                ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
-                : dispatch(GET_POKEMONS, [sort.REGION]);
+              dispatch(GET_POKEMONS, sorting);
             });
           }
           //! Case 1.2.2 : 1 or 2 selectedTypes
@@ -540,21 +630,23 @@ export default {
               selectedTypes,
               searchedPokemon,
             ).then((results) => {
-              console.log(results);
-
               const payload = {
                 count: results.length,
                 results: results,
               };
 
-              commit(RESET_FILTERED_POKEMONS);
+              const sorting = {
+                region: enum_region[selectedRegion.toUpperCase()],
+                types: selectedTypes.map(
+                  (type) => enum_type[type.toUpperCase()],
+                ),
+                key_value: searchedPokemon,
+              };
 
+              commit(RESET_FILTERED_POKEMONS);
               commit(SET_ALL_POKEMONS, payload);
               dispatch(SORT_POKEMONS);
-
-              results.length == 0
-                ? dispatch(GET_POKEMONS, sort.NO_RESULTS)
-                : dispatch(GET_POKEMONS, [sort.REGION, sort.TYPES]);
+              dispatch(GET_POKEMONS, sorting);
             });
           }
         }

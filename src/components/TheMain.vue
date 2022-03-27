@@ -1,7 +1,10 @@
 <template>
   <main class="container-auto-center">
     <!-- Sort by name or ID -->
-    <SortByIdOrName />
+    <div class="flex flex-wrap gap-y-4 flex-row justify-between w-5/6 my-8">
+      <SortingDetails />
+      <SortByIdOrName />
+    </div>
 
     <!-- For async component -->
     <Transition name="fade">
@@ -48,6 +51,7 @@ import ScrollButton from "./ScrollButton.vue";
 import DetailedCardSkeleton from "./Cards/DetailedCard/DetailedCardSkeleton.vue";
 import { mapState } from "vuex";
 import ModalDialog from "./Modal/ModalDialog.vue";
+import SortingDetails from "./SortingDetails.vue";
 
 export default {
   name: "TheMain",
@@ -59,6 +63,7 @@ export default {
     ScrollButton,
     DetailedCardSkeleton,
     ModalDialog,
+    SortingDetails,
   },
 
   computed: {

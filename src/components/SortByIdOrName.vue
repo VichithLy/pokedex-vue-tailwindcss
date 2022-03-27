@@ -1,15 +1,15 @@
 <template>
   <div
-    class="flex flex-row items-center gap-3 my-10 w-5/6 justify-start flex-wrap"
+    class="flex flex-auto justify-end flex-row items-center gap-3 whitespace-nowrap flex-wrap"
   >
     <div class="flex flex-row gap-2 items-center">
       <div class="font-bold whitespace-nowrap">Sort by</div>
       <button
         class="sort-btn"
         :class="{
-          'sort-btn-active': selectedSort == 'id',
+          'sort-btn-active': selectedKey == enum_key.ID,
         }"
-        @click="sortBy('id')"
+        @click="onKeyClick(enum_key.ID)"
       >
         <span>ID</span>
       </button>
@@ -18,18 +18,18 @@
     <button
       class="sort-btn"
       :class="{
-        'sort-btn-active': selectedSort == 'name',
+        'sort-btn-active': selectedKey == enum_key.NAME,
       }"
-      @click="sortBy('name')"
+      @click="onKeyClick(enum_key.NAME)"
     >
       <span>Name</span>
     </button>
 
     <div class="flex flex-row gap-2 items-center cursor-pointer">
       <div class="font-bold whitespace-nowrap">Order by</div>
-      <div class="sort-btn" @click="orderBy()">
+      <div class="sort-btn" @click="onOrderClick()">
         <svg
-          v-if="selectedOrder == 'desc'"
+          v-if="selectedOrder === enum_order.DESC"
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5"
           fill="none"
@@ -67,96 +67,131 @@
 <script>
 import pokemonsArray from "@/data/pokemons_array.json";
 import { mapActions, mapState } from "vuex";
-import { sort } from "../constants/types";
+import { enum_sort, enum_key, enum_order } from "../constants/enums";
 import {
   SET_POKEMONS_BY_NAME_DESC,
   SET_POKEMONS_BY_NAME_ASC,
   SET_POKEMONS_BY_ID_ASC,
   SET_POKEMONS_BY_ID_DESC,
+  UPDATE_IS_LOADING,
 } from "../store/mutation-action-types";
+import debounce from "lodash.debounce";
 
 export default {
   data() {
     return {
       pokemonsArray,
-      selectedSort: "",
+      selectedKey: "",
       selectedOrder: "",
+      enum_sort,
+      enum_key,
+      enum_order,
     };
   },
   computed: {
     ...mapState("pokemon", ["filteredPokemons"]),
   },
   mounted() {
-    const isSortedBy = this.filteredPokemons.isSortedBy2;
+    const sortingKey = this.filteredPokemons.sorting.key;
+    const sortingOrder = this.filteredPokemons.sorting.order;
 
-    switch (isSortedBy) {
-      case sort.NAME_ASC:
-        this.selectedSort = "name";
-        this.selectedOrder = "asc";
+    switch (sortingKey) {
+      case enum_key.NAME:
+        switch (sortingOrder) {
+          case enum_order.ASC:
+            this.selectedKey = enum_key.NAME;
+            this.selectedOrder = enum_order.ASC;
+            break;
+
+          case enum_order.DESC:
+            this.selectedKey = enum_key.NAME;
+            this.selectedOrder = enum_order.DESC;
+            break;
+
+          default:
+            break;
+        }
         break;
-      case sort.NAME_DESC:
-        this.selectedSort = "name";
-        this.selectedOrder = "desc";
+
+      case enum_key.ID:
+        switch (sortingOrder) {
+          case enum_order.ASC:
+            this.selectedKey = enum_key.ID;
+            this.selectedOrder = enum_order.ASC;
+            break;
+
+          case enum_order.DESC:
+            this.selectedKey = enum_key.ID;
+            this.selectedOrder = enum_order.DESC;
+            break;
+
+          default:
+            break;
+        }
         break;
-      case sort.ID_ASC:
-        this.selectedSort = "id";
-        this.selectedOrder = "asc";
-        break;
-      case sort.ID_DESC:
-        this.selectedSort = "id";
-        this.selectedOrder = "desc";
-        break;
+
       default:
         break;
     }
-  },
 
+    // Debounce
+    this.orderBy = debounce(function () {
+      this.selectedOrder === enum_order.ASC
+        ? (this.selectedOrder = enum_order.DESC)
+        : (this.selectedOrder = enum_order.ASC);
+
+      if (this.selectedKey === enum_key.NAME) {
+        this.selectedOrder == enum_order.ASC
+          ? this.SET_POKEMONS_BY_NAME_ASC()
+          : this.SET_POKEMONS_BY_NAME_DESC();
+      }
+
+      if (this.selectedKey === enum_key.ID) {
+        this.selectedOrder == enum_order.ASC
+          ? this.SET_POKEMONS_BY_ID_ASC()
+          : this.SET_POKEMONS_BY_ID_DESC();
+      }
+    }, 250);
+
+    this.sortBy = debounce(function (key) {
+      if (this.selectedKey == key) return;
+
+      if (key == enum_key.ID) {
+        this.selectedKey = enum_key.ID;
+
+        this.selectedOrder == enum_order.ASC
+          ? this.SET_POKEMONS_BY_ID_ASC()
+          : this.SET_POKEMONS_BY_ID_DESC();
+
+        return;
+      }
+
+      if (key == enum_key.NAME) {
+        this.selectedKey = enum_key.NAME;
+
+        this.selectedOrder == enum_order.ASC
+          ? this.SET_POKEMONS_BY_NAME_ASC()
+          : this.SET_POKEMONS_BY_NAME_DESC();
+
+        return;
+      }
+    }, 250);
+  },
   methods: {
     ...mapActions("pokemon", [
       SET_POKEMONS_BY_NAME_DESC,
       SET_POKEMONS_BY_NAME_ASC,
       SET_POKEMONS_BY_ID_DESC,
       SET_POKEMONS_BY_ID_ASC,
+      UPDATE_IS_LOADING,
     ]),
-    sortBy(key) {
-      if (this.selectedSort == key) return;
-
-      if (key == "id") {
-        this.selectedSort = "id";
-
-        this.selectedOrder == "asc"
-          ? this.SET_POKEMONS_BY_ID_ASC()
-          : this.SET_POKEMONS_BY_ID_DESC();
-
-        return;
-      }
-
-      if (key == "name") {
-        this.selectedSort = "name";
-
-        this.selectedOrder == "asc"
-          ? this.SET_POKEMONS_BY_NAME_ASC()
-          : this.SET_POKEMONS_BY_NAME_DESC();
-
-        return;
-      }
+    onOrderClick() {
+      this.UPDATE_IS_LOADING(true);
+      this.orderBy();
     },
-    orderBy() {
-      this.selectedOrder === "asc"
-        ? (this.selectedOrder = "desc")
-        : (this.selectedOrder = "asc");
-
-      if (this.selectedSort === "name") {
-        this.selectedOrder == "asc"
-          ? this.SET_POKEMONS_BY_NAME_ASC()
-          : this.SET_POKEMONS_BY_NAME_DESC();
-      }
-
-      if (this.selectedSort === "id") {
-        this.selectedOrder == "asc"
-          ? this.SET_POKEMONS_BY_ID_ASC()
-          : this.SET_POKEMONS_BY_ID_DESC();
-      }
+    onKeyClick(key) {
+      this.UPDATE_IS_LOADING(true);
+      this.sortBy(key);
     },
   },
 };

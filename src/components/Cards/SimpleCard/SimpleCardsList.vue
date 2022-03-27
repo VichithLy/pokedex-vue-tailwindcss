@@ -1,26 +1,24 @@
 <template>
-  <div id="cards-list" class="flex flex-col mb-16 justify-center items-center">
-    <div
-      v-if="listIsSorteBy == sort.NO_RESULTS"
-      class="w-2/6 flex flex-col items-center gap-4"
-    >
-      <img :src="pikaSurprised" alt="pika-surprised" />
-      <div class="text-center font-bold text-xl">No results found !</div>
-    </div>
-
+  <div id="cards-list" class="flex flex-col mb-16 items-center">
     <div class="sc-list-container">
+      <div
+        v-if="listStatus === enum_status.NO_RESULTS"
+        class="w-2/6 flex flex-col items-center gap-4"
+      >
+        <img :src="pikaSurprised" alt="pika-surprised" />
+        <div class="text-center font-bold text-xl">No results found !</div>
+      </div>
+
       <SimpleCard
         v-for="(pokemon, index) in pokemons"
+        v-else
         :key="index"
         :pokemon-object="pokemon"
       />
     </div>
 
     <div
-      v-show="
-        listStatus !== status.CANNOT_LOAD_MORE &&
-        listIsSorteBy !== sort.NO_RESULTS
-      "
+      v-show="listStatus === enum_status.CAN_LOAD_MORE && pokemons.length > 0"
       class="flex justify-center mt-12"
     >
       <!-- Load More button -->
@@ -47,7 +45,7 @@ import {
 } from "../../../store/mutation-action-types";
 // import { outerHeight } from "../../../utils";
 import debounce from "lodash.debounce";
-import { status, sort } from "../../../constants/types";
+import { enum_status, enum_sort } from "../../../constants/enums";
 // https://www.pngitem.com/middle/iTbmmRw_surprised-pikachu-meme-hd-png-download/
 import pikaSurprised from "../../../assets/images/pika_surprised.png";
 
@@ -58,18 +56,21 @@ export default {
     // Access states and actions in store
     const { state, dispatch } = useStore();
 
+    const searchedPokemon = computed(() => state.pokemon.searchedPokemon);
     const pokemons = computed(() => state.pokemon.filteredPokemons.results);
+    const pokemonsNumber = computed(() => state.pokemon.allPokemons.count);
     const listStatus = computed(() => state.pokemon.filteredPokemons.status);
-    const listIsSorteBy = computed(
-      () => state.pokemon.filteredPokemons.isSortedBy,
-    );
+    const sorting = computed(() => state.pokemon.filteredPokemons.sorting);
+
     await dispatch("pokemon/" + SET_ALL_POKEMONS);
     await dispatch("pokemon/" + GET_POKEMONS);
 
     return {
+      searchedPokemon,
       pokemons,
+      sorting,
+      pokemonsNumber,
       listStatus,
-      listIsSorteBy,
       getPokemons: () => dispatch("pokemon/" + GET_POKEMONS),
     };
   },
@@ -77,8 +78,8 @@ export default {
   data() {
     return {
       isInfiniteScroll: false,
-      status,
-      sort,
+      enum_status,
+      enum_sort,
       pikaSurprised,
     };
   },
@@ -86,7 +87,8 @@ export default {
   mounted() {
     // Detect when scrolled to bottom.
     window.addEventListener("scroll", () => {
-      if (this.listStatus !== status.CANNOT_LOAD_MORE) this.loadMorePokemons();
+      if (this.listStatus !== enum_status.CANNOT_LOAD_MORE)
+        this.loadMorePokemons();
     });
   },
   unmounted() {
