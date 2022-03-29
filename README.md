@@ -9,10 +9,10 @@
 
 <div align="center">
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE) [![Netlify Status](https://api.netlify.com/api/v1/badges/d8217616-27f3-43a8-944f-5bf640e81dae/deploy-status)](https://app.netlify.com/sites/pokedex-vue-vlyjm/deploys)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/VichithLy/pokedex-vue-tailwindcss/blob/master/LICENSE) [![Netlify Status](https://api.netlify.com/api/v1/badges/d8217616-27f3-43a8-944f-5bf640e81dae/deploy-status)](https://app.netlify.com/sites/pokedex-vue-vlyjm/deploys)
 
   <p align="center">
-    A simple online Pokédex using PokéApi.
+    A simple online Pokédex using PokéAPI.
     <br/>
     <br />
     <a href="https://pokedex-vue-vlyjm.netlify.app/">View Demo</a>
@@ -56,7 +56,7 @@
 
 - [Vue](https://vuejs.org/) (dev version [3.0.0](https://github.com/vuejs/core/blob/main/CHANGELOG.md#300-2020-09-18) and project created with [Vue CLI](https://cli.vuejs.org/) [4.5.12](https://www.npmjs.com/package/@vue/cli/v/4.5.12))
 - [Tailwind CSS](https://v2.tailwindcss.com/) (dev version [2.2.17](https://tailwindcss.com/blog/tailwindcss-2-2))
-- [PokéApi](https://pokeapi.co/)
+- [PokéAPI](https://pokeapi.co/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -171,7 +171,7 @@ To lint and fix files, use
 │ ├── constants # Mostly enumerations (types, regions, etc.)
 │ ├── data # Static JSON data (regions, types, Pokémon)
 │ ├── router # Vue router configuration
-│ ├── services # PokéApi requests
+│ ├── services # PokéAPI requests
 │ ├── store # Vuex configuration
 │ ├── utils # Useful functions
 │ └── views # Main pages of the app
@@ -193,14 +193,27 @@ To lint and fix files, use
 # License
 
 ```txt
+MIT License
 
 Copyright (c) 2022 Julien MILLOT and Vichith LY
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
