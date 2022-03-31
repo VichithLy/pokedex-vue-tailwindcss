@@ -35,8 +35,15 @@
 
 <script>
 import { mapActions } from "vuex";
-import { getPokemonByName } from "../../../services/PokeAPI";
+import {
+  getPokemonByName,
+  makeConcurrentRequests,
+} from "../../../services/PokeAPI";
 import { SET_SELECTED_POKEMON } from "../../../store/mutation-action-types";
+import {
+  pokemonByIdAndNameAndPicture,
+  sortPokemonsByIdAsc,
+} from "../../../utils";
 
 export default {
   props: {
@@ -53,21 +60,23 @@ export default {
   },
   computed: {
     getType() {
-      return this.evolutions.types[0].type.name;
+      if (this.evolutions.types[0].type.name)
+        return this.evolutions.types[0].type.name;
+      return "normal";
     },
   },
   mounted() {
     if (this.evolutions.length !== 0) {
-      // API calls
-      this.evolutions.pokemons.forEach((name) => {
-        getPokemonByName(name).then((response) => {
-          const pokemon = {
-            name: response.data.name,
-            picture:
-              response.data.sprites.other["official-artwork"].front_default,
-          };
-          this.evolutionsPokemons.push(pokemon);
-        });
+      makeConcurrentRequests(
+        this.evolutions.pokemons.map((name) => getPokemonByName(name)),
+      ).then((responses) => {
+        responses.forEach((response) =>
+          this.evolutionsPokemons.push(
+            pokemonByIdAndNameAndPicture(response.data),
+          ),
+        );
+        // In case the array is unordered
+        sortPokemonsByIdAsc(this.evolutionsPokemons);
       });
     }
   },

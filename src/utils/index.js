@@ -53,6 +53,7 @@ export const getRecursiveEvolution = (data, resultArray) => {
 
     if (data instanceof Object) {
       resultArray.push(data.species.name);
+
       return getRecursiveEvolution(data.evolves_to, resultArray);
     }
   }
@@ -160,6 +161,19 @@ export const pokemonsByNameAndUrl = (array) => {
 
 /**
  *
+ * @param {*} pokemon
+ * @returns
+ */
+export const pokemonByIdAndNameAndPicture = (pokemon) => {
+  return {
+    id: pokemon.id,
+    name: pokemon.name,
+    picture: getExistingSprite(pokemon.sprites),
+  };
+};
+
+/**
+ *
  * @param { array } array
  * @param { string } type
  * @returns
@@ -246,7 +260,7 @@ export const getExistingSprite = (sprites) => {
  * @param { string } url
  * @returns
  */
-export const getPokemonIdFromUrl = (url) => {
+export const getIdFromUrl = (url) => {
   const splitUrl = url.split("/");
   const id = splitUrl[splitUrl.length - 2];
 
@@ -258,7 +272,7 @@ export const getPokemonIdFromUrl = (url) => {
  * @param { object } specie
  */
 export const formatPokemonSpecie = (specie) => {
-  const id = getPokemonIdFromUrl(specie.url);
+  const id = getIdFromUrl(specie.url);
 
   return {
     name: specie.name,
@@ -436,7 +450,7 @@ export const filterPokemonsByNameOrId = (pokemons, value) => {
     // We have to verify the user input before returning
     // Input needs to be in lower case & trimmed
 
-    const id = getPokemonIdFromUrl(pokemon.url).split(pokemon.url.length - 1);
+    const id = getIdFromUrl(pokemon.url).split(pokemon.url.length - 1);
 
     return (
       pokemon.name.toLowerCase().includes(value.toLowerCase()) ||
@@ -454,15 +468,19 @@ export const sortPokemonsByNameDesc = (pokemons) => {
 };
 
 export const sortPokemonsByIdAsc = (pokemons) => {
-  return pokemons.sort(
-    (a, b) => getPokemonIdFromUrl(a.url) - getPokemonIdFromUrl(b.url),
-  );
+  return pokemons.sort((a, b) => a.id - b.id);
+};
+
+export const sortPokemonsByIdAscUsingUrl = (pokemons) => {
+  return pokemons.sort((a, b) => getIdFromUrl(a.url) - getIdFromUrl(b.url));
 };
 
 export const sortPokemonsByIdDesc = (pokemons) => {
-  return pokemons.sort(
-    (a, b) => getPokemonIdFromUrl(b.url) - getPokemonIdFromUrl(a.url),
-  );
+  return pokemons.sort((a, b) => b.id - a.id);
+};
+
+export const sortPokemonsByIdDescUsingUrl = (pokemons) => {
+  return pokemons.sort((a, b) => getIdFromUrl(b.url) - getIdFromUrl(a.url));
 };
 
 /**

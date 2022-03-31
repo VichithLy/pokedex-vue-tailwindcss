@@ -42,8 +42,8 @@ import {
   escapeSpecialChars,
   sortPokemonsByNameDesc,
   sortPokemonsByNameAsc,
-  sortPokemonsByIdAsc,
-  sortPokemonsByIdDesc,
+  sortPokemonsByIdAscUsingUrl,
+  sortPokemonsByIdDescUsingUrl,
 } from "../../utils";
 import {
   enum_sort,
@@ -275,7 +275,6 @@ export default {
                   about,
                   evolution_chain,
                 );
-
                 commit(UPDATE_SELECTED_POKEMON, pokemonObject);
                 commit(UPDATE_IS_LOADING, false);
                 resolve(pokemonObject);
@@ -328,14 +327,14 @@ export default {
             case enum_order.ASC:
               commit(SET_ALL_POKEMONS, {
                 count,
-                results: sortPokemonsByIdAsc(results),
+                results: sortPokemonsByIdAscUsingUrl(results),
               });
               break;
 
             case enum_order.DESC:
               commit(SET_ALL_POKEMONS, {
                 count,
-                results: sortPokemonsByIdDesc(results),
+                results: sortPokemonsByIdDescUsingUrl(results),
               });
               break;
 
@@ -393,7 +392,7 @@ export default {
     },
     [SET_POKEMONS_BY_ID_ASC]({ state, commit, dispatch }) {
       const allPokemons = state.allPokemons.results;
-      const sortedPokemons = sortPokemonsByIdAsc(allPokemons);
+      const sortedPokemons = sortPokemonsByIdAscUsingUrl(allPokemons);
 
       const payload = {
         count: sortedPokemons.length,
@@ -413,7 +412,7 @@ export default {
     },
     [SET_POKEMONS_BY_ID_DESC]({ state, commit, dispatch }) {
       const allPokemons = state.allPokemons.results;
-      const sortedPokemons = sortPokemonsByIdDesc(allPokemons);
+      const sortedPokemons = sortPokemonsByIdDescUsingUrl(allPokemons);
 
       const payload = {
         count: sortedPokemons.length,

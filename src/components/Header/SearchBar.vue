@@ -42,7 +42,7 @@
           class="capitalize"
           @click="onSuggestionClick(pokemon.name)"
         >
-          #{{ getPokemonIdFromUrl(pokemon.url) }} - {{ pokemon.name }}
+          #{{ getIdFromUrl(pokemon.url) }} - {{ pokemon.name }}
         </li>
       </div>
     </div>
@@ -60,7 +60,7 @@ import {
 import debounce from "lodash.debounce";
 import { ref } from "vue";
 import useClickOutside from "../../composables/useClickOutside";
-import { filterPokemonsByNameOrId, getPokemonIdFromUrl } from "../../utils";
+import { filterPokemonsByNameOrId, getIdFromUrl } from "../../utils";
 import staticAllPokemons from "../../data/all_pokemons.json";
 
 export default {
@@ -128,7 +128,7 @@ export default {
       this.UPDATE_SEARCHED_POKEMON(name);
       this.showAutoComplete = false;
     },
-    getPokemonIdFromUrl,
+    getIdFromUrl,
   },
 };
 </script>
