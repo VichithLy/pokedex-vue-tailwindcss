@@ -1,13 +1,15 @@
 <template>
   <div id="cards-list" class="flex flex-col mb-16 items-center">
-    <div class="sc-list-container">
-      <div
+    <ErrorMessage
+      v-if="error"
+      :message="'Oh no! Pokémon are hiding somewhere...'"
+    />
+
+    <div v-else class="sc-list-container">
+      <ErrorMessage
         v-if="listStatus === enum_status.NO_RESULTS"
-        class="w-2/6 flex flex-col items-center gap-4"
-      >
-        <img :src="pikaSurprised" alt="pika-surprised" />
-        <div class="text-center font-bold text-xl">No results found !</div>
-      </div>
+        :message="'No results found !'"
+      />
 
       <SimpleCard
         v-for="(pokemon, index) in pokemons"
@@ -18,7 +20,11 @@
     </div>
 
     <div
-      v-show="listStatus === enum_status.CAN_LOAD_MORE && pokemons.length > 0"
+      v-show="
+        listStatus === enum_status.CAN_LOAD_MORE &&
+        pokemons.length > 0 &&
+        !error
+      "
       class="flex justify-center mt-12"
     >
       <!-- Load More button -->
@@ -36,21 +42,21 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import SimpleCard from "./SimpleCard.vue";
 import {
   GET_POKEMONS,
   SET_ALL_POKEMONS,
 } from "../../../store/mutation-action-types";
-// import { outerHeight } from "../../../utils";
 import debounce from "lodash.debounce";
 import { enum_status, enum_sort } from "../../../constants/enums";
 // https://www.pngitem.com/middle/iTbmmRw_surprised-pikachu-meme-hd-png-download/
 import pikaSurprised from "../../../assets/images/pika_surprised.png";
+import ErrorMessage from "../../ErrorMessage.vue";
 
 export default {
-  components: { SimpleCard },
+  components: { SimpleCard, ErrorMessage },
   //Composition API
   async setup() {
     // Access states and actions in store
@@ -62,10 +68,18 @@ export default {
     const listStatus = computed(() => state.pokemon.filteredPokemons.status);
     const sorting = computed(() => state.pokemon.filteredPokemons.sorting);
 
-    await dispatch("pokemon/" + SET_ALL_POKEMONS);
-    await dispatch("pokemon/" + GET_POKEMONS);
+    // Error handling
+    const error = ref(null);
+
+    try {
+      await dispatch("pokemon/" + SET_ALL_POKEMONS);
+      await dispatch("pokemon/" + GET_POKEMONS);
+    } catch (e) {
+      error.value = e;
+    }
 
     return {
+      error,
       searchedPokemon,
       pokemons,
       sorting,

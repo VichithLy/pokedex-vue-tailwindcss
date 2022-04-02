@@ -5,7 +5,6 @@
       <SortingDetails />
       <SortByIdOrName />
     </div>
-
     <!-- For async component -->
     <Transition name="fade">
       <KeepAlive>
@@ -37,7 +36,6 @@
         </Suspense>
       </KeepAlive>
     </ModalDialog>
-
     <ScrollButton />
   </main>
 </template>
@@ -65,7 +63,16 @@ export default {
     ModalDialog,
     SortingDetails,
   },
+  // Catch errors from the children components
+  // setup() {
+  //   const error = ref(null);
 
+  //   onErrorCaptured((e) => {
+  //     error.value = e;
+  //   });
+
+  //   return { error };
+  // },
   computed: {
     ...mapState("pokemon", ["pokemons", "selectedPokemonName"]),
     ...mapState("modal", ["showModal"]),
@@ -78,7 +85,6 @@ export default {
 .fade-leave-active {
   transition: opacity 0.5s ease-in-out;
 }
-
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;

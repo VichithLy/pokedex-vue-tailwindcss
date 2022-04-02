@@ -2,6 +2,7 @@
   <svg
     xmlns="http://www.w3.org/2000/svg"
     class="close-btn"
+    :class="'text-' + color"
     viewBox="0 1 18 18"
     fill="currentColor"
   >
@@ -14,12 +15,19 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    color: {
+      type: String,
+      default: "gray-50",
+    },
+  },
+};
 </script>
 
 <style scoped>
 .close-btn {
-  @apply w-12 text-gray-50 text-opacity-60 cursor-pointer;
+  @apply w-12 text-opacity-60 cursor-pointer;
   @apply hover:text-opacity-100 ease-linear duration-100;
 }
 </style>

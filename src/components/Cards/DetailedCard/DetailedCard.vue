@@ -1,5 +1,15 @@
 <template>
+  <div v-if="error" class="error-modal">
+    <div class="flex w-full justify-end">
+      <CloseButton :color="'black'" @click="closeModal" />
+    </div>
+    <div class="w-1/2">
+      <ErrorMessage :message="'Oh no! This Pokémon is hiding somewhere...'" />
+    </div>
+  </div>
+
   <div
+    v-else
     class="dc-container drop-shadow-lg border-b-4 border-gray-400"
     :class="`bg-gradient-to-b back-from-${getTypes[0]} back-to-${getTypes[0]}`"
   >
@@ -28,7 +38,7 @@ import PokemonAbout from "./PokemonAbout.vue";
 import PokemonAbilities from "./PokemonAbilities.vue";
 import PokemonBaseStats from "./PokemonBaseStats.vue";
 import PokemonEvolution from "./PokemonEvolution.vue";
-import { computed, toRefs } from "vue";
+import { computed, ref, toRefs } from "vue";
 import { useStore } from "vuex";
 import {
   SET_SELECTED_POKEMON,
@@ -36,6 +46,7 @@ import {
 } from "../../../store/mutation-action-types";
 import CloseButton from "../../Modal/CloseButton.vue";
 import { hideBodyOverflowY } from "../../../utils";
+import ErrorMessage from "../../ErrorMessage.vue";
 
 export default {
   components: {
@@ -45,6 +56,7 @@ export default {
     PokemonBaseStats,
     PokemonEvolution,
     CloseButton,
+    ErrorMessage,
   },
   props: {
     pokemonName: {
@@ -61,8 +73,15 @@ export default {
     // Store
     const { state, dispatch } = useStore();
 
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
-    await dispatch("pokemon/" + SET_SELECTED_POKEMON, pokemonName.value);
+    // Error handling
+    const error = ref(null);
+
+    try {
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
+      await dispatch("pokemon/" + SET_SELECTED_POKEMON, pokemonName.value);
+    } catch (e) {
+      error.value = e;
+    }
 
     const selectedPokemon = computed(() => state.pokemon.selectedPokemon);
 
@@ -119,6 +138,7 @@ export default {
     });
 
     return {
+      error,
       closeModal,
       getProfile,
       getAbilities,
@@ -131,4 +151,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.error-modal {
+  @apply bg-white rounded-2xl flex flex-col justify-center items-center;
+  @apply gap-4 p-5;
+}
+</style>
