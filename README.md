@@ -153,9 +153,11 @@ To lint and fix files, use
   - Measurements (height and weight)
   - Evolution chain
   - Main abilities
+- Reset form
+- Search bar with autocomplete search suggestions
 - Display simple and detailed cards of Pokémon
-- Infinite scroll
-- Loading skeletons
+- Infinite scroll (Load more Pokémon)
+- Loading skeletons (on first landing Home page and when a Pokémon is loading)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -220,9 +222,8 @@ SOFTWARE.
 
 # Authors and Contact
 
-Julien MILLOT - https://github.com/Jilvo
-Vichith LY - ly.vichith@gmail.com - https://github.com/VichithLy
-
+Julien MILLOT - https://github.com/Jilvo<br/>
+Vichith LY - ly.vichith@gmail.com - https://github.com/VichithLy<br/>
 Project link: https://github.com/VichithLy/pokedex-vue-tailwindcss
 
 <p align="right">(<a href="#top">back to top</a>)</p>
