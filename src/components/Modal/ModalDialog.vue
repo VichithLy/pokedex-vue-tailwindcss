@@ -4,16 +4,14 @@
   <div class="modal-overlay">
     <!-- Modal -->
     <div class="modal-wrapper">
-      <!-- Close button -->
-      <!-- <div class="flex w-full justify-end pr-2">
-        <CloseButton @click="closeModal" />
-      </div> -->
       <div
         ref="modal"
-        class="w-11/12"
+        class="w-11/12 outline-none"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-headline"
+        tabindex="0"
+        @keydown.esc="closeModal"
       >
         <!-- Content -->
         <slot></slot>
@@ -26,7 +24,7 @@
 <script>
 import { hideBodyOverflowY } from "../../utils";
 import useClickOutside from "../../composables/useClickOutside";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import { UPDATE_SHOW_MODAL } from "../../store/mutation-action-types";
 
@@ -51,6 +49,11 @@ export default {
     // Composable
     const { onClickOutside } = useClickOutside();
     onClickOutside(modal, () => closeModal());
+
+    onMounted(() => {
+      // To be able to use escape key on modal
+      modal.value.focus();
+    });
 
     return {
       selectedPokemon,
