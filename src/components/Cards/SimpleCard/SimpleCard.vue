@@ -8,7 +8,9 @@
   >
     <!-- Number and Type container -->
     <div class="sc-number-type-container">
-      <PokemonNumber> #{{ id }} </PokemonNumber>
+      <PokemonNumber :class="id.toString().length > 4 && 'sm:text-3xl'">
+        #{{ id }}
+      </PokemonNumber>
 
       <div class="sc-types-container">
         <PokemonType
@@ -21,7 +23,15 @@
 
     <PokemonPicture :pokemon-pict="picture || ''" />
 
-    <PokemonName>{{ name }}</PokemonName>
+    <PokemonName
+      :class="
+        (name.toString().length > 16 &&
+          name.toString().length < 19 &&
+          'sm:text-lg') ||
+        (name.toString().length >= 19 && 'sm:text-base')
+      "
+      >{{ name }}</PokemonName
+    >
   </div>
 </template>
 
@@ -38,8 +48,6 @@ import {
   SET_SELECTED_POKEMON_NAME,
 } from "../../../store/mutation-action-types";
 import { hideBodyOverflowY } from "../../../utils";
-
-//import { hideBodyOverflowY } from "../../../utils";
 
 export default {
   components: {
@@ -86,12 +94,6 @@ export default {
       // 1) Set selected pokemon state
       // 2) Set Show modal state to true
       // 3) Hide body overflow y
-      // this.SET_SELECTED_POKEMON(this.name).then(() => {
-      //   this.UPDATE_SHOW_MODAL(true).then(() => {
-      //     hideBodyOverflowY(true);
-      //   });
-      // });
-
       this.SET_SELECTED_POKEMON_NAME(this.name).then(() => {
         this.UPDATE_SHOW_MODAL(true).then(() => {
           hideBodyOverflowY(true);

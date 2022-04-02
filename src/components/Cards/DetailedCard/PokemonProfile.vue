@@ -10,7 +10,7 @@
       :src="profile.picture"
     />
 
-    <div v-else>NO IMAGE</div>
+    <ErrorMessage v-else :message="'No image found!'" />
 
     <!-- Pokemon types -->
     <div class="dc-profile-types-wrapper md:border-green-700">
@@ -40,9 +40,10 @@ import HeightIcon from "@/assets/images/icons/height.svg";
 import WeightIcon from "@/assets/images/icons/weight.svg";
 import { hgToKg, hgToLbs, dmToFt, dmToM } from "../../../utils";
 import PokemonType from "../SimpleCard/PokemonType.vue";
+import ErrorMessage from "../../ErrorMessage.vue";
 
 export default {
-  components: { PokemonType },
+  components: { PokemonType, ErrorMessage },
   props: {
     profile: {
       type: Object,
