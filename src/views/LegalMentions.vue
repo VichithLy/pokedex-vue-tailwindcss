@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div id="legal-mentions">
     <div class="h-70 bg-pokemon-red-300">
       <BaseLogo class="flex justify-center pt-10 pb-5" />
     </div>
@@ -139,6 +139,7 @@
 <script>
 import TheFooter from "../components/TheFooter.vue";
 import BaseLogo from "../components/Base/BaseLogo.vue";
+import { smoothScrollTo } from "../utils";
 
 export default {
   name: "LegalMentions",
@@ -146,8 +147,11 @@ export default {
     TheFooter,
     BaseLogo,
   },
-  created() {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  mounted() {
+    smoothScrollTo("legal-mentions");
+  },
+  methods: {
+    smoothScrollTo,
   },
 };
 </script>
