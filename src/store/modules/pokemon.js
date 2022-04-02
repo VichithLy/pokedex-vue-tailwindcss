@@ -300,6 +300,9 @@ export default {
       const sortingKey = state.filteredPokemons.sorting.key;
       const sortingOrder = state.filteredPokemons.sorting.order;
 
+      console.log("sortingKey", sortingKey);
+      console.log("sortingOrder", sortingOrder);
+
       switch (sortingKey) {
         case enum_key.NAME:
           switch (sortingOrder) {
@@ -357,15 +360,16 @@ export default {
         results: sortedPokemons,
       };
 
-      commit(SET_ALL_POKEMONS, payload);
-
-      commit(RESET_FILTERED_POKEMONS);
-      // Display sorted Pokemons
-      dispatch(GET_POKEMONS, {
+      const sorting = {
         ...state.filteredPokemons.sorting,
         key: enum_key.NAME,
         order: enum_order.DESC,
-      });
+      };
+
+      commit(SET_ALL_POKEMONS, payload);
+      commit(RESET_FILTERED_POKEMONS);
+      // Display sorted Pokemons
+      dispatch(GET_POKEMONS, sorting);
 
       commit(UPDATE_FILTERED_POKEMONS_ORDER, enum_order.DESC);
     },
@@ -402,6 +406,7 @@ export default {
       const sorting = {
         ...state.filteredPokemons.sorting,
         key: enum_key.ID,
+        order: enum_order.ASC,
       };
 
       commit(SET_ALL_POKEMONS, payload);
@@ -422,6 +427,7 @@ export default {
       const sorting = {
         ...state.filteredPokemons.sorting,
         key: enum_key.ID,
+        order: enum_order.DESC,
       };
 
       commit(SET_ALL_POKEMONS, payload);
