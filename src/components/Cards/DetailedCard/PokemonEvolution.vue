@@ -36,11 +36,13 @@
 <script>
 import { mapActions } from "vuex";
 import {
-  getPokemonByName,
+  getDataFromUrl,
+  API_URL,
   makeConcurrentRequests,
 } from "../../../services/PokeAPI";
 import { SET_SELECTED_POKEMON } from "../../../store/mutation-action-types";
 import {
+  getIdFromUrl,
   pokemonByIdAndNameAndPicture,
   sortPokemonsByIdAsc,
 } from "../../../utils";
@@ -68,7 +70,10 @@ export default {
   mounted() {
     if (this.evolutions.length !== 0) {
       makeConcurrentRequests(
-        this.evolutions.pokemons.map((name) => getPokemonByName(name)),
+        this.evolutions.pokemons.map((pokemon) =>
+          // We need the URL with the Pokémon's ID
+          getDataFromUrl(`${API_URL}/pokemon/${getIdFromUrl(pokemon.url)}`),
+        ),
       ).then((responses) => {
         responses.forEach((response) =>
           this.evolutionsPokemons.push(
@@ -78,6 +83,8 @@ export default {
         // In case the array is unordered
         sortPokemonsByIdAsc(this.evolutionsPokemons);
       });
+
+      console.log(this.evolutionsPokemons);
     }
   },
   methods: {

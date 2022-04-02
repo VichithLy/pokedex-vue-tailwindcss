@@ -47,12 +47,12 @@ export const getRecursiveEvolution = (data, resultArray) => {
   } else {
     // Recursive case
     if (Array.isArray(data)) {
-      resultArray.push(data[0].species.name);
+      resultArray.push(data[0].species);
       return getRecursiveEvolution(data[0].evolves_to, resultArray);
     }
 
     if (data instanceof Object) {
-      resultArray.push(data.species.name);
+      resultArray.push(data.species);
 
       return getRecursiveEvolution(data.evolves_to, resultArray);
     }

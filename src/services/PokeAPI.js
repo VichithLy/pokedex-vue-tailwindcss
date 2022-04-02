@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API = (url = "https://pokeapi.co/api/v2") => {
+export const API_URL = "https://pokeapi.co/api/v2";
+
+const API = (url = API_URL) => {
   return axios.create({
     baseURL: url,
   });
