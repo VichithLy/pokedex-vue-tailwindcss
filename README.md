@@ -2,7 +2,7 @@
 
 <!-- PROJECT LOGO -->
 <h1 align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/VichithLy/pokedex-vue-tailwindcss">
     <img src="src/assets/images/logo.png" alt="Logo" width="250" >
   </a>
 </h1>
