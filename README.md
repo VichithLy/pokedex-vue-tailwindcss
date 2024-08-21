@@ -182,7 +182,7 @@ To lint and fix files, use
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-# Improvments / Features to add
+# Improvements / Features to add
 
 - More details on Pokémon
 - Dark Mode
